@@ -7,3 +7,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.active {
+  border-bottom: 3px solid white;
+  display: block;
+}

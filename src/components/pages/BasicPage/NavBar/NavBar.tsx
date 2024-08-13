@@ -36,10 +36,7 @@ declare module '@mui/material/Button' {
 const theme = createTheme({
     palette: {
         ochre: {
-            main: '#E3D026',
-            light: '#E9DB5D',
-            dark: '#A29415',
-            contrastText: '#242105',
+            main: '#268af5',
         },
     },
 });
@@ -58,7 +55,7 @@ const NavBar = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <AppBar position="static" sx={{bgcolor: 'ochre.main'}} >
+            <AppBar position="static" sx={{ bgcolor: 'ochre.main' }} >
                 <Container maxWidth="xl" >
                     <Toolbar disableGutters >
                         <AutoStoriesIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -137,9 +134,15 @@ const NavBar = () => {
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {navBarItems.map((page) => (
                                 <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">
-                                        <NavLink style={{ color: 'white' }} to={page.path}>{page.title}</NavLink>
-                                    </Typography>
+                                    <NavLink 
+                                        style={{ 
+                                            color: 'white',
+                                            fontSize: '22px',
+                                            textDecoration: 'none'
+                                        }} 
+                                        to={page.path}>
+                                        {page.title}
+                                    </NavLink>
                                 </MenuItem>
                             ))}
                         </Box>
