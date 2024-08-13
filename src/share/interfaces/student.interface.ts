@@ -3,6 +3,7 @@ export interface Student {
     name: string,
     price: number,
     form: number,
-    mobilePhone: string
+    mobilePhone: string,
+    status: 'active' | 'inactive'
 }
 
