@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const StudentCard = ({ student }: StudentCardProps) => {
     return (
-        <Box sx={{ minWidth: 275, width: 300 }} key={student.id}>
+        <Box sx={{ minWidth: 275, width: 300, boxShadow: '0 15px 20px #ABB2B9;' }} key={student.id}>
             <Card variant="outlined">
                 <CardMedia
                     component='img'
