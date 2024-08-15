@@ -4,7 +4,9 @@ export interface Student {
     gender: 'male' | 'female',
     price: number,
     form: number,
-    mobilePhone: string,
+    ownMobilePhone?: string,
+    parentsMobilePhone: string,
+    parentsName: string,
     status: 'active' | 'inactive'
 }
 

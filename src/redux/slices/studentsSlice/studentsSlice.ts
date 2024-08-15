@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState/initialState";
+import { Student } from "../../../share/interfaces/student.interface";
 
 const studentsSlice = createSlice({
     name: 'students',
     initialState,
     reducers: {
-        //payload will be a new object: Student 
         addNewStudent(state, action) {
             state.push(action.payload);
         },
-        // payload will be id of deleted student
         deleteStudent(state, action) {
-            state.filter((student) => student.id !== action.payload);
+            state.splice(
+                state.findIndex((student: Student) => student.id === action.payload),
+                1);
         },
-        // payload will be new Student with correct data
         editStudent() {
             
         }
