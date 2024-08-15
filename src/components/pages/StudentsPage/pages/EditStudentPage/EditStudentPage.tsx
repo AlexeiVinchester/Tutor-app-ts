@@ -1,21 +1,39 @@
 import { Button, Card, CardActions, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { StudentsInfoContainer } from "../../components/StudentInfoContainer/StudentsInfoContainer";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Student } from "../../../../../share/interfaces/student.interface";
+import { useDispatch } from "react-redux";
+import { editStudent } from "../../../../../redux/slices/studentsSlice/studentsSlice";
+
 const EditStudentPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const student = location.state.student;
+    const dispatch = useDispatch();
+    const oldStudent = location.state.student;
+    const [student, setStudent] = useState<Student>(oldStudent);
+
+    const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setStudent((prev: Student) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value
+            };
+        });
+    };
 
     const onClickSaveHandler = () => {
+        console.log('new student: ', JSON.stringify(student));
+        dispatch(editStudent(student));
         navigate('/students');
     };
 
     return (
         <StudentsInfoContainer>
-            <Card sx={{ maxWidth: 500, margin: ' 0 auto', mt: "80px", padding: '20px 5px',boxShadow: '0 15px 20px #ABB2B9;' }}>
+            <Card sx={{ maxWidth: 500, margin: ' 0 auto', mt: "80px", padding: '20px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5">Edit student card</Typography>
-                    <Typography sx={{mb: '15px'}} color="textSecondary" variant="body2" component='p'>
+                    <Typography sx={{ mb: '15px' }} color="textSecondary" variant="body2" component='p'>
                         Fill in the form with new values
                     </Typography>
                     <form>
@@ -23,11 +41,14 @@ const EditStudentPage = () => {
                             <Grid item xs={12}>
                                 <TextField
                                     required
+                                    type="text"
                                     variant="outlined"
                                     placeholder="Name of student"
                                     defaultValue={student.name}
                                     fullWidth
-                                    label="Name of student" />
+                                    label="Name of student"
+                                    name="name"
+                                    onChange={onChangeTextFieldHandler} />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -38,6 +59,8 @@ const EditStudentPage = () => {
                                     defaultValue={student.price}
                                     fullWidth
                                     label="Price of lesson"
+                                    name="price"
+                                    onChange={onChangeTextFieldHandler}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -49,6 +72,8 @@ const EditStudentPage = () => {
                                     defaultValue={student.form}
                                     fullWidth
                                     label="Form of student"
+                                    name="form"
+                                    onChange={onChangeTextFieldHandler}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -59,6 +84,8 @@ const EditStudentPage = () => {
                                     defaultValue={student.parentsMobilePhone}
                                     fullWidth
                                     label="Parents phone number"
+                                    onChange={onChangeTextFieldHandler}
+                                    name="parentsMobilePhone"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -69,6 +96,8 @@ const EditStudentPage = () => {
                                     defaultValue={student.parentsName}
                                     fullWidth
                                     label="Parents name"
+                                    onChange={onChangeTextFieldHandler}
+                                    name="parentsName"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -79,6 +108,8 @@ const EditStudentPage = () => {
                                     defaultValue={student.ownMobilePhone || ''}
                                     fullWidth
                                     label="Student's phone number"
+                                    onChange={onChangeTextFieldHandler}
+                                    name="ownMobilePhone"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -88,8 +119,9 @@ const EditStudentPage = () => {
                                     placeholder="Description"
                                     defaultValue=''
                                     fullWidth
-                                    multiline rows={4}
                                     label="Description"
+                                    onChange={onChangeTextFieldHandler}
+                                    name="description"
                                 />
                             </Grid>
                         </Grid>

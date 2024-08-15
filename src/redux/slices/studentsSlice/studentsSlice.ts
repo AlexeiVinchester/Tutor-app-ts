@@ -9,16 +9,13 @@ const studentsSlice = createSlice({
         addNewStudent(state, action) {
             state.push(action.payload);
         },
-        deleteStudent(state, action) {
-            state.splice(
-                state.findIndex((student: Student) => student.id === action.payload),
-                1);
+        editStudent(state, action) {
+            const editedIndex = state.findIndex((student: Student) => student.id === action.payload.id);
+            console.log('edited index: ', editedIndex)
+            state[editedIndex] = action.payload;
         },
-        editStudent() {
-            
-        }
     }
 });
 
-export const { addNewStudent, deleteStudent, editStudent } = studentsSlice.actions;
+export const { addNewStudent, editStudent } = studentsSlice.actions;
 export default studentsSlice.reducer;
