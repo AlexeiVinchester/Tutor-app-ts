@@ -11,7 +11,6 @@ const studentsSlice = createSlice({
         },
         editStudent(state, action) {
             const editedIndex = state.findIndex((student: Student) => student.id === action.payload.id);
-            console.log('edited index: ', editedIndex)
             state[editedIndex] = action.payload;
         },
     }

@@ -23,7 +23,6 @@ const EditStudentPage = () => {
     };
 
     const onClickSaveHandler = () => {
-        console.log('new student: ', JSON.stringify(student));
         dispatch(editStudent(student));
         navigate('/students');
     };

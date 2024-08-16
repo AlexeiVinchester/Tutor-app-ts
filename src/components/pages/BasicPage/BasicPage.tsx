@@ -7,7 +7,7 @@ const BasicPage = () => {
             <NavBar />
             <Outlet />
             <footer>
-                footer
+                
             </footer>
         </>
     );
