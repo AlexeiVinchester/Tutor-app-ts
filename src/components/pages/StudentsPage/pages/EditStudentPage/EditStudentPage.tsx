@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Student } from "../../../../../share/interfaces/student.interface";
 import { useDispatch } from "react-redux";
 import { editStudent } from "../../../../../redux/slices/studentsSlice/studentsSlice";
+import { STUDENTS } from "../../../../../Router/routes";
 
 const EditStudentPage = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const EditStudentPage = () => {
 
     const onClickSaveHandler = () => {
         dispatch(editStudent(student));
-        navigate('/students');
+        navigate(STUDENTS);
     };
 
     return (
@@ -37,6 +38,18 @@ const EditStudentPage = () => {
                     </Typography>
                     <form>
                         <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    type="text"
+                                    variant="outlined"
+                                    placeholder="Gender of student"
+                                    defaultValue={student.name}
+                                    fullWidth
+                                    label="Gender of student"
+                                    name="gender"
+                                    onChange={onChangeTextFieldHandler} />
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required

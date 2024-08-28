@@ -56,6 +56,7 @@ const StudentCard = ({ student }: StudentCardProps) => {
                     variant="outlined"
                     startIcon={<DeleteIcon />}
                     onClick={onClickDeleteHandler}
+                    disabled
                 >
                     Delete
                 </Button>

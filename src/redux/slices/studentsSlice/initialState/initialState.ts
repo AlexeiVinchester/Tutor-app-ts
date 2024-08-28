@@ -55,7 +55,6 @@ const initialState: Student[] = [
         parentsName: 'Vitaliy',
         status: 'active'
     },
-
     {
         id: 5,
         name: 'Kirill Konoplitskiy',
@@ -66,7 +65,6 @@ const initialState: Student[] = [
         parentsName: 'Ekaterina',
         status: 'active'
     },
-
     {
         id: 6,
         name: 'Darya',
@@ -78,7 +76,6 @@ const initialState: Student[] = [
         parentsName: 'Maria',
         status: 'active'
     },
-
     {
         id: 7,
         name: 'Yaroslav',

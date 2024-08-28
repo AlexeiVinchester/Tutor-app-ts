@@ -4,12 +4,15 @@ import { store, persistor } from './redux/store/store.ts';
 import { App } from './App.tsx';
 import './index.css';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ModalWindowProvider } from './context/modalWindow/ModalWindowProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
     <>
         <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
-                <App />
+                <ModalWindowProvider>
+                    <App />
+                </ModalWindowProvider>
             </PersistGate>
         </Provider>
     </>
