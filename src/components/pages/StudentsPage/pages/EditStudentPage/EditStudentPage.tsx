@@ -115,6 +115,18 @@ const EditStudentPage = () => {
                                 <TextField
                                     required
                                     variant="outlined"
+                                    placeholder="Status active or inactive"
+                                    defaultValue={student.status}
+                                    fullWidth
+                                    label="Status"
+                                    onChange={onChangeTextFieldHandler}
+                                    name="status"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    variant="outlined"
                                     placeholder="Description"
                                     defaultValue=''
                                     fullWidth

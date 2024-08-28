@@ -12,6 +12,7 @@ const StudentsPage = () => {
             <Grid container spacing={2}>
                 <StudentsList students={students} />
             </Grid>
+            
         </StudentsInfoContainer>
     );
 };

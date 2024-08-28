@@ -2,15 +2,24 @@ import { StudentCardProps } from "./interface/StudentCard.interface"
 import { CardContent, Typography, CardActions, Button, CardMedia } from "@mui/material";
 import { maleImage, femaleImage } from "./assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull'; import { useNavigate } from "react-router-dom";
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
 import { CardContainer } from "../CardContainer/CardContainer";
+import { useDispatch } from "react-redux";
+import { deleteStudent } from "../../../../../redux/slices/studentsSlice/studentsSlice";
 
 const StudentCard = ({ student }: StudentCardProps) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onClickShowHandler = () => {
         navigate(`/students/${student.id}`, { state: { student } })
     };
+
+    const onClickDeleteHandler = () => {
+        dispatch(deleteStudent(student.id));
+    }
 
     return (
         <CardContainer>
@@ -41,6 +50,14 @@ const StudentCard = ({ student }: StudentCardProps) => {
                     onClick={onClickShowHandler}
                 >
                     Show
+                </Button>
+                <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    onClick={onClickDeleteHandler}
+                >
+                    Delete
                 </Button>
             </CardActions>
         </CardContainer>
