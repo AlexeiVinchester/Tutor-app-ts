@@ -14,7 +14,7 @@ const StudentCard = ({ student }: StudentCardProps) => {
     const dispatch = useDispatch();
 
     const onClickShowHandler = () => {
-        navigate(`/students/${student.id}`, { state: { student } })
+        navigate(`/students/${student.id}`, { state: { student } });
     };
 
     const onClickDeleteHandler = () => {
@@ -56,7 +56,7 @@ const StudentCard = ({ student }: StudentCardProps) => {
                     variant="outlined"
                     startIcon={<DeleteIcon />}
                     onClick={onClickDeleteHandler}
-                    disabled
+                    
                 >
                     Delete
                 </Button>

@@ -1,11 +1,12 @@
 import { Button, Card, CardActions, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { StudentsInfoContainer } from "../../components/StudentInfoContainer/StudentsInfoContainer";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Student } from "../../../../../share/interfaces/student.interface";
 import { useDispatch } from "react-redux";
 import { editStudent } from "../../../../../redux/slices/studentsSlice/studentsSlice";
 import { STUDENTS } from "../../../../../Router/routes";
+import { EditMessageContext } from "../../../../../context/EditMessage/EditMessageProvider";
 
 const EditStudentPage = () => {
     const navigate = useNavigate();
@@ -13,6 +14,8 @@ const EditStudentPage = () => {
     const dispatch = useDispatch();
     const oldStudent = location.state.student;
     const [student, setStudent] = useState<Student>(oldStudent);
+
+    const { openEditMessage } = useContext(EditMessageContext);
 
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setStudent((prev: Student) => {
@@ -25,7 +28,8 @@ const EditStudentPage = () => {
 
     const onClickSaveHandler = () => {
         dispatch(editStudent(student));
-        navigate(STUDENTS);
+        navigate(STUDENTS, { state: { name: student.name } });
+        openEditMessage();
     };
 
     return (
