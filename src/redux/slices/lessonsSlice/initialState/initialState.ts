@@ -1,13 +1,6 @@
-import { Lesson } from "../../../../share/interfaces/lesson.interface";
+import { ILesson } from "../../../../share/interfaces/lesson.interface";
+import { startLessons } from "./initialLessons";
 
-const initialState: Lesson[] = [
-    {
-        id: 0,
-        name: 'Kirill Yankovskogo',
-        date: '2023-12-08',
-        price: 20,
-        paidStatus: true
-    }
-];
+const initialState: ILesson[] = startLessons;
 
 export { initialState };
