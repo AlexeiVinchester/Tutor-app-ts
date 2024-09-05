@@ -1,13 +1,13 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import { LESSONS, LESSONS_ID_EDIT, MAIN, NOTFOUND, STATISTICS, STUDENT_ID, STUDENT_ID_EDIT, STUDENTS } from "./routes";
-import { BasicPage } from "../components/pages/BasicPage/BasicPage";
-import { LessonsPage } from "../components/pages/LessonsPage/LessonsPage";
-import { StudentsPage } from "../components/pages/StudentsPage/StudentsPage";
-import { StatisticsPage } from "../components/pages/StatisticsPage/StatisticsPage";
-import { NotFoundPage } from "../components/pages/NotFoundPage/NotFoundPage";
-import { StudentPage } from "../components/pages/StudentPage/StudentPage";
-import { EditStudentPage } from "../components/pages/EditStudentPage/EditStudentPage";
-import { EditLessonPage } from "../components/pages/EditLessonPage/EditLessonPage";
+import { BasicPage } from "../pages/BasicPage/BasicPage"; 
+import { LessonsPage } from "../pages/LessonsPage/LessonsPage"; 
+import { StudentsPage } from "../pages/StudentsPage/StudentsPage";
+import { StatisticsPage } from "../pages/StatisticsPage/StatisticsPage";
+import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
+import { StudentPage } from "../pages/StudentPage/StudentPage";
+import { EditStudentPage } from "../pages/EditStudentPage/EditStudentPage";
+import { EditLessonPage } from "../pages/EditLessonPage/EditLessonPage";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path={MAIN} element={<BasicPage />}>

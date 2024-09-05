@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../redux/store/interface/store.interface";
-import { Button, Card, CardActions, CardContent, Container, Dialog, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Container, Dialog, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { addNewLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
-import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
+import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
 
 const LessonsPage = () => {
     const dispatch = useDispatch();
@@ -48,36 +47,7 @@ const LessonsPage = () => {
     return (
         <div>
             <Container sx={{ marginTop: '50px' }} maxWidth='md'>
-                <TableContainer component={Paper} sx={{ maxHeight: 640 }}>
-                    <Table sx={{ minWidth: 650 }} stickyHeader>
-                        <TableHead >
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell align="left">Name</TableCell>
-                                <TableCell align="center">Price</TableCell>
-                                <TableCell align="center">Date</TableCell>
-                                <TableCell align="center">Paymant</TableCell>
-                                <TableCell align="center">Action</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {lessons.map((lesson) => {
-                                return (
-                                    <TableRow
-                                        key={lesson.id}
-                                    >
-                                        <TableCell>{lesson.id}</TableCell>
-                                        <TableCell align="left">{lesson.name}</TableCell>
-                                        <TableCell align="center">{lesson.price}</TableCell>
-                                        <TableCell align="center">{lesson.date}</TableCell>
-                                        <TableCell align="center">{lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color='warning' />}</TableCell>
-                                        <TableCell align="center"><IconButton onClick={() => onClickEditHandler(lesson)} ><EditIcon /></IconButton></TableCell>
-                                    </TableRow>
-                                )
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <TableOfLessons lessons={lessons} editLesson={onClickEditHandler}/>
             </Container>
             <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
                 <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
