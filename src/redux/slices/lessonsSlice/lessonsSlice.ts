@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState/initialState";
+import { ILesson } from "../../../share/interfaces/lesson.interface";
 const lessonsSlice = createSlice({
     name: 'lessons',
     initialState,
@@ -10,8 +11,9 @@ const lessonsSlice = createSlice({
         deleteLesson(state, action) {
             state.filter((lesson) => lesson.id !== action.payload);
         },
-        editLesson() {
-
+        editLesson(state, action) {
+            const editedIndex = state.findIndex((lesson: ILesson) => lesson.id === action.payload.id);
+            state[editedIndex] = action.payload;
         }
     }
 });

@@ -6,7 +6,7 @@ const persistConfig = {
     key: 'my-tutor',
     storage,
     blacklist: [
-        'lessons'
+        
     ]
 };
 

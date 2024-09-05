@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { StudentsInfoContainer } from "../../components/StudentInfoContainer/StudentsInfoContainer";
+import { StudentsInfoContainer } from "../StudentsPage/components/StudentInfoContainer/StudentsInfoContainer";
 import { CardContent, Typography, CardMedia, CardActions, Button, Card, Box } from "@mui/material";
-import { maleImage, femaleImage } from "../../components/StudentCard/assets/links";
+import { maleImage, femaleImage } from "../StudentsPage/components/StudentCard/assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import EditIcon from '@mui/icons-material/Edit';
 

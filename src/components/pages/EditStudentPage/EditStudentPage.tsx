@@ -1,12 +1,12 @@
 import { Button, Card, CardActions, CardContent, Grid, TextField, Typography } from "@mui/material";
-import { StudentsInfoContainer } from "../../components/StudentInfoContainer/StudentsInfoContainer";
+import { StudentsInfoContainer } from "../StudentsPage/components/StudentInfoContainer/StudentsInfoContainer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
-import { Student } from "../../../../../share/interfaces/student.interface";
+import { Student } from "../../../share/interfaces/student.interface";
 import { useDispatch } from "react-redux";
-import { editStudent } from "../../../../../redux/slices/studentsSlice/studentsSlice";
-import { STUDENTS } from "../../../../../Router/routes";
-import { EditMessageContext } from "../../../../../context/EditMessage/EditMessageProvider";
+import { editStudent } from "../../../redux/slices/studentsSlice/studentsSlice";
+import { STUDENTS } from "../../../Router/routes";
+import { EditMessageContext } from "../../../context/EditMessage/EditMessageProvider";
 
 const EditStudentPage = () => {
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ const EditStudentPage = () => {
                                     type="text"
                                     variant="outlined"
                                     placeholder="Gender of student"
-                                    defaultValue={student.name}
+                                    defaultValue={student.gender}
                                     fullWidth
                                     label="Gender of student"
                                     name="gender"
