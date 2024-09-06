@@ -53,7 +53,7 @@ const LessonsPage = () => {
                 <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
                 <Card sx={{ maxWidth: 500, margin: ' 0 auto', padding: '10px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
                     <CardContent>
-                        <Typography gutterBottom variant="h5">Create student card</Typography>
+                        <Typography gutterBottom variant="h5">Create new lesson</Typography>
                         <Typography sx={{ mb: '15px' }} color="textSecondary" variant='body2' component='p'>
                             Fill in the form with new values
                         </Typography>

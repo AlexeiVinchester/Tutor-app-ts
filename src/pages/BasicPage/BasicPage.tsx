@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { NavBar } from "./NavBar/NavBar";
+import { NavigationPanel } from "./NavigationPanel/NavigationPanel";
 
 const BasicPage = () => {
     return (
         <>
-            <NavBar />
+            <NavigationPanel />
+            
             <Outlet />
             <footer>
                 
