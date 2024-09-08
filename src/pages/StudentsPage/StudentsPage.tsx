@@ -11,7 +11,7 @@ import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { useLocation } from "react-router-dom";
-
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 const StudentsPage = () => {
     const students = useSelector((state: Store) => state.students);
     const { modalState, close, open } = useContext(ModalWindowContext);
@@ -36,7 +36,9 @@ const StudentsPage = () => {
             >
                 <AddNewStudentContainer openSnackHandler={openAddMessage} />
             </ModalWindow>
-            <RoundAddButton openHandler={open} />
+            <RoundAddButton openHandler={open}>
+                <PersonAddIcon fontSize="large"/>
+            </RoundAddButton>
             <SnackMessage
                 isOpen={isAddMessageOpen}
                 onCLose={closeAddMessage}

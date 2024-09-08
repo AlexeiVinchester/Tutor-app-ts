@@ -1,13 +1,15 @@
+import { IconButton } from "@mui/material";
 import { RoundAddButtonProps } from "./interface/RoundAddButton.interface";
 
-const RoundAddButton = ({ openHandler }: RoundAddButtonProps) => {
+const RoundAddButton = ({ openHandler, children}: RoundAddButtonProps) => {
     return (
-        <button
-            className="rounded-full fixed right-5 bottom-5 bg-blue-400 text-2xl text-white px-4 py-2"
+        <IconButton
+            sx={{position: 'fixed', bottom: '50px', right: '50px', color: 'rgb(255, 69, 0)'}}
+            size='large'
             onClick={openHandler}
         >
-            +
-        </button>
+            {children}
+        </IconButton>
     );
 };
 

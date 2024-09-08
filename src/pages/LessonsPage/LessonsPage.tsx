@@ -8,6 +8,7 @@ import { addNewLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 const LessonsPage = () => {
     const dispatch = useDispatch();
@@ -129,7 +130,9 @@ const LessonsPage = () => {
                     </CardActions>
                 </Card>
             </Dialog>
-            <RoundAddButton openHandler={openCreateLessonWindow} />
+            <RoundAddButton openHandler={openCreateLessonWindow}>
+                <PostAddIcon fontSize="large"/>
+            </RoundAddButton>
         </div>
     );
 };

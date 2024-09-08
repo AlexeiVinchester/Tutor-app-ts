@@ -7,3 +7,5 @@ export const STATISTICS = '/statistics';
 export const LOGIN = '/login';
 export const NOTFOUND = '*';
 export const LESSONS_ID_EDIT = '/lessons/:id/edit'
+export const TASKS = '/tasks';
+export const ABOUT = '/about';
