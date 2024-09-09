@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux";
 import { Store } from "../../redux/store/interface/store.interface";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, IconButton, Typography } from "@mui/material";
 import { StudentsList } from "./components/StudentsList/StudentsList";
 import { useContext, useState } from "react";
 import { ModalWindowContext } from "../../context/modalWindow/ModalWindowProvider";
 import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 import { AddNewStudentContainer } from "./components/AddNewStudentContainer/AddNewStudentContainer";
 import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
-import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { useLocation } from "react-router-dom";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -45,14 +44,20 @@ const StudentsPage = () => {
                 </Container>
             </div>
             <Container sx={{ mt: '1rem' }} >
-
-                <div className="flex justify-center">
+ 
+                <div className="flex justify-center items-center mb-8">
                     <input
-                        className="w-[60%] rounded-[22px] p-3 mb-8 border-2 hover:border-blue-800 focus:border-none"
+                        className="w-[60%] rounded-[22px] p-3 border-2 hover:border-blue-800 focus:border-none"
                         type="search"
                         placeholder="Try to find student..."
                         onChange={onSearchHandler}
                     />
+                    <IconButton
+                        sx={{ color: 'rgb(255, 69, 0)' }}
+                        onClick={open}
+                    >
+                        <PersonAddIcon fontSize="large" />
+                    </IconButton>
                 </div>
                 <Grid container spacing={2} className="mb-4">
                     <StudentsList students={filteredStudents} />
@@ -64,9 +69,6 @@ const StudentsPage = () => {
                 >
                     <AddNewStudentContainer openSnackHandler={openAddMessage} />
                 </ModalWindow>
-                <RoundAddButton openHandler={open}>
-                    <PersonAddIcon fontSize="large" />
-                </RoundAddButton>
                 <SnackMessage
                     isOpen={isAddMessageOpen}
                     onCLose={closeAddMessage}
