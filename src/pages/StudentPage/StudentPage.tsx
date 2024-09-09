@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { StudentsInfoContainer } from "../StudentsPage/components/StudentInfoContainer/StudentsInfoContainer";
-import { CardContent, Typography, CardMedia, CardActions, Button, Card, Box } from "@mui/material";
+import { CardContent, Typography, CardMedia, CardActions, Button, Card, Box, Container } from "@mui/material";
 import { maleImage, femaleImage } from "../StudentsPage/components/StudentCard/assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,7 +16,7 @@ const StudentPage = () => {
 
     return (
         <div>
-            <StudentsInfoContainer>
+            <Container sx={{ mt: '1rem' }}>
                 <Box sx={{ boxShadow: '0 15px 20px #ABB2B9;' }} >
                     <Card variant="outlined">
                         <div style={{ display: 'flex', flexDirection: 'row', }}>
@@ -69,7 +68,7 @@ const StudentPage = () => {
                         </CardActions>
                     </Card>
                 </Box>
-            </StudentsInfoContainer>
+            </Container>
         </div>
     );
 };

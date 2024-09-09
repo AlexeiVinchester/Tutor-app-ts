@@ -1,28 +1,26 @@
 import { StudentCardProps } from "./interface/StudentCard.interface"
-import { CardContent, Typography, CardActions, Button, CardMedia } from "@mui/material";
+import { CardContent, Typography, CardActions, Button, CardMedia, Divider } from "@mui/material";
 import { maleImage, femaleImage } from "./assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 import { CardContainer } from "../CardContainer/CardContainer";
-import { useDispatch } from "react-redux";
-import { deleteStudent } from "../../../../redux/slices/studentsSlice/studentsSlice";
 
 const StudentCard = ({ student }: StudentCardProps) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const onClickShowHandler = () => {
         navigate(`/students/${student.id}`, { state: { student } });
     };
 
-    const onClickDeleteHandler = () => {
-        dispatch(deleteStudent(student.id));
-    }
-
     return (
         <CardContainer>
+            <TaskAltIcon
+                sx={student.status === 'active' ?
+                    { color: 'green', } :
+                    { color: 'red' }}
+                className="relative top-1 left-1"
+                fontSize="large"
+            />
             <CardMedia
                 component='img'
                 sx={{ height: 300 }}
@@ -30,35 +28,19 @@ const StudentCard = ({ student }: StudentCardProps) => {
                 alt={student.name}
             />
             <CardContent>
-                <Typography variant="h6" component="h3">
+                <Typography variant="h6" component="h3" textAlign={'center'}>
                     {student.name}
                 </Typography>
-                <Typography sx={{ flexDirection: 'row', display: 'flex', }}>
-                    Status:
-                    <TaskAltIcon
-                        sx={student.status === 'active' ?
-                            { color: 'green' } :
-                            { color: 'red' }}
-                    />
-                </Typography>
             </CardContent>
+            <Divider sx={{ marginLeft: '16px', marginRight: '16px' }} />
             <CardActions>
                 <Button
-                    size="small"
-                    variant="outlined"
-                    startIcon={<OpenInFullIcon />}
+                    sx={{ borderRadius: '15px', bgcolor: 'rgb(255, 92, 53)' }}
+                    variant='contained'
+                    fullWidth
                     onClick={onClickShowHandler}
                 >
-                    Show
-                </Button>
-                <Button
-                    size="small"
-                    variant="outlined"
-                    startIcon={<DeleteIcon />}
-                    onClick={onClickDeleteHandler}
-                    
-                >
-                    Delete
+                    Learn more
                 </Button>
             </CardActions>
         </CardContainer>

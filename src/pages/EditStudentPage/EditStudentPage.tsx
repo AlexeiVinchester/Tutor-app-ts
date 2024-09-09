@@ -1,5 +1,4 @@
-import { Button, Card, CardActions, CardContent, Grid, TextField, Typography } from "@mui/material";
-import { StudentsInfoContainer } from "../StudentsPage/components/StudentInfoContainer/StudentsInfoContainer";
+import { Button, Card, CardActions, CardContent, Container, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Student } from "../../share/interfaces/student.interface";
@@ -33,7 +32,7 @@ const EditStudentPage = () => {
     };
 
     return (
-        <StudentsInfoContainer>
+        <Container sx={{ mt: '1rem' }}>
             <Card sx={{ maxWidth: 500, margin: ' 0 auto', mt: "80px", padding: '20px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5">Edit student card</Typography>
@@ -159,7 +158,7 @@ const EditStudentPage = () => {
                     <Button variant="contained" color="primary" fullWidth onClick={onClickSaveHandler}>Save</Button>
                 </CardActions>
             </Card>
-        </StudentsInfoContainer>
+        </Container>
     );
 };
 
