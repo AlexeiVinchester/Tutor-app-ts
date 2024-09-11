@@ -59,7 +59,7 @@ const StudentsPage = () => {
                         <PersonAddIcon fontSize="large" />
                     </IconButton>
                 </div>
-                <Grid container spacing={2} className="mb-4">
+                <Grid container spacing={2} className="mb-4" sx={{justifyContent: 'center', alignItems: 'center'}}>
                     <StudentsList students={filteredStudents} />
                 </Grid>
                 <ModalWindow
