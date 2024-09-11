@@ -21,7 +21,18 @@ const NavigationPanel = () => {
                         <NavigationMenuItems />
                     </div>
                     <div className="log-in-button">
-                        <Button sx={{ borderRadius: '15px', bgcolor: 'rgb(255, 92, 53)' }} variant='contained'>Log In</Button>
+                        <Button
+                            sx={{
+                                borderRadius: '15px',
+                                bgcolor: 'rgb(255, 92, 53)',
+                                ":hover": {
+                                    bgcolor: 'rgb(80, 201, 173)'
+                                }
+                            }} 
+                            variant='contained'
+                        >
+                            Log In
+                        </Button>
                     </div>
                     <NavigationDrawerOpenButton onOpen={openMenu} />
                 </div>

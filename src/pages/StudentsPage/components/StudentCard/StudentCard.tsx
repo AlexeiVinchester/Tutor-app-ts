@@ -18,7 +18,7 @@ const StudentCard = ({ student }: StudentCardProps) => {
                 sx={student.status === 'active' ?
                     { color: 'green', } :
                     { color: 'red' }}
-                className="relative top-1 left-1"
+                className="relative top-3 left-3"
                 fontSize="large"
             />
             <CardMedia
@@ -35,7 +35,13 @@ const StudentCard = ({ student }: StudentCardProps) => {
             <Divider sx={{ marginLeft: '16px', marginRight: '16px' }} />
             <CardActions>
                 <Button
-                    sx={{ borderRadius: '15px', bgcolor: 'rgb(255, 92, 53)' }}
+                    sx={{
+                        borderRadius: '15px',
+                        bgcolor: 'rgb(255, 92, 53)',
+                        ":hover": {
+                            bgcolor: 'rgb(80, 201, 173)'
+                        }
+                    }}
                     variant='contained'
                     fullWidth
                     onClick={onClickShowHandler}

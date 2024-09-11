@@ -25,6 +25,10 @@
   color: rgb(255, 69, 0);
 }
 
+.test {
+  color:rgb(80, 201, 173)
+}
+
 .menu-open-icon-button {
   display: none;
 }
