@@ -153,7 +153,6 @@ const StudentsPage = () => {
                 </Container>
             </div>
             <Container sx={{ mt: '1rem' }} >
-
                 <div className="flex justify-center items-center mb-8">
                     <input
                         className="w-[60%] rounded-[22px] p-3 border-2 hover:border-amount-of-students focus:border-none"
@@ -198,7 +197,6 @@ const StudentsPage = () => {
                 />
             </Container>
         </>
-
     );
 };
 

@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { CardContent, Typography, CardMedia, CardActions, Button, Card, Box, Container } from "@mui/material";
+import { CardContent, Typography, CardMedia, CardActions, Button, Card, Box, Container, IconButton } from "@mui/material";
 import { maleImage, femaleImage } from "../StudentsPage/components/StudentCard/assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import EditIcon from '@mui/icons-material/Edit';
-
+import { STUDENTS } from "../../Router/routes";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StudentPage = () => {
     const navigate = useNavigate();
@@ -12,6 +13,10 @@ const StudentPage = () => {
 
     const onClickEditHandler = () => {
         navigate(`/students/${student.id}/edit`, { state: { student } });
+    };
+
+    const onClickBackToStidentsHandler = () => {
+        navigate(STUDENTS);
     };
 
     return (
@@ -56,7 +61,10 @@ const StudentPage = () => {
                                 </Typography>
                             </CardContent>
                         </div>
-                        <CardActions sx={{ display: 'flex', justifyContent: 'end' }}>
+                        <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <IconButton onClick={onClickBackToStidentsHandler} sx={{color: 'rgb(80, 201, 173)'}}>
+                                <ArrowBackIcon />
+                            </IconButton>
                             <Button
                                 size="small"
                                 variant="outlined"
