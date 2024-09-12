@@ -9,9 +9,14 @@ export default {
       colors: {
         'main-orange': 'rgb(255, 92, 53)', 
         'bg-info': 'rgb(254, 244, 234)',
-        'main-turquoise': 'rgb(80, 201, 173)'
+        'main-turquoise': 'rgb(80, 201, 173)',
+        'footer': 'rgb(25, 39, 51)',
+        'footer-text': 'rgb(182, 199, 214)'
       }
     },
+    fontFamily: {
+      'footer-text': '"Lexend Deca", sans-serif'
+    }
   },
   plugins: [],
 }

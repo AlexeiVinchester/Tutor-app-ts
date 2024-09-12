@@ -13,6 +13,11 @@
   flex-wrap: wrap;
 }
 
+main {
+  min-height: calc(100vh - 160px);
+  padding-bottom: 80px;
+}
+
 .menu-item svg {
   margin-right: 8px;
 }

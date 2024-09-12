@@ -110,13 +110,13 @@ const StudentsPage = () => {
                                                 color: 'rgb(33, 51, 67)'
                                             }}
                                         >
-                                            For all period of time you have <span className="text-amount-of-students text-lg">{students.length}</span> students
+                                            For all period of time you have <span className="text-main-turquoise text-lg">{students.length}</span> students
                                         </Typography>
                                         <Typography component='div'>
                                             <div className="flex items-center">
                                                 <TaskAltIcon color="success" />
                                                 Active now:
-                                                <span className="text-amount-of-students ml-1 text-lg">{amountOfActiveStudents}</span>
+                                                <span className="text-main-turquoise ml-1 text-lg">{amountOfActiveStudents}</span>
                                             </div>
 
                                         </Typography>
