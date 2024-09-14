@@ -24,7 +24,7 @@ const initialState: Student[] = [
     },
     {
         id: 2,
-        name: 'Kirill Begun Yankovskogo',
+        name: 'Kirill Begun',
         gender: 'male',
         form: '7',
         price: '30',

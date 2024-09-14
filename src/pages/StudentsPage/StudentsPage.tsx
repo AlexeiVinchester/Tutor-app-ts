@@ -44,7 +44,7 @@ const StudentsPage = () => {
         <>
             <div className="w-full bg-bg-info h-[400px]">
                 <Container >
-                    <div className="flex items-center justify-between pt-10">
+                    <div className="flex flex-col items-center justify-between pt-10 sm:flex-row">
                         <div className="w-1/2">
                             <Typography
                                 sx={{
