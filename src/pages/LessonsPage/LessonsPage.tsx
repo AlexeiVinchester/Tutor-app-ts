@@ -1,27 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Store } from "../../redux/store/interface/store.interface";
-import { Button, Card, CardActions, CardContent, Container, Dialog, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { useContext, useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
-import { addNewLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
-import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
+import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
 
 const LessonsPage = () => {
-    const dispatch = useDispatch();
     const lessons = useSelector((store: Store) => store.lessons);
-    const nextLessonId = useSelector((store: Store) => store.lessons.length + 1);
-    console.log(nextLessonId)
     const [isOpenCreateLessonWindow, setIsOpenCreateLessonWindow] = useState(false);
     const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
     const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
 
-    const { isEditMessageOpen, closeEditMessage, openEditMessage } = useContext(EditMessageContext)
+    const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
 
     const navigate = useNavigate();
 
@@ -29,138 +25,17 @@ const LessonsPage = () => {
         navigate(`/lessons/${lesson.id}/edit`, { state: { lesson } })
     };
 
-    const [lesson, setLesson] = useState<ILesson>({
-        id: nextLessonId,
-        name: '',
-        price: 0,
-        date: '',
-        paidStatus: false
-    });
-
-    console.log(lesson)
-
-    const onClickSaveHandler = () => {
-        dispatch(addNewLesson(lesson));
-        closeCreateLessonWindow();
-        openEditMessage('New lesson was added!')
-    };
-
-    const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setLesson((prev: ILesson) => {
-            switch (e.target.name) {
-                case 'paidStatus':
-                    return {
-                        ...prev,
-                        [e.target.name]: e.target.value === 'true' ? true : false
-                    };
-                    break;
-                case 'price':
-                    return {
-                        ...prev,
-                        [e.target.name]: +e.target.value
-                    }
-                    break;
-                case 'id': {
-                    return {
-                        ...prev,
-                        [e.target.name]: +e.target.value
-                    }
-                    break;
-                }
-                default:
-                    return {
-                        ...prev,
-                        [e.target.name]: e.target.value
-                    };
-            }
-        });
-    };
-
     return (
         <div>
             <Container sx={{ marginTop: '50px' }} maxWidth='md'>
                 <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
             </Container>
-            <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
-                <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
-                <Card sx={{ maxWidth: 500, margin: ' 0 auto', padding: '10px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5">Create new lesson</Typography>
-                        <Typography sx={{ mb: '15px' }} color="textSecondary" variant='body2' component='p'>
-                            Fill in the form with new values
-                        </Typography>
-                        <form>
-                            <Grid container spacing={1}>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        type="text"
-                                        variant="outlined"
-                                        placeholder="Id of student"
-                                        defaultValue={nextLessonId}
-                                        fullWidth
-                                        label="Id of student"
-                                        name="id"
-                                        onChange={onChangeTextFieldHandler} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        type="text"
-                                        variant="outlined"
-                                        placeholder="Name of student"
-                                        defaultValue={lesson.name}
-                                        fullWidth
-                                        label="Name of student"
-                                        name="name"
-                                        onChange={onChangeTextFieldHandler} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        type="text"
-                                        variant="outlined"
-                                        placeholder="Name of student"
-                                        defaultValue={lesson.price}
-                                        fullWidth
-                                        label="Price"
-                                        name="price"
-                                        onChange={onChangeTextFieldHandler} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        type="text"
-                                        required
-                                        variant="outlined"
-                                        placeholder="Price of lesson"
-                                        defaultValue={lesson.date}
-                                        fullWidth
-                                        label="Date of lesson"
-                                        name="date"
-                                        onChange={onChangeTextFieldHandler}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        type="text"
-                                        variant="outlined"
-                                        placeholder="Form of student"
-                                        defaultValue={lesson.paidStatus}
-                                        fullWidth
-                                        label="Status"
-                                        name="paidStatus"
-                                        onChange={onChangeTextFieldHandler}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </CardContent>
-                    <CardActions>
-                        <Button variant="contained" color="primary" fullWidth onClick={onClickSaveHandler}>Create</Button>
-                    </CardActions>
-                </Card>
-            </Dialog>
+            {
+                isOpenCreateLessonWindow && <AddNewLessonContainer
+                    isOpenCreateLessonWindow={isOpenCreateLessonWindow}
+                    closeCreateLessonWindow={closeCreateLessonWindow}
+                />
+            }
             <RoundAddButton openHandler={openCreateLessonWindow}>
                 <PostAddIcon fontSize="large" />
             </RoundAddButton>

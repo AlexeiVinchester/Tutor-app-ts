@@ -24,7 +24,7 @@ const AddNewStudentContainer = ({openSnackHandler}: {openSnackHandler: () => voi
         status: 'active'
     }
     );
-    console.log(student)
+    console.log('Creating new student')
 
     const onClickSaveHandler = () => {
         dispatch(addNewStudent(student));

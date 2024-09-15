@@ -6,11 +6,7 @@ import { Store } from "../../../../redux/store/interface/store.interface";
 import CloseIcon from '@mui/icons-material/Close';
 import { addNewLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
 import { EditMessageContext } from "../../../../context/EditMessage/EditMessageProvider";
-
-interface AddNewLessonContainerProps {
-    isOpenCreateLessonWindow: boolean;
-    closeCreateLessonWindow: () => void;
-}
+import { AddNewLessonContainerProps } from "./interface/AddNewLessonContainer.interface";
 
 const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWindow }: AddNewLessonContainerProps) => {
     const nextLessonId = useSelector((store: Store) => store.lessons.length + 1);
@@ -24,7 +20,7 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
         date: '',
         paidStatus: false
     });
-
+    
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
             switch (e.target.name) {
@@ -40,13 +36,6 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
                         [e.target.name]: +e.target.value
                     }
                     break;
-                case 'id': {
-                    return {
-                        ...prev,
-                        [e.target.name]: +e.target.value
-                    }
-                    break;
-                }
                 default:
                     return {
                         ...prev,
@@ -59,10 +48,11 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
     const onClickSaveHandler = () => {
         dispatch(addNewLesson(lesson));
         closeCreateLessonWindow();
-        openEditMessage('New lesson was added!')
+        openEditMessage(`${lesson.id}: New lesson was added!`);
     };
 
     return (
+        
         <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
             <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
             <Card sx={{ maxWidth: 500, margin: ' 0 auto', padding: '10px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
@@ -73,18 +63,6 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
                     </Typography>
                     <form>
                         <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    type="text"
-                                    variant="outlined"
-                                    placeholder="Id of student"
-                                    defaultValue={nextLessonId}
-                                    fullWidth
-                                    label="Id of student"
-                                    name="id"
-                                    onChange={onChangeTextFieldHandler} />
-                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
