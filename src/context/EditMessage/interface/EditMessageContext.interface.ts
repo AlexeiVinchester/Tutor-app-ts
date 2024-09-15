@@ -1,5 +1,5 @@
 export interface IEditMessageContext {
-    isEditMessageOpen: boolean;
-    openEditMessage: () => void;
+    isEditMessageOpen: string;
+    openEditMessage: (message: string) => void;
     closeEditMessage: () => void;
 };

@@ -1,22 +1,29 @@
 import { Button, Card, CardActions, CardContent, Container, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { useDispatch } from "react-redux";
 import { editLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
+import { LESSONS } from "../../Router/routes";
 
 const EditLessonPage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const oldLesson = location.state.lesson;
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
+    const {openEditMessage} = useContext(EditMessageContext);
+    const navigate = useNavigate();
 
     const onClickSaveHandler = () => {
         dispatch(editLesson(lesson));
+        navigate(LESSONS);
+        openEditMessage(`Lesson with ${lesson.id} id was edited!`)
     };
 
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
+            
             return {
                 ...prev,
                 [e.target.name]: e.target.value

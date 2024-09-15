@@ -25,7 +25,7 @@ const TableOfLessons = ({ lessons, editLesson }: TableOfLessonsProps) => {
                             <TableCell align="left">{lesson.name}</TableCell>
                             <TableCell align="center">{lesson.price}</TableCell>
                             <TableCell align="center">{lesson.date}</TableCell>
-                            <TableCell align="center">{lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color='warning' />}</TableCell>
+                            <TableCell align="center">{lesson.paidStatus  ? <DoneIcon color="success" /> : <CloseIcon color='warning' />}</TableCell>
                             <TableCell align="center"><IconButton onClick={() => editLesson(lesson)} ><EditIcon /></IconButton></TableCell>
                         </TableRow>
                     ))}

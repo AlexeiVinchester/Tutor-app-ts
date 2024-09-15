@@ -27,8 +27,8 @@ const EditStudentPage = () => {
 
     const onClickSaveHandler = () => {
         dispatch(editStudent(student));
-        navigate(STUDENTS, { state: { name: student.name } });
-        openEditMessage();
+        navigate(STUDENTS);
+        openEditMessage(`${student.name} was edited!`);
     };
 
     return (

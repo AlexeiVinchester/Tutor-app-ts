@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../redux/store/interface/store.interface";
 import { Button, Card, CardActions, CardContent, Container, Dialog, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { addNewLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
+import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 
 const LessonsPage = () => {
     const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const LessonsPage = () => {
     const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
     const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
 
+    const {isEditMessageOpen, closeEditMessage} = useContext(EditMessageContext)
 
     const navigate = useNavigate();
 
@@ -133,6 +136,12 @@ const LessonsPage = () => {
             <RoundAddButton openHandler={openCreateLessonWindow}>
                 <PostAddIcon fontSize="large"/>
             </RoundAddButton>
+            <SnackMessage
+                    isOpen={!!isEditMessageOpen}
+                    onCLose={closeEditMessage}
+                    status="success"
+                    message={isEditMessageOpen}
+                />
         </div>
     );
 };

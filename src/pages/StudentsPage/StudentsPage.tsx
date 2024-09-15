@@ -8,7 +8,7 @@ import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 import { AddNewStudentContainer } from "./components/AddNewStudentContainer/AddNewStudentContainer";
 import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { ABOUT } from "../../Router/routes";
 import { femaleImage, maleImage } from "./components/StudentCard/assets/links";
@@ -28,15 +28,12 @@ const StudentsPage = () => {
     const openAddMessage = () => setIsAddMessageOpen(true);
     const closeAddMessage = () => setIsAddMessageOpen(false);
 
-    const location = useLocation();
-    const editedName = location?.state?.name;
-
     const [filteredStudents, setFilteredStudents] = useState(students)
     const onSearchHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFilteredStudents(students.filter((student) => student.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())));
     }
 
-    const onClickLearmMoreAboutAppHandler = () => {
+    const onClickLearnMoreAboutAppHandler = () => {
         navigate(ABOUT)
     }
 
@@ -83,7 +80,7 @@ const StudentsPage = () => {
                                 For other information press "Learn more about app"
                             </Typography>
                             <Button
-                                onClick={onClickLearmMoreAboutAppHandler}
+                                onClick={onClickLearnMoreAboutAppHandler}
                                 variant="contained"
                                 sx={{
                                     borderRadius: '15px',
@@ -190,10 +187,10 @@ const StudentsPage = () => {
                     message="New student was added!"
                 />
                 <SnackMessage
-                    isOpen={isEditMessageOpen}
+                    isOpen={!!isEditMessageOpen}
                     onCLose={closeEditMessage}
                     status="success"
-                    message={`${editedName} was edited!`}
+                    message={isEditMessageOpen}
                 />
             </Container>
         </>
