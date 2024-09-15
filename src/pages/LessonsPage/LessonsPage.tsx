@@ -15,35 +15,63 @@ import { EditMessageContext } from "../../context/EditMessage/EditMessageProvide
 const LessonsPage = () => {
     const dispatch = useDispatch();
     const lessons = useSelector((store: Store) => store.lessons);
+    const nextLessonId = useSelector((store: Store) => store.lessons.length + 1);
+    console.log(nextLessonId)
     const [isOpenCreateLessonWindow, setIsOpenCreateLessonWindow] = useState(false);
     const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
     const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
 
-    const {isEditMessageOpen, closeEditMessage} = useContext(EditMessageContext)
+    const { isEditMessageOpen, closeEditMessage, openEditMessage } = useContext(EditMessageContext)
 
     const navigate = useNavigate();
 
     const onClickEditHandler = (lesson: ILesson) => {
-        navigate(`/lessons/${lesson.id}/edit`, {state: {lesson}})
+        navigate(`/lessons/${lesson.id}/edit`, { state: { lesson } })
     };
 
     const [lesson, setLesson] = useState<ILesson>({
-        id: 0,
+        id: nextLessonId,
         name: '',
         price: 0,
         date: '',
         paidStatus: false
     });
 
+    console.log(lesson)
+
     const onClickSaveHandler = () => {
         dispatch(addNewLesson(lesson));
+        closeCreateLessonWindow();
+        openEditMessage('New lesson was added!')
     };
 
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
-            return {
-                ...prev,
-                [e.target.name]: e.target.value
+            switch (e.target.name) {
+                case 'paidStatus':
+                    return {
+                        ...prev,
+                        [e.target.name]: e.target.value === 'true' ? true : false
+                    };
+                    break;
+                case 'price':
+                    return {
+                        ...prev,
+                        [e.target.name]: +e.target.value
+                    }
+                    break;
+                case 'id': {
+                    return {
+                        ...prev,
+                        [e.target.name]: +e.target.value
+                    }
+                    break;
+                }
+                default:
+                    return {
+                        ...prev,
+                        [e.target.name]: e.target.value
+                    };
             }
         });
     };
@@ -51,7 +79,7 @@ const LessonsPage = () => {
     return (
         <div>
             <Container sx={{ marginTop: '50px' }} maxWidth='md'>
-                <TableOfLessons lessons={lessons} editLesson={onClickEditHandler}/>
+                <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
             </Container>
             <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
                 <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
@@ -68,10 +96,10 @@ const LessonsPage = () => {
                                         required
                                         type="text"
                                         variant="outlined"
-                                        placeholder="id of lesson"
-                                        defaultValue={lessons.length + 1}
+                                        placeholder="Id of student"
+                                        defaultValue={nextLessonId}
                                         fullWidth
-                                        label="Name of student"
+                                        label="Id of student"
                                         name="id"
                                         onChange={onChangeTextFieldHandler} />
                                 </Grid>
@@ -80,7 +108,7 @@ const LessonsPage = () => {
                                         required
                                         type="text"
                                         variant="outlined"
-                                        placeholder="Gender of student"
+                                        placeholder="Name of student"
                                         defaultValue={lesson.name}
                                         fullWidth
                                         label="Name of student"
@@ -134,14 +162,14 @@ const LessonsPage = () => {
                 </Card>
             </Dialog>
             <RoundAddButton openHandler={openCreateLessonWindow}>
-                <PostAddIcon fontSize="large"/>
+                <PostAddIcon fontSize="large" />
             </RoundAddButton>
             <SnackMessage
-                    isOpen={!!isEditMessageOpen}
-                    onCLose={closeEditMessage}
-                    status="success"
-                    message={isEditMessageOpen}
-                />
+                isOpen={!!isEditMessageOpen}
+                onCLose={closeEditMessage}
+                status="success"
+                message={isEditMessageOpen}
+            />
         </div>
     );
 };
