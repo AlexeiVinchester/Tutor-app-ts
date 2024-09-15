@@ -12,7 +12,7 @@ const EditLessonPage = () => {
     const location = useLocation();
     const oldLesson = location.state.lesson;
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
-    const {openEditMessage} = useContext(EditMessageContext);
+    const { openEditMessage } = useContext(EditMessageContext);
     const navigate = useNavigate();
 
     const onClickSaveHandler = () => {
@@ -23,11 +23,25 @@ const EditLessonPage = () => {
 
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
-            
-            return {
-                ...prev,
-                [e.target.name]: e.target.value
-            };
+            switch (e.target.name) {
+                case 'paidStatus':
+                    return {
+                        ...prev,
+                        [e.target.name]: e.target.value === 'true' ? true : false
+                    };
+                    break;
+                case 'price':
+                    return {
+                        ...prev,
+                        [e.target.name]: +e.target.value
+                    }
+                    break;
+                default:
+                    return {
+                        ...prev,
+                        [e.target.name]: e.target.value
+                    };
+            }
         });
     };
 
