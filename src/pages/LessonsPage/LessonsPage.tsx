@@ -11,8 +11,14 @@ import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
 
+const getLessons = (store: Store) => {
+    console.log('simple selector run')
+    return store.lessons;
+};
+
+
 const LessonsPage = () => {
-    const lessons = useSelector((store: Store) => store.lessons);
+    const lessons = useSelector(getLessons);
     const [isOpenCreateLessonWindow, setIsOpenCreateLessonWindow] = useState(false);
     const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
     const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
@@ -24,7 +30,7 @@ const LessonsPage = () => {
     const onClickEditHandler = (lesson: ILesson) => {
         navigate(`/lessons/${lesson.id}/edit`, { state: { lesson } })
     };
-
+    console.log('lessons render')
     return (
         <div>
             <Container sx={{ marginTop: '50px' }} maxWidth='md'>

@@ -244,10 +244,10 @@ export const startLessons: ILesson[] = [
     createLesson(237, 'Tihon', 40, '2024-07-20', true),
     createLesson(238, 'Tihon', 40, '2024-07-22', true),
     createLesson(239, 'Tihon', 40, '2024-07-24', true),
-    createLesson(240, 'Fedor', 25, '2024-07-29', true),
+    createLesson(240, 'Fedor', 30, '2024-07-29', true),
     createLesson(241, 'Tihon', 40, '2024-07-29', true),
     createLesson(242, 'Tihon', 40, '2024-07-31', true),
-    createLesson(243, 'Fedor', 25, '2024-07-31', true),
+    createLesson(243, 'Fedor', 30, '2024-07-31', true),
     createLesson(244, 'Saveliy', 30, '2024-08-01', true),
     createLesson(245, 'Tihon', 40, '2024-08-02', true),
     createLesson(246, 'Fedor', 30, '2024-08-02', true),
@@ -280,6 +280,9 @@ export const startLessons: ILesson[] = [
     createLesson(273, 'Kirill Begun', 30, '2024-09-04', true),
     createLesson(274, 'Kirill Begun', 30, '2024-09-11', true),
     createLesson(275, 'Daniil Shaduyko', 30, '2024-09-14', false),
+    createLesson(276, 'Vasilisa', 30, '2024-09-17', false),
+    createLesson(277, 'Darya', 30, '2024-09-18', false),
+    createLesson(278, 'Kirill Begun', 30, '2024-09-18', true),
 ];
 
 
