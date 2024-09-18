@@ -14,18 +14,19 @@ const selectMemoAmountOfLessons = createSelector(selectLessons, selectAmountOfLe
 const selectFullPriceOfLessons = (lessons: ILesson[]) => lessons.reduce((cur, lesson) => cur + lesson.price, 0);
 const selectMemoFullPriceOfLessons = createSelector(selectLessons, selectFullPriceOfLessons);
 
-const selectNamesOfStudents = (students: Student[]) => students.map(student => student.name);
-const selectMemoNamesOfStudents = createSelector(selectStudents, selectNamesOfStudents);
+const selectAllLessonsForStudent = (lessons: ILesson[], name: string) => lessons.filter((lesson) => lesson.name === name);
 
-const selectAmountOfLessonsForStudent = (lessons: ILesson[], name: string) => lessons.filter((lesson) => lesson.name === name).length;
+const selectAmountOfLessonsForStudent = (lessons: ILesson[], name: string) => selectAllLessonsForStudent(lessons, name).length;
 const selectMemoAmountOfLessonsForStudent = createSelector([selectLessons, (_, name) => name], selectAmountOfLessonsForStudent);
 
 const selectFullIncomePerStudent = (lessons: ILesson[], name: string) => {
-    return lessons.filter((lesson) => lesson.name === name)
+    return selectAllLessonsForStudent(lessons, name)
                   .reduce((cur, lesson) => cur + lesson.price, 0);
 };
-
 const selectMemoFullIncomePerStudent = createSelector([selectLessons, (_, name) => name], selectFullIncomePerStudent);
+
+const selectNamesOfStudents = (students: Student[]) => students.map(student => student.name);
+const selectMemoNamesOfStudents = createSelector(selectStudents, selectNamesOfStudents);
 
 const FullStatisticsPage = () => {
     const amountOfLessons = useSelector(selectMemoAmountOfLessons);
@@ -40,7 +41,7 @@ const FullStatisticsPage = () => {
     }
 
     return (
-        <div className="flex gap-2 items-start">
+        <div className="flex flex-col">
             <p>All lessons: {amountOfLessons}</p>
             <p>Full price: {fullPriceOfLessons}</p>
             <div>
