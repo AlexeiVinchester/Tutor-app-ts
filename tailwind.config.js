@@ -11,7 +11,8 @@ export default {
         'bg-info': 'rgb(254, 244, 234)',
         'main-turquoise': 'rgb(80, 201, 173)',
         'footer': 'rgb(25, 39, 51)',
-        'footer-text': 'rgb(182, 199, 214)'
+        'footer-text': 'rgb(182, 199, 214)',
+        'hover-blue': 'rgb(0, 95, 163)'
       }
     },
     fontFamily: {
