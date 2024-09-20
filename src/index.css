@@ -15,7 +15,6 @@
 
 main {
   min-height: calc(100vh - 160px);
-  padding-bottom: 80px;
 }
 
 .menu-item svg {
@@ -23,7 +22,7 @@ main {
 }
 
 .menu-item:hover {
-  color: rgb(0, 95, 163);
+  color: rgb(80, 201, 173);
 }
 
 .active {

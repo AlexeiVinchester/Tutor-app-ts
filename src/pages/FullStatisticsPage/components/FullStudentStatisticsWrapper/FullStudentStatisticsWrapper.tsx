@@ -22,12 +22,16 @@ const FullStudentStatisticsWrapper = () => {
     */
     return (
         <>
-            <SelectStudentContainer 
-                namesOfStudents={namesOfStudents}  
+            
+            <SelectStudentContainer
+                namesOfStudents={namesOfStudents}
                 onChange={onselectStudentChange}
             />
-            <FullIncomeForStudentWrapper studentName={studentName}/>
-            <FullAmountForStudentWrapper studentName={studentName}/>
+            <div className="flex justify-around items-center">
+                <FullIncomeForStudentWrapper studentName={studentName} />
+                <FullAmountForStudentWrapper studentName={studentName} />
+            </div>
+
         </>
     );
 };

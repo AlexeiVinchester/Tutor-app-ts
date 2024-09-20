@@ -12,7 +12,9 @@ export default {
         'main-turquoise': 'rgb(80, 201, 173)',
         'footer': 'rgb(25, 39, 51)',
         'footer-text': 'rgb(182, 199, 214)',
-        'hover-blue': 'rgb(0, 95, 163)'
+        'hover-blue': 'rgb(0, 95, 163)',
+        'back-side-statistics': 'rgb(25, 39, 51)',
+        'statistics-back': 'rgb(246, 249, 252)'
       }
     },
     fontFamily: {
