@@ -26,8 +26,6 @@ const SelectiveStatisticsPage = () => {
         setStudentName(e.target.value);
     }; 
 
-    console.log(year)
-
     return (
         <>
             <StatisticsPageHeader
