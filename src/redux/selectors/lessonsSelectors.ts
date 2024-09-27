@@ -20,3 +20,28 @@ export const selectFullIncomePerStudent = (lessons: ILesson[], name: string) => 
 };
 export const selectMemoFullIncomePerStudent = createSelector([selectLessons, (_, name) => name], selectFullIncomePerStudent);
 
+// selectors for selective statistics
+
+const selectLessonsPerMonthAndYear = (lessons: ILesson[], year: string, month: string) => lessons.filter((lesson) => lesson.date.includes(`${year}-${month}-`));
+export const memoSelectLessonsPerMonthAndYear = createSelector(
+    selectLessons,
+    (_, year) => year,
+    (_, __, month) => month,
+    selectLessonsPerMonthAndYear
+);
+
+const selectAmountOfLessonsPerMonthAndYear = (lessons: ILesson[], year: string, month: string) => lessons.filter((lesson) => lesson.date.includes(`${year}-${month}-`)).length;
+export const selectMemoAmountOfLessonsPerMonthAndYear = createSelector(selectLessons, (_, year) => year, (_, __, month) => month, selectAmountOfLessonsPerMonthAndYear);
+
+
+const selectFullIncomeForMonthAndYear = (lessons: ILesson[], year: string, month: string) => {
+    return lessons.filter((lesson) => lesson.date.includes(`${year}-${month}-`))
+        .reduce((cur, lesson) => cur + lesson.price, 0);
+};
+
+export const memoSelectFullIncomeForMonthAndYear = createSelector(
+    selectLessons,
+    (_, year) => year,
+    (_, __, month) => month,
+    selectFullIncomeForMonthAndYear
+)

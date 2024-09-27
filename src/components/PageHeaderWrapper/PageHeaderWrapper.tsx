@@ -3,7 +3,7 @@ import { PageHeaderWrapperProps } from "./interface/PageHeaderWrapper.interface"
 
 const PageHeaderWrapper = ({ children, heightInPx }: PageHeaderWrapperProps) => {
     return (
-        <div className={`w-full bg-bg-info h-[${heightInPx}px]`}>
+        <div className={`w-full bg-bg-info h-[${heightInPx}px] pb-8`}>
             <Container>
                 <div className="flex flex-col items-center justify-between pt-10 sm:flex-row">
                     {children}

@@ -40,7 +40,7 @@ const StudentsPage = () => {
 
     return (
         <>
-            <PageHeaderWrapper heightInPx={400}>
+            <PageHeaderWrapper heightInPx={460}>
                 <div className="w-1/2">
                     <Typography
                         sx={{
