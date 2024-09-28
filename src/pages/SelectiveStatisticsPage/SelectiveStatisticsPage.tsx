@@ -3,7 +3,7 @@ import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/Stat
 import { useSelector } from "react-redux";
 import { selectMemoNamesOfStudents } from "../../redux/selectors/studentsSelectors";
 import { SelectStudentContainer } from "../FullStatisticsPage/components/SelectStudentContainer/SelectStudentContainer";
-import { memoSelectFullIncomeForMonthAndYear, selectMemoAmountOfLessonsPerMonthAndYear } from "../../redux/selectors/lessonsSelectors";
+import { memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear, memoizedSelectIncomePerStudentPerMonthAndYear, memoSelectFullIncomeForMonthAndYear, selectMemoAmountOfLessonsPerMonthAndYear } from "../../redux/selectors/lessonsSelectors";
 
 const SelectiveStatisticsPage = () => {
     const namesOfStudents = useSelector(selectMemoNamesOfStudents);
@@ -14,6 +14,9 @@ const SelectiveStatisticsPage = () => {
 
     const amountOfLessonsPerMonth = useSelector((state) => selectMemoAmountOfLessonsPerMonthAndYear(state, year,  month))
     const fullIncomePerMonthAndYear = useSelector((state) => memoSelectFullIncomeForMonthAndYear(state, year, month))
+    const amountOfLessonsPerStudentPerMonthAndYear = useSelector((state) => memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear(state, studentName, year, month));
+    const incomePerStudentPerMonthAndYear = useSelector((state) => memoizedSelectIncomePerStudentPerMonthAndYear(state, studentName, year, month))
+
     const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setMonth(e.target.value)
     };
@@ -66,9 +69,9 @@ const SelectiveStatisticsPage = () => {
             </div><div>
                 <p>Amount of lessons for month: {amountOfLessonsPerMonth}</p>
             </div><div>
-                <p>Full income for student for month: </p>
+                <p>Full income for {studentName} for month: {incomePerStudentPerMonthAndYear}</p>
             </div><div>
-                <p>Amount of lessons for month: </p>
+                <p>Amount of lessons for {studentName} month: {amountOfLessonsPerStudentPerMonthAndYear}</p>
             </div>
         </>
     );
