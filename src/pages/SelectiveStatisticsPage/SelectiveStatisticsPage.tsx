@@ -3,19 +3,33 @@ import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/Stat
 import { useSelector } from "react-redux";
 import { selectMemoNamesOfStudents } from "../../redux/selectors/studentsSelectors";
 import { SelectStudentContainer } from "../FullStatisticsPage/components/SelectStudentContainer/SelectStudentContainer";
-import { memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear, memoizedSelectIncomePerStudentPerMonthAndYear, memoSelectFullIncomeForMonthAndYear, selectMemoAmountOfLessonsPerMonthAndYear } from "../../redux/selectors/lessonsSelectors";
+import { memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear, memoizedSelectIncomePerStudentPerMonthAndYear, memoizedSelectStudentsForMonthAndYear, memoizedSelectUnpaidLessonsPerStudentPerMonthAndYear, memoSelectFullIncomeForMonthAndYear, selectMemoAmountOfLessonsPerMonthAndYear } from "../../redux/selectors/lessonsSelectors";
+
+const getCorrectMonth = () => {
+    const jsMonth = new Date().getMonth();
+    return jsMonth + 1 < 10 ? '0' +  String(jsMonth + 1) : String(jsMonth + 1);
+};
 
 const SelectiveStatisticsPage = () => {
     const namesOfStudents = useSelector(selectMemoNamesOfStudents);
-
-    const [studentName, setStudentName] = useState(namesOfStudents[0]);
-    const [month, setMonth] = useState('01');
+    const [month, setMonth] = useState(() => getCorrectMonth());
     const [year, setYear] = useState(() => new Date().getFullYear().toString());
+    const namesPerMonth = useSelector((state) => memoizedSelectStudentsForMonthAndYear(state, year, month));
+
+    const [studentName, setStudentName] = useState(namesPerMonth[0]);
+    
+    
 
     const amountOfLessonsPerMonth = useSelector((state) => selectMemoAmountOfLessonsPerMonthAndYear(state, year,  month))
     const fullIncomePerMonthAndYear = useSelector((state) => memoSelectFullIncomeForMonthAndYear(state, year, month))
     const amountOfLessonsPerStudentPerMonthAndYear = useSelector((state) => memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear(state, studentName, year, month));
     const incomePerStudentPerMonthAndYear = useSelector((state) => memoizedSelectIncomePerStudentPerMonthAndYear(state, studentName, year, month))
+    const unPaidLessonsPerStudentPerMonthAndYear = useSelector((state) => memoizedSelectUnpaidLessonsPerStudentPerMonthAndYear(state, studentName, year, month));
+    const unpaidSumPerStudentPerMonthAndYear = unPaidLessonsPerStudentPerMonthAndYear.reduce((cur, lesson) => cur + lesson.price, 0);
+
+
+    console.log(namesOfStudents)
+    console.log(namesPerMonth)
 
     const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setMonth(e.target.value)
@@ -43,7 +57,7 @@ const SelectiveStatisticsPage = () => {
             </div>
             <div>
                 <p>Choose month: </p>
-                <select onChange={handleChangeMonth}>
+                <select onChange={handleChangeMonth} value={month}>
                     <option value="01">January</option>
                     <option value="02">February</option>
                     <option value="03">March</option>
@@ -60,7 +74,7 @@ const SelectiveStatisticsPage = () => {
             </div>
             <div>
                 <SelectStudentContainer
-                    namesOfStudents={namesOfStudents}
+                    namesOfStudents={namesPerMonth}
                     onChange={handleChangeStudent}
                 />
             </div>
@@ -73,6 +87,9 @@ const SelectiveStatisticsPage = () => {
             </div><div>
                 <p>Amount of lessons for {studentName} month: {amountOfLessonsPerStudentPerMonthAndYear}</p>
             </div>
+            {unpaidSumPerStudentPerMonthAndYear ? (
+                <p>{studentName} have to pay for {unPaidLessonsPerStudentPerMonthAndYear.length} lessons: {unpaidSumPerStudentPerMonthAndYear} BYN</p>
+            ) : null}
         </>
     );
 };

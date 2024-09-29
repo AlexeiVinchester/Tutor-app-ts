@@ -62,12 +62,12 @@ export const memoSelectFullIncomeForMonthAndYear = createSelector(
     selectFullIncomeForMonthAndYear
 );
 
-const selectLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string, month: string, year: string) => {
+const selectLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string,  year: string, month: string,) => {
     return selectLessonsPerMonthAndYear(lessons, year, month)
         .filter((lesson) => lesson.name === name);
 };
 
-const selectAmountOfLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string, month: string, year: string) => {
+const selectAmountOfLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string, year: string, month: string) => {
     return selectLessonsPerStudentPerMonthAndYear(lessons, name, year, month).length;
 };
 
@@ -81,7 +81,7 @@ export const memoizedSelectAmountOfLessonsPerStudentPerMonthAndYear = createSele
     selectAmountOfLessonsPerStudentPerMonthAndYear
 );
 
-const selectIncomePerStudentPerMonthAndYear = (lessons: ILesson[], name: string, month: string, year: string) => {
+const selectIncomePerStudentPerMonthAndYear = (lessons: ILesson[], name: string, year: string, month: string) => {
     return selectLessonsPerStudentPerMonthAndYear(lessons, name, year, month)
         .reduce((cur, lesson) => cur + lesson.price, 0);
 }
@@ -94,6 +94,35 @@ export const memoizedSelectIncomePerStudentPerMonthAndYear = createSelector(
         (_, __, ___, month) => month,
     ],
     selectIncomePerStudentPerMonthAndYear
+);
+
+const selectUnpaidLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string, year: string, month: string) => {
+    return selectLessonsPerStudentPerMonthAndYear(lessons, name, year, month)
+        .filter((lesson) => !lesson.paidStatus);
+}
+
+export const memoizedSelectUnpaidLessonsPerStudentPerMonthAndYear = createSelector(
+    [
+        selectLessons,
+        (_, name) => name,
+        (_, __, year) => year,
+        (_, __, ___, month) => month,
+    ],
+    selectUnpaidLessonsPerStudentPerMonthAndYear
+);
+
+const selectStudentsForMonthAndYear = (lessons: ILesson[], year: string, month: string) => {
+    return Array.from(new Set(selectLessonsPerMonthAndYear(lessons, year, month)
+        .map((lesson) => lesson.name)));
+};
+
+export const memoizedSelectStudentsForMonthAndYear = createSelector(
+    [
+        selectLessons,
+        (_, year) => year,
+        (_, __, month) => month,
+    ],
+    selectStudentsForMonthAndYear
 );
 
 
