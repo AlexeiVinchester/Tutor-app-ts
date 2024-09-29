@@ -1,9 +1,9 @@
 import { FullIncomeForStudentWrapper } from "../FullIncomeForStudentWrapper/FullIncomeForStudentWrapper";
 import { FullAmountForStudentWrapper } from "../FullAmountForStudentWrapper/FullAmountForStudentWrapper";
-import { SelectStudentContainer } from "../SelectStudentContainer/SelectStudentContainer";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectMemoNamesOfStudents } from "../../../../redux/selectors/studentsSelectors";
+import { SelectContainer } from "../../../../components/SelectContainer/SelectContainer";
 
 const FullStudentStatisticsWrapper = () => {
     const namesOfStudents = useSelector(selectMemoNamesOfStudents);
@@ -23,8 +23,8 @@ const FullStudentStatisticsWrapper = () => {
     return (
         <>
             
-            <SelectStudentContainer
-                namesOfStudents={namesOfStudents}
+            <SelectContainer
+                data={namesOfStudents}
                 onChange={onselectStudentChange}
             />
             <div className="flex justify-around items-center">

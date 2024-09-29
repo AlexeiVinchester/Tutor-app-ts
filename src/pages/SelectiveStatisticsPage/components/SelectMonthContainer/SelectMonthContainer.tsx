@@ -1,14 +1,18 @@
-const SelectStudentContainer = ({ onChange, namesOfStudents }: { namesOfStudents: string[], onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void }) => {
+import { getValueForMonthOption } from "./getValueForMonthOption";
+import { SelectMonthContainerProps } from "./interface/SelectMonthContainer.interface";
+
+const SelectMonthContainer = ({ onChange, data, value }: SelectMonthContainerProps ) => {
     return (
         <div className="flex justify-center items-center">
             <select
                 className="rounded-[22px] p-3 border-2 hover:border-amount-of-students focus:border-none bg-back-side-statistics text-white border-main-turquoise"
-                defaultValue={namesOfStudents[0]}
+                defaultValue={data[0]}
                 onChange={onChange}
+                value={value}
             >
                 {
-                    namesOfStudents.map((name) => (
-                        <option key={name}>
+                    data.map((name, index) => (
+                        <option key={name} value={getValueForMonthOption(index)}>
                             {name}
                         </option>
                     ))
@@ -18,4 +22,4 @@ const SelectStudentContainer = ({ onChange, namesOfStudents }: { namesOfStudents
     );
 };
 
-export { SelectStudentContainer }; 
+export { SelectMonthContainer }
