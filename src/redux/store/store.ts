@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 import { persistedReducer } from "../persistReducer/persistReducer";
 import { 
     persistStore, 
@@ -22,3 +22,23 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export { store, persistor };
+
+const increment = createAction('counter/increment');
+const decrement = createAction('counter/decrement');
+const incrementByAmount = createAction<number>('counter/incrementByAmount');
+
+const initialValue = {
+  value: 0
+}
+
+export const counterReducer = createReducer(initialValue, (builder) => {
+  builder.addCase(increment, (state) => {
+    state.value++;
+  })
+  .addCase(decrement, (state) => {
+    state.value--;
+  })
+  .addCase(incrementByAmount, (state, action) => {
+    state.value += action.payload;
+  })
+})

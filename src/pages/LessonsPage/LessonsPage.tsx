@@ -33,7 +33,7 @@ const LessonsPage = () => {
     console.log('lessons render')
     return (
         <div>
-            <Container sx={{ marginTop: '50px' }} maxWidth='md'>
+            <Container sx={{ paddingTop: '50px' }} maxWidth='md'>
                 <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
             </Container>
             {

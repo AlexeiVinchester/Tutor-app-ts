@@ -31,7 +31,6 @@ const FullStudentStatisticsWrapper = () => {
                 <FullIncomeForStudentWrapper studentName={studentName} />
                 <FullAmountForStudentWrapper studentName={studentName} />
             </div>
-
         </>
     );
 };

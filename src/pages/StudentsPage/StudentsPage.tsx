@@ -146,7 +146,7 @@ const StudentsPage = () => {
                     </div>
                 </div>
             </PageHeaderWrapper>
-            <Container sx={{ mt: '1rem', mb: '5rem' }} >
+            <Container sx={{ pt: '1rem', pb: '5rem' }} >
                 <div className="flex justify-center items-center mb-8">
                     <input
                         className="w-[60%] rounded-[22px] p-3 border-2 hover:border-amount-of-students focus:border-none"

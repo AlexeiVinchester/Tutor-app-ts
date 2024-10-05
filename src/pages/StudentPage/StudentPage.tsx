@@ -21,7 +21,7 @@ const StudentPage = () => {
 
     return (
         <div>
-            <Container sx={{ mt: '1rem' }}>
+            <Container sx={{ pt: '1rem' }}>
                 <Box sx={{ boxShadow: '0 15px 20px #ABB2B9;' }} >
                     <Card variant="outlined">
                         <div style={{ display: 'flex', flexDirection: 'row', }}>
