@@ -28,7 +28,7 @@ const AboutAppPage = () => {
     }, []);
 
     const handleClickAffNewLesson = () => {
-        fetch('http://localhost:3002/local/lessons', {
+        fetch('http://localhost:3002/addLesson', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
