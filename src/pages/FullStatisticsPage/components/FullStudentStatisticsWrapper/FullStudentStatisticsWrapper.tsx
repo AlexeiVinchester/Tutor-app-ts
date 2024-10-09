@@ -1,9 +1,9 @@
-import { FullIncomeForStudentWrapper } from "../FullIncomeForStudentWrapper/FullIncomeForStudentWrapper";
-import { FullAmountForStudentWrapper } from "../FullAmountForStudentWrapper/FullAmountForStudentWrapper";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectMemoNamesOfStudents } from "../../../../redux/selectors/studentsSelectors";
 import { SelectContainer } from "../../../../components/SelectContainer/SelectContainer";
+import { FullIncomeForStudentWrapper } from "../FullIncomeForStudentWrapper/FullIncomeForStudentWrapper";
+import { FullAmountForStudentWrapper } from "../FullAmountForStudentWrapper/FullAmountForStudentWrapper";
+import { selectMemoNamesOfStudents } from "../../../../redux/selectors/studentsSelectors";
 
 const FullStudentStatisticsWrapper = () => {
     const namesOfStudents = useSelector(selectMemoNamesOfStudents);

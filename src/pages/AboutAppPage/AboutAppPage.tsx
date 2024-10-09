@@ -1,9 +1,69 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Student } from "../../share/interfaces/student.interface";
+import { ILesson } from "../../share/interfaces/lesson.interface";
+
+const getLessonsFromApi = async () => {
+    const response = await fetch('http://localhost:3002/getLessons');
+    const data = await response.json();
+    return data;
+}
 
 const AboutAppPage = () => {
+    const [users, setUsers] = useState<Student[]>([])
+    const [lessons, setLessons] = useState<ILesson[]>([]);
+    useEffect(() => {
+        axios.get('http://localhost:3002/getUsers')
+            .then(users => {
+                console.log(users.data)
+                setUsers(users.data)
+            })
+            .catch(err => console.log('Error while get users! ', err))
+    }, []);
+
+    useEffect(() => {
+        getLessonsFromApi()
+        .then(res => setLessons(res))
+        .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
+    }, []);
+
+    const handleClickAffNewLesson = () => {
+        fetch('http://localhost:3002/local/lessons', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "id": 295,
+                "name": "test",
+                "price": 30,
+                "date": "2024-09-27",
+                "paidStatus": false
+            })
+        })
+    }
+
     return (
-        <div>
-            About
+        <div className="flex flex-row justify-around items-start">
+            <div>
+                {
+                    users.map(user => (
+                        <p key={user.id}>{user.gender}</p>
+                    ))
+                }
+            </div>
+            <div>
+                {
+                    lessons.map(lesson => (
+                        <p key={lesson.id}>{lesson.name} - {lesson.date}</p>
+                    ))
+                }
+            </div>
+            <div>
+                <button onClick={handleClickAffNewLesson}>Add new Lesson</button>
+            </div>
         </div>
+
     );
 };
 

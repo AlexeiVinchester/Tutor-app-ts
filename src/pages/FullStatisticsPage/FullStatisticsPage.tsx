@@ -1,9 +1,9 @@
-import { FullIncomeWrapper } from "./components/FullIncomeWrapper/FullIncomeWrapper";
-import { FullAmountWrapper } from "./components/FullAmountWrapper/FullAmountWrapper";
-import { FullStudentStatisticsWrapper } from "./components/FullStudentStatisticsWrapper/FullStudentStatisticsWrapper";
 import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/StatisticsPageHeader";
-import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
 import { StatisticsMainWrapper } from "../../components/StatisticsMainWrapper/StatisticsMainWrapper";
+import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
+import { FullAmountWrapper } from "./components/FullAmountWrapper/FullAmountWrapper";
+import { FullIncomeWrapper } from "./components/FullIncomeWrapper/FullIncomeWrapper";
+import { FullStudentStatisticsWrapper } from "./components/FullStudentStatisticsWrapper/FullStudentStatisticsWrapper";
 
 const FullStatisticsPage = () => {
     return (

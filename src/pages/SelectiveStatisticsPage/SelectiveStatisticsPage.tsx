@@ -1,15 +1,15 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/StatisticsPageHeader";
+import { StatisticsMainWrapper } from "../../components/StatisticsMainWrapper/StatisticsMainWrapper";
+import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
 import { SelectContainer } from "../../components/SelectContainer/SelectContainer";
 import { SelectMonthContainer } from "./components/SelectMonthContainer/SelectMonthContainer";
 import { getCorrectCurrentMonth, MONTHS, YEARS } from "./components/SelectMonthContainer/dateWorker";
-import { SelectiveStudentsStatisticsWrapper } from "./components/SelectiveStudentsStatisticsWrapper/SelectiveStudentsStatisticsWrapper";
 import { SelectiveAmountOfLessons } from "./components/SelectiveAmountOfLessons/SelectiveAmountOfLessons";
 import { SelectiveIncome } from "./components/SelectiveIncome/SelectiveIncome";
-import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
-import { StatisticsMainWrapper } from "../../components/StatisticsMainWrapper/StatisticsMainWrapper";
-import { useSelector } from "react-redux";
 import { selectMemoAmountOfLessonsPerMonthAndYear } from "../../redux/selectors/lessonsSelectors";
+import { SelectiveStudentsStatisticsWrapper } from "./components/SelectiveStudentsStatisticsWrapper/SelectiveStudentsStatisticsWrapper";
 import { AbsentLessonsMessage } from "../../components/AbsentLessonsMessage/AbsentLessonsMessage";
 
 const SelectiveStatisticsPage = () => {
@@ -24,7 +24,6 @@ const SelectiveStatisticsPage = () => {
 
     const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setYear(e.target.value);
-
     };
     return (
         <>
@@ -58,4 +57,4 @@ const SelectiveStatisticsPage = () => {
     );
 };
 
-export { SelectiveStatisticsPage } 
+export { SelectiveStatisticsPage };
