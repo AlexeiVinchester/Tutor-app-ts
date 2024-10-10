@@ -45,7 +45,7 @@ const LessonsPage = () => {
             {
                 lessons.length ?
                     <>
-                        <Container sx={{ paddingTop: '50px' }} maxWidth='md'>
+                        <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
                             <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
                         </Container>
                     </> :

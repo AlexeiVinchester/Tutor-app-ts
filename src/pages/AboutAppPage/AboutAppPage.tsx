@@ -11,13 +11,11 @@ const getLessonsFromApi = async () => {
     const data = await response.json();
     return data;
 }
-interface IDBLesson extends ILesson {
-    _id: string;
-}
+
 const AboutAppPage = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState<Student[]>([])
-    const [lessons, setLessons] = useState<IDBLesson[]>([]);
+    const [lessons, setLessons] = useState<ILesson[]>([]);
     useEffect(() => {
         axios.get('http://localhost:3002/getUsers')
             .then(users => {
