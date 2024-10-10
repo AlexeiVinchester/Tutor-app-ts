@@ -4,7 +4,6 @@ import { Student } from "../../share/interfaces/student.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { Container } from "@mui/material";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
-import { useNavigate } from "react-router-dom";
 
 const getLessonsFromApi = async () => {
     const response = await fetch('http://localhost:3002/getLessons');
@@ -13,7 +12,6 @@ const getLessonsFromApi = async () => {
 }
 
 const AboutAppPage = () => {
-    const navigate = useNavigate();
     const [users, setUsers] = useState<Student[]>([])
     const [lessons, setLessons] = useState<ILesson[]>([]);
     useEffect(() => {
@@ -63,9 +61,7 @@ const AboutAppPage = () => {
     //         })
     //     })
     // }
-    const onClickEditHandler = (lesson: ILesson) => {
-        navigate(`/lessons/${lesson.id}/edit`, { state: { lesson } })
-    };
+    
     return (
         <div className="flex flex-row justify-around items-start">
             <div>
@@ -77,7 +73,7 @@ const AboutAppPage = () => {
             </div>
             <div>
                 <Container sx={{ paddingTop: '50px' }} maxWidth='md'>
-                    <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
+                    <TableOfLessons lessons={lessons} />
                 </Container>
             </div>
             <div>

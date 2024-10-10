@@ -7,46 +7,33 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
-import { EditLessonContainer } from "./components/EditLessonContainer/EditLessonContainer";
+import { getLessonsFromApi } from "../../services/loadLessonsFromDB";
+import { useModalWindow } from "../../hooks/useModalWindow";
 
-const getLessonsFromApi = async () => {
-    const response = await fetch('http://localhost:3002/getLessons');
-    const data = await response.json();
-    return data;
-}
 const LessonsPage = () => {
     const [lessons, setLessons] = useState<ILesson[]>([]);
-    const [editId, setEditId] = useState(1);
 
-    const editedLesson = lessons.find((lesson) => lesson.id === editId) as ILesson;
+    const {
+        isOpen: isOpenCreateLessonWindow,
+        open: openCreateLessonWindow,
+        close: closeCreateLessonWindow
+    } = useModalWindow();
+
+    const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
+
     useEffect(() => {
         getLessonsFromApi()
             .then(res => setLessons(res))
             .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
     }, []);
 
-    const [isOpenCreateLessonWindow, setIsOpenCreateLessonWindow] = useState(false);
-    const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
-    const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
-
-    const [isOpenEditLessonWindow, setIsOpenEditLessonWindow] = useState(false);
-    const openEditLessonWindow = () => setIsOpenEditLessonWindow(true);
-    const closeEditLessonWindow = () => setIsOpenEditLessonWindow(false);
-
-    const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
-
-    const onClickEditHandler = (lesson: ILesson) => {
-        setEditId(lesson.id);
-        openEditLessonWindow();
-    };
-
     return (
-        <div>
+        <div className="relative">
             {
                 lessons.length ?
                     <>
                         <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
-                            <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
+                            <TableOfLessons lessons={lessons} />
                         </Container>
                     </> :
                     <div className="flex items-center justify-center inset-x-0 inset-y-0 absolute">
@@ -60,13 +47,7 @@ const LessonsPage = () => {
                     closeCreateLessonWindow={closeCreateLessonWindow}
                 />
             }
-            {
-                isOpenEditLessonWindow && <EditLessonContainer
-                    oldLesson={editedLesson}
-                    isOpen={isOpenEditLessonWindow}
-                    close={closeEditLessonWindow}
-                />
-            }
+            
             <RoundAddButton openHandler={openCreateLessonWindow}>
                 <PostAddIcon fontSize="large" />
             </RoundAddButton>
