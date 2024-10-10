@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Student } from "../../share/interfaces/student.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
+import { Container } from "@mui/material";
+import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
+import { useNavigate } from "react-router-dom";
 
 const getLessonsFromApi = async () => {
     const response = await fetch('http://localhost:3002/getLessons');
@@ -12,6 +15,7 @@ interface IDBLesson extends ILesson {
     _id: string;
 }
 const AboutAppPage = () => {
+    const navigate = useNavigate();
     const [users, setUsers] = useState<Student[]>([])
     const [lessons, setLessons] = useState<IDBLesson[]>([]);
     useEffect(() => {
@@ -45,23 +49,25 @@ const AboutAppPage = () => {
         })
     }
 
-    const handleClickUpdateSingleLesson = (_id: string, id: number) => {
-        fetch(`http://localhost:3002/updateSingleLesson/${_id}`, {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                _id, 
-                id,
-                name: "updateTest",
-                price: 40,
-                date: "Update-date",
-                paidStatus: true
-            })
-        })
-    }
-
+    // const handleClickUpdateSingleLesson = (_id: string, id: number) => {
+    //     fetch(`http://localhost:3002/updateSingleLesson/${_id}`, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             _id,
+    //             id,
+    //             name: "updateTest",
+    //             price: 40,
+    //             date: "Update-date",
+    //             paidStatus: true
+    //         })
+    //     })
+    // }
+    const onClickEditHandler = (lesson: ILesson) => {
+        navigate(`/lessons/${lesson.id}/edit`, { state: { lesson } })
+    };
     return (
         <div className="flex flex-row justify-around items-start">
             <div>
@@ -72,21 +78,9 @@ const AboutAppPage = () => {
                 }
             </div>
             <div>
-                {
-                    lessons.map(lesson => {
-                        return (
-                            <div key={lesson.id} className="flex ">
-                                <p>{lesson.name} - {lesson.date}</p>
-                                <button
-                                    className="ml-6 text-main-orange"
-                                    onClick={() => handleClickUpdateSingleLesson(lesson._id, lesson.id)}
-                                >
-                                    Edit
-                                </button>
-                            </div>
-                        )
-                    })
-                }
+                <Container sx={{ paddingTop: '50px' }} maxWidth='md'>
+                    <TableOfLessons lessons={lessons} editLesson={onClickEditHandler} />
+                </Container>
             </div>
             <div>
                 <button onClick={handleClickAffNewLesson}>Add new Lesson</button>

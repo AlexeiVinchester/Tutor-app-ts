@@ -15,11 +15,25 @@ const EditLessonPage = () => {
     const { openEditMessage } = useContext(EditMessageContext);
     const navigate = useNavigate();
 
-    const onClickSaveHandler = () => {
+    /*const onClickSaveHandler = () => {
         dispatch(editLesson(lesson));
         navigate(LESSONS);
         openEditMessage(`Lesson with ${lesson.id} id was edited!`)
+    };*/
+
+    const onClickSaveHandler = () => {
+        dispatch(editLesson(lesson));
+        fetch(`http://localhost:3002/updateSingleLesson/${lesson._id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(lesson)
+        })
+        navigate(LESSONS);
+        openEditMessage(`Lesson with ${lesson.id} id was edited!`)
     };
+
 
     const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
