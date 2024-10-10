@@ -8,10 +8,12 @@ const getLessonsFromApi = async () => {
     const data = await response.json();
     return data;
 }
-
+interface IDBLesson extends ILesson {
+    _id: string;
+}
 const AboutAppPage = () => {
     const [users, setUsers] = useState<Student[]>([])
-    const [lessons, setLessons] = useState<ILesson[]>([]);
+    const [lessons, setLessons] = useState<IDBLesson[]>([]);
     useEffect(() => {
         axios.get('http://localhost:3002/getUsers')
             .then(users => {
@@ -23,8 +25,8 @@ const AboutAppPage = () => {
 
     useEffect(() => {
         getLessonsFromApi()
-        .then(res => setLessons(res))
-        .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
+            .then(res => setLessons(res))
+            .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
     }, []);
 
     const handleClickAffNewLesson = () => {
@@ -43,6 +45,23 @@ const AboutAppPage = () => {
         })
     }
 
+    const handleClickUpdateSingleLesson = (_id: string, id: number) => {
+        fetch(`http://localhost:3002/updateSingleLesson/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                _id, 
+                id,
+                name: "updateTest",
+                price: 40,
+                date: "Update-date",
+                paidStatus: true
+            })
+        })
+    }
+
     return (
         <div className="flex flex-row justify-around items-start">
             <div>
@@ -54,9 +73,19 @@ const AboutAppPage = () => {
             </div>
             <div>
                 {
-                    lessons.map(lesson => (
-                        <p key={lesson.id}>{lesson.name} - {lesson.date}</p>
-                    ))
+                    lessons.map(lesson => {
+                        return (
+                            <div key={lesson.id} className="flex ">
+                                <p>{lesson.name} - {lesson.date}</p>
+                                <button
+                                    className="ml-6 text-main-orange"
+                                    onClick={() => handleClickUpdateSingleLesson(lesson._id, lesson.id)}
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        )
+                    })
                 }
             </div>
             <div>

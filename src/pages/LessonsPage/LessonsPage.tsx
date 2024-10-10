@@ -19,7 +19,6 @@ const getLessons = (store: Store) => {
 
 const LessonsPage = () => {
     const lessons = useSelector(getLessons);
-    console.log(JSON.stringify(lessons))
     const [isOpenCreateLessonWindow, setIsOpenCreateLessonWindow] = useState(false);
     const openCreateLessonWindow = () => setIsOpenCreateLessonWindow(true);
     const closeCreateLessonWindow = () => setIsOpenCreateLessonWindow(false);
