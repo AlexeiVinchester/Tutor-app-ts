@@ -1,4 +1,4 @@
-import { CircularProgress, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { useContext, useEffect, useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
@@ -9,6 +9,7 @@ import { EditMessageContext } from "../../context/EditMessage/EditMessageProvide
 import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
 import { getLessonsFromApi } from "../../services/loadLessonsFromDB";
 import { useModalWindow } from "../../hooks/useModalWindow";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 const LessonsPage = () => {
     const [lessons, setLessons] = useState<ILesson[]>([]);
@@ -28,17 +29,17 @@ const LessonsPage = () => {
     }, []);
 
     return (
-        <div className="relative">
+        <div >
             {
-                lessons.length ?
+                lessons.length
+                    ?
                     <>
                         <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
                             <TableOfLessons lessons={lessons} />
                         </Container>
-                    </> :
-                    <div className="flex items-center justify-center inset-x-0 inset-y-0 absolute">
-                        <CircularProgress color="warning" />
-                    </div>
+                    </>
+                    :
+                    <Spinner />
             }
             {
                 isOpenCreateLessonWindow && <AddNewLessonContainer
@@ -47,7 +48,7 @@ const LessonsPage = () => {
                     closeCreateLessonWindow={closeCreateLessonWindow}
                 />
             }
-            
+
             <RoundAddButton openHandler={openCreateLessonWindow}>
                 <PostAddIcon fontSize="large" />
             </RoundAddButton>

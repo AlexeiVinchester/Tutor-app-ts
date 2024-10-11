@@ -6,7 +6,7 @@ const BasicPage = () => {
     return (
         <>
             <NavigationPanel />
-            <main className="box-border bg-statistics-back">
+            <main className="box-border bg-statistics-back relative">
                 <Outlet />
             </main>
             <Footer />
