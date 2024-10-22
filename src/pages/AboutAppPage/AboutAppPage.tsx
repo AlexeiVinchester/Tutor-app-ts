@@ -1,33 +1,11 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Student } from "../../share/interfaces/student.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { Container } from "@mui/material";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
+import { useFetch } from "../../hooks/useFetch";
 
-const getLessonsFromApi = async () => {
-    const response = await fetch('http://localhost:3002/getLessons');
-    const data = await response.json();
-    return data;
-}
 
 const AboutAppPage = () => {
-    const [users, setUsers] = useState<Student[]>([])
-    const [lessons, setLessons] = useState<ILesson[]>([]);
-    useEffect(() => {
-        axios.get('http://localhost:3002/getStudents')
-            .then(users => {
-                console.log(users.data)
-                setUsers(users.data)
-            })
-            .catch(err => console.log('Error while get users! ', err))
-    }, []);
-
-    useEffect(() => {
-        getLessonsFromApi()
-            .then(res => setLessons(res))
-            .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
-    }, []);
 
     const handleClickAffNewLesson = () => {
         fetch('http://localhost:3002/addLesson', {
@@ -45,35 +23,32 @@ const AboutAppPage = () => {
         })
     }
 
-    // const handleClickUpdateSingleLesson = (_id: string, id: number) => {
-    //     fetch(`http://localhost:3002/updateSingleLesson/${_id}`, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             _id,
-    //             id,
-    //             name: "updateTest",
-    //             price: 40,
-    //             date: "Update-date",
-    //             paidStatus: true
-    //         })
-    //     })
-    // }
+    const {
+        data: hookLessons, 
+        isLoading: ishookLessonsLoading,
+        error: errorHoohLessons 
+    } =  useFetch<ILesson>('http://localhost:3002/getLessons');
+
+    const {
+        data: hookStudents,
+        isLoading: isHookStudentsLoading,
+        error: errorHookStudents
+    } = useFetch<Student>('http://localhost:3002/getStudents');
     
     return (
         <div className="flex flex-row justify-around items-start">
             <div>
-                {
-                    users.map(user => (
-                        <p key={user.id}>{user.gender}</p>
-                    ))
-                }
+                {isHookStudentsLoading && <h1>Loading students...</h1>}
+                {errorHookStudents && <h1>{errorHookStudents}</h1>}
+                {hookStudents[0] && <>
+                    {hookStudents.map(student => (<div key={student.id}>{student.name}</div>))}
+                </>}
             </div>
             <div>
                 <Container sx={{ paddingTop: '50px' }} maxWidth='md'>
-                    <TableOfLessons lessons={lessons} />
+                    {ishookLessonsLoading && <h1>Loading hook lessons...</h1>}
+                    {errorHoohLessons && <h1>{errorHoohLessons}</h1>}
+                    {hookLessons[0] && <TableOfLessons lessons={hookLessons} />}
                 </Container>
             </div>
             <div>

@@ -1,18 +1,22 @@
 import { Container } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { SnackMessage } from "../../share/components/SnackMessage/SnackMessage";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
-import { getLessonsFromApi } from "../../services/loadLessonsFromDB";
 import { useModalWindow } from "../../hooks/useModalWindow";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { useFetch } from "../../hooks/useFetch";
 
 const LessonsPage = () => {
-    const [lessons, setLessons] = useState<ILesson[]>([]);
+    const {
+        data: lessons,
+        isLoading: isLoadingLessons,
+        error: errorLoadingLessons
+    } = useFetch<ILesson>('http://localhost:3002/getLessons');
 
     const {
         isOpen: isOpenCreateLessonWindow,
@@ -22,24 +26,16 @@ const LessonsPage = () => {
 
     const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
 
-    useEffect(() => {
-        getLessonsFromApi()
-            .then(res => setLessons(res))
-            .catch(err => console.log(`Error while fetching lessons! Error: ${err.message}`))
-    }, []);
-
     return (
         <div >
-            {
-                lessons.length
-                    ?
+            {isLoadingLessons && <Spinner />}
+            {errorLoadingLessons && <h2>{errorLoadingLessons}</h2>}
+            {lessons.length &&
                     <>
                         <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
                             <TableOfLessons lessons={lessons} />
                         </Container>
-                    </>
-                    :
-                    <Spinner />
+                    </> 
             }
             {
                 isOpenCreateLessonWindow && <AddNewLessonContainer
