@@ -15,7 +15,7 @@ const StudentPage = () => {
         navigate(`/students/${student.id}/edit`, { state: { student } });
     };
 
-    const onClickBackToStidentsHandler = () => {
+    const onClickBackToStudentsHandler = () => {
         navigate(STUDENTS);
     };
 
@@ -62,7 +62,7 @@ const StudentPage = () => {
                             </CardContent>
                         </div>
                         <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <IconButton onClick={onClickBackToStidentsHandler} sx={{color: 'rgb(80, 201, 173)'}}>
+                            <IconButton onClick={onClickBackToStudentsHandler} sx={{color: 'rgb(80, 201, 173)'}}>
                                 <ArrowBackIcon />
                             </IconButton>
                             <Button

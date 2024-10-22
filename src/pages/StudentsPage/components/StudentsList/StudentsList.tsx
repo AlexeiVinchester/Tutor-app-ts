@@ -4,6 +4,7 @@ import { StudentsListProps } from "./interface/StudentsListProps";
 import { Student } from "../../../../share/interfaces/student.interface";
 
 const StudentsList = ({ students }: StudentsListProps) => {
+    console.log(students)
     return students.map((student: Student) => (
         <Grid item xs={12} md={4} key={student.id}>
             <StudentCard student={student} />

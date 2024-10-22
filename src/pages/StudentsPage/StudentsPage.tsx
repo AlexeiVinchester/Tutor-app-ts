@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { Store } from "../../redux/store/interface/store.interface";
+//import { useSelector } from "react-redux";
+//import { Store } from "../../redux/store/interface/store.interface";
 import { Button, Card, CardContent, CardMedia, Container, Grid, IconButton, Typography } from "@mui/material";
 import { StudentsList } from "./components/StudentsList/StudentsList";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalWindowContext } from "../../context/modalWindow/ModalWindowProvider";
 import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 import { AddNewStudentContainer } from "./components/AddNewStudentContainer/AddNewStudentContainer";
@@ -14,12 +14,30 @@ import { ABOUT } from "../../Router/routes";
 import { femaleImage, maleImage } from "./components/StudentCard/assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { PageHeaderWrapper } from "../../components/PageHeaderWrapper/PageHeaderWrapper";
+import { getStudentsFromDB } from "../../services/loadStudentsFromDB";
+import { Student } from "../../share/interfaces/student.interface";
+
+const getAmountOfActiveStudents = (students: Student[]) => {
+    return students.filter((student) => student.status === 'active').length;
+};
+
+const getAmountOfGender = (students: Student[], gender: string) => {
+    return students.filter((student) => student.gender === gender).length;
+};
+
 
 const StudentsPage = () => {
-    const students = useSelector((state: Store) => state.students);
-    const amountOfActiveStudents = students.filter((student) => student.status === 'active').length;
-    const boys = students.filter((student) => student.gender === 'male');
-    const girls = students.filter((student) => student.gender === 'female');
+    const [students, setStudents] = useState<Student[]>([])
+    useEffect(() => {
+        getStudentsFromDB()
+            .then(res => setStudents(res))
+            .catch(err => console.log(`Error while fetching Students: ${err.message}`))
+    }, []);
+    //const students = useSelector((state: Store) => state.students);
+    const amountOfActiveStudents = getAmountOfActiveStudents(students);
+    const boys = getAmountOfGender(students, 'male');
+    const girls = getAmountOfGender(students, 'female');
+
     const { modalState, close, open } = useContext(ModalWindowContext);
     const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
     const [isAddMessageOpen, setIsAddMessageOpen] = useState(false);
@@ -29,11 +47,7 @@ const StudentsPage = () => {
     const openAddMessage = () => setIsAddMessageOpen(true);
     const closeAddMessage = () => setIsAddMessageOpen(false);
 
-    const [filteredStudents, setFilteredStudents] = useState(students)
-    const onSearchHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFilteredStudents(students.filter((student) => student.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())));
-    }
-
+    
     const onClickLearnMoreAboutAppHandler = () => {
         navigate(ABOUT)
     }
@@ -122,7 +136,7 @@ const StudentsPage = () => {
                     <div className="flex gap-1">
                         <Card variant="outlined" sx={{ borderRadius: '22px', width: 200, position: 'relative' }} >
                             <span className="absolute left-3 top-2 text-2xl text-main-orange">
-                                {boys.length}
+                                {boys}
                             </span>
                             <CardMedia
                                 component='img'
@@ -134,7 +148,7 @@ const StudentsPage = () => {
                         </Card>
                         <Card variant="outlined" sx={{ borderRadius: '22px', width: 200, position: 'relative' }}>
                             <span className="absolute left-3 top-2 text-2xl text-main-orange">
-                                {girls.length}
+                                {girls}
                             </span>
                             <CardMedia
                                 component='img'
@@ -152,7 +166,7 @@ const StudentsPage = () => {
                         className="w-[60%] rounded-[22px] p-3 border-2 hover:border-amount-of-students focus:border-none"
                         type="search"
                         placeholder="Try to find student..."
-                        onChange={onSearchHandler}
+                        
                     />
                     <IconButton
                         sx={{
@@ -168,14 +182,17 @@ const StudentsPage = () => {
                     </IconButton>
                 </div>
                 <Grid container spacing={2} className="mb-4" sx={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <StudentsList students={filteredStudents} />
+                    <StudentsList students={students} />
                 </Grid>
                 <ModalWindow
                     title="Create new student"
                     onClose={close}
                     modalState={modalState}
                 >
-                    <AddNewStudentContainer openSnackHandler={openAddMessage} />
+                    <AddNewStudentContainer 
+                        nextId={students.length}
+                        openSnackHandler={openAddMessage} 
+                    />
                 </ModalWindow>
                 <SnackMessage
                     isOpen={isAddMessageOpen}

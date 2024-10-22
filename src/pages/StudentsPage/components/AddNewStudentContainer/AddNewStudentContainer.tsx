@@ -1,33 +1,40 @@
 import { Card, CardContent, Typography, Grid, TextField, CardActions, Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { Student } from "../../../../share/interfaces/student.interface";
-import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../../../../redux/store/interface/store.interface";
-import { addNewStudent } from "../../../../redux/slices/studentsSlice/studentsSlice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Store } from "../../../../redux/store/interface/store.interface";
+// import { addNewStudent } from "../../../../redux/slices/studentsSlice/studentsSlice";
 import { ModalWindowContext } from "../../../../context/modalWindow/ModalWindowProvider";
 
-const AddNewStudentContainer = ({openSnackHandler}: {openSnackHandler: () => void}) => {
+const AddNewStudentContainer = ({ openSnackHandler, nextId }: { nextId: number, openSnackHandler: () => void }) => {
 
-    const nextId = useSelector((store: Store) => store.students.length);
-    const dispatch = useDispatch();
+    //const nextId = useSelector((store: Store) => store.students.length);
+    //const dispatch = useDispatch();
     const { close: closeModalWindow } = useContext(ModalWindowContext);
 
-    const [student, setStudent] = useState<Student>({
-        id: nextId,
-        name: '',
-        gender: 'male',
-        price: '',
-        form: '',
-        ownMobilePhone: '',
-        parentsMobilePhone: '',
-        parentsName: '',
-        status: 'active'
-    }
+    const [student, setStudent] = useState<Student>(
+        {
+            id: nextId,
+            name: '',
+            gender: 'male',
+            price: '',
+            form: '',
+            ownMobilePhone: '',
+            parentsMobilePhone: '',
+            parentsName: '',
+            status: 'active'
+        }
     );
-    console.log('Creating new student')
 
     const onClickSaveHandler = () => {
-        dispatch(addNewStudent(student));
+        //dispatch(addNewStudent(student));
+        fetch('http://localhost:3002/addStudent', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(student)
+        });
         closeModalWindow();
         openSnackHandler();
     }
@@ -169,7 +176,6 @@ const AddNewStudentContainer = ({openSnackHandler}: {openSnackHandler: () => voi
                 </CardActions>
             </Card>
         </>
-
     );
 };
 

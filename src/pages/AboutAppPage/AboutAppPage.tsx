@@ -15,7 +15,7 @@ const AboutAppPage = () => {
     const [users, setUsers] = useState<Student[]>([])
     const [lessons, setLessons] = useState<ILesson[]>([]);
     useEffect(() => {
-        axios.get('http://localhost:3002/getUsers')
+        axios.get('http://localhost:3002/getStudents')
             .then(users => {
                 console.log(users.data)
                 setUsers(users.data)
