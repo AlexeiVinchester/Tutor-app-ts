@@ -3,13 +3,9 @@ import { useState } from "react"
 const useSendRequest = <T>() => {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const sendRequest = async (url: string, method: string, data: T) => {
         setIsLoading(true);
-        setError(null);
-        setIsSuccess(false);
         try {
             const response = await fetch(url, {
                 method,
@@ -24,20 +20,18 @@ const useSendRequest = <T>() => {
             }
             const result = await response.json();
             setData(result);
-            setIsSuccess(true);
+            return { status: true };
         } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError('Unknown error occured!')
-            }
-
+            return {
+                status: false,
+                error: err instanceof Error ? err.message : 'Unknown error was occured!'
+            };
         } finally {
             setIsLoading(false);
         }
     }
 
-    return { data, error, isLoading, isSuccess, sendRequest };
+    return { data, isLoading, sendRequest };
 };
 
 export { useSendRequest };

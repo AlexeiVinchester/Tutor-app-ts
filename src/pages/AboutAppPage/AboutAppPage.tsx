@@ -8,25 +8,22 @@ import { useSnackMessage } from "../../hooks/useSnackMessage";
 
 
 const AboutAppPage = () => {
-
-    const {
-        isLoading: isLoadingLessons,
-        error: lessonsError,
-        isSuccess,
-        sendRequest
-    } = useSendRequest<ILesson>();
-
-    const { isOpenSnackBar, showSnackBar, closeSnackBar } = useSnackMessage();
+    const { isLoading: isLoadingLessons, sendRequest } = useSendRequest<ILesson>();
+    const { isOpenSnackBar, showSnackBar, closeSnackBar, severity, message } = useSnackMessage();
 
     const handleClickAddNewLesson = async () => {
-        await sendRequest('http://localost:3002/addLesson', 'POST', {
+        const { status, error } = await sendRequest('http://localhost:3002/addLesson', 'POST', {
             "id": 296,
             "name": "test",
             "price": 30,
             "date": "2024-09-27",
             "paidStatus": false
         });
-        showSnackBar();
+        if (!status) {
+            showSnackBar(`Failed to send data: ${error}`, 'error')
+        } else {
+            showSnackBar('Data was added Succesfully!', 'success')
+        }
     }
 
     const {
@@ -64,24 +61,17 @@ const AboutAppPage = () => {
             >
                 {isLoadingLessons ? 'Sending...' : 'Send POST Request'}
             </button>
-
-            <Snackbar
-                open={isOpenSnackBar}
-                autoHideDuration={6000}
-                onClose={closeSnackBar}
-            >
-                {isSuccess ? (
-                    <Alert onClose={closeSnackBar} severity="success" sx={{ width: '100%' }}>
-                        Data sent successfully!
+            {
+                <Snackbar
+                    open={isOpenSnackBar}
+                    autoHideDuration={6000}
+                    onClose={closeSnackBar}
+                >
+                    <Alert onClose={closeSnackBar} severity={severity} sx={{ width: '100%' }}>
+                        {message}
                     </Alert>
-                ) : (
-                    (
-                        <Alert onClose={closeSnackBar} severity="error" sx={{ width: '100%' }}>
-                            Error: {lessonsError}
-                        </Alert>
-                    )
-                )}
-            </Snackbar>
+                </Snackbar>
+            }
         </div>
 
     );
