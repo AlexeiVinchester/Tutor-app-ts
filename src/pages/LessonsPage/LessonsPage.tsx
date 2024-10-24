@@ -31,11 +31,9 @@ const LessonsPage = () => {
             {isLoadingLessons && <Spinner />}
             {errorLoadingLessons && <h2>{errorLoadingLessons}</h2>}
             {lessons.length &&
-                    <>
-                        <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
-                            <TableOfLessons lessons={lessons} />
-                        </Container>
-                    </> 
+                <Container sx={{ paddingTop: '50px', paddingBottom: '50px' }} maxWidth='md'>
+                    <TableOfLessons lessons={lessons} />
+                </Container>
             }
             {
                 isOpenCreateLessonWindow && <AddNewLessonContainer

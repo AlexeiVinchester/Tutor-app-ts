@@ -9,10 +9,7 @@ import { EditMessageContext } from "../../../../context/EditMessage/EditMessageP
 import { AddNewLessonContainerProps } from "./interface/AddNewLessonContainer.interface";
 
 const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWindow, amount }: AddNewLessonContainerProps) => {
-    //const nextLessonId = useSelector((store: Store) => store.lessons.length + 1);
-    //const dispatch = useDispatch();
     const { openEditMessage } = useContext(EditMessageContext)
-
     const [lesson, setLesson] = useState<ILesson>({
         id: amount,
         name: '',
@@ -46,7 +43,6 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
     };
 
     const onClickSaveHandler = () => {
-        //dispatch(addNewLesson(lesson));
         fetch('http://localhost:3002/addLesson', {
             method: 'POST',
             headers: {

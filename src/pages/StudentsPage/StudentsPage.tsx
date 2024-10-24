@@ -2,7 +2,7 @@
 //import { Store } from "../../redux/store/interface/store.interface";
 import { Button, Card, CardContent, CardMedia, Container, Grid, IconButton, Typography } from "@mui/material";
 import { StudentsList } from "./components/StudentsList/StudentsList";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ModalWindowContext } from "../../context/modalWindow/ModalWindowProvider";
 import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 import { AddNewStudentContainer } from "./components/AddNewStudentContainer/AddNewStudentContainer";
@@ -14,8 +14,9 @@ import { ABOUT } from "../../Router/routes";
 import { femaleImage, maleImage } from "./components/StudentCard/assets/links";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { PageHeaderWrapper } from "../../components/PageHeaderWrapper/PageHeaderWrapper";
-import { getStudentsFromDB } from "../../services/loadStudentsFromDB";
 import { Student } from "../../share/interfaces/student.interface";
+import { useFetch } from "../../hooks/useFetch";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 const getAmountOfActiveStudents = (students: Student[]) => {
     return students.filter((student) => student.status === 'active').length;
@@ -27,16 +28,15 @@ const getAmountOfGender = (students: Student[], gender: string) => {
 
 
 const StudentsPage = () => {
-    const [students, setStudents] = useState<Student[]>([])
-    useEffect(() => {
-        getStudentsFromDB()
-            .then(res => setStudents(res))
-            .catch(err => console.log(`Error while fetching Students: ${err.message}`))
-    }, []);
-    //const students = useSelector((state: Store) => state.students);
-    const amountOfActiveStudents = getAmountOfActiveStudents(students);
-    const boys = getAmountOfGender(students, 'male');
-    const girls = getAmountOfGender(students, 'female');
+    const {
+        data: students,
+        isLoading: isLoadingStudents,
+        error: errorLoadingStudents
+    } = useFetch<Student>('http://localhost:3002/getStudents')
+
+    const amountOfActiveStudents = getAmountOfActiveStudents(students) || 0;
+    const boys = getAmountOfGender(students, 'male') || 0;
+    const girls = getAmountOfGender(students, 'female') || 0;
 
     const { modalState, close, open } = useContext(ModalWindowContext);
     const { isEditMessageOpen, closeEditMessage } = useContext(EditMessageContext)
@@ -47,7 +47,7 @@ const StudentsPage = () => {
     const openAddMessage = () => setIsAddMessageOpen(true);
     const closeAddMessage = () => setIsAddMessageOpen(false);
 
-    
+
     const onClickLearnMoreAboutAppHandler = () => {
         navigate(ABOUT)
     }
@@ -166,7 +166,7 @@ const StudentsPage = () => {
                         className="w-[60%] rounded-[22px] p-3 border-2 hover:border-amount-of-students focus:border-none"
                         type="search"
                         placeholder="Try to find student..."
-                        
+
                     />
                     <IconButton
                         sx={{
@@ -181,17 +181,20 @@ const StudentsPage = () => {
                         <PersonAddIcon fontSize="large" />
                     </IconButton>
                 </div>
-                <Grid container spacing={2} className="mb-4" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                {errorLoadingStudents && <h2>Error while loading students</h2>}
+                {isLoadingStudents && <Spinner />}
+                {students[0] && <Grid container spacing={2} className="mb-4" sx={{ justifyContent: 'center', alignItems: 'center' }}>
                     <StudentsList students={students} />
-                </Grid>
+                </Grid>}
+
                 <ModalWindow
                     title="Create new student"
                     onClose={close}
                     modalState={modalState}
                 >
-                    <AddNewStudentContainer 
+                    <AddNewStudentContainer
                         nextId={students.length}
-                        openSnackHandler={openAddMessage} 
+                        openSnackHandler={openAddMessage}
                     />
                 </ModalWindow>
                 <SnackMessage

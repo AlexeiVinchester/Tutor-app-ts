@@ -12,7 +12,7 @@ const useFetch = <T>(url: string) => {
         try {
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error(`Failed to fetch data! Response.ok: ${response.statusText}`)
+                throw new Error(`Failed to fetch data! Response status: ${response.status}, Response text: ${response.statusText}`)
             }
             return response.json();
         } catch{
