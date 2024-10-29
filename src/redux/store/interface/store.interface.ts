@@ -3,5 +3,10 @@ import { ILesson } from "../../../share/interfaces/lesson.interface";
 
 export interface Store {
     students: Student[],
-    lessons: ILesson[]
+    lessons: {
+        allLessons: ILesson[],
+        loading: boolean,
+        error: null | string | undefined,
+        allLessonsLoaded: boolean
+    }
 }

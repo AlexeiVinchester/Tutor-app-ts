@@ -1,14 +1,14 @@
 import { Button, Card, CardActions, CardContent, Container, Grid, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { ILesson } from "../../share/interfaces/lesson.interface";
-import { useDispatch } from "react-redux";
-import { editLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
+//import { useDispatch } from "react-redux";
+//import { editLesson } from "../../redux/slices/lessonsSlice/lessonsSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EditMessageContext } from "../../context/EditMessage/EditMessageProvider";
 import { LESSONS } from "../../Router/routes";
 
 const EditLessonPage = () => {
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const location = useLocation();
     const oldLesson = location.state.lesson;
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
@@ -22,7 +22,7 @@ const EditLessonPage = () => {
     };*/
 
     const onClickSaveHandler = () => {
-        dispatch(editLesson(lesson));
+        //dispatch(editLesson(lesson));
         fetch(`http://localhost:3002/updateSingleLesson/${lesson._id}`, {
             method: 'PATCH',
             headers: {

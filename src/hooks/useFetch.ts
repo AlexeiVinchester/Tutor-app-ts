@@ -4,7 +4,7 @@ const useFetch = <T>(url: string) => {
     const [data, setData] = useState<T[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
-
+    
     const fetchData = useCallback(async () => {
         setData([])
         setError('')

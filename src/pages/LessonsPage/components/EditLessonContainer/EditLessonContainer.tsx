@@ -1,27 +1,46 @@
 import { Button, Card, CardActions, CardContent, Dialog, Grid, IconButton, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
-import { EditMessageContext } from "../../../../context/EditMessage/EditMessageProvider";
+import { useCallback, useContext, useState } from "react";
 import { ILesson } from "../../../../share/interfaces/lesson.interface";
 import CloseIcon from '@mui/icons-material/Close';
 import { IEditLessonContainerProps } from "./interface/EditLessonContainer.interface";
+import { useDispatch } from "react-redux";
+import { editLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
+import { ShowSnackBarContext } from "../ShowSnackBarProvider/ShowSnackBarProvider";
 
 const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerProps) => {
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
-    const { openEditMessage } = useContext(EditMessageContext);
+    const showSnackBar = useContext(ShowSnackBarContext)
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
 
-    const onClickSaveHandler = () => {
-        fetch(`http://localhost:3002/updateSingleLesson/${lesson._id}`, {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(lesson)
-        })
-        close();
-        openEditMessage(`Lesson with ${lesson.id} id was edited!`);
-    };
+    const onClickSaveHandler = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`http://localhost:3002/updateSingleLesson/${lesson._id}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(lesson)
+            })
+            
+            if (response.ok) {
+                dispatch(editLesson(lesson));
+                showSnackBar(`Lesson with ${lesson.id} id was edited!`, 'success');
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                showSnackBar(`Error while editing lesson ${lesson.id}!`, 'error');
+            } else {
+                showSnackBar(`Unknown error occured!`, 'error');
+            }
+        } finally {
+            setIsLoading(false);
+            close();
+        }
+    }, [close, dispatch, lesson, showSnackBar]);
 
-    const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const onChangeTextFieldHandler = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
             switch (e.target.name) {
                 case 'paidStatus':
@@ -43,7 +62,7 @@ const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerP
                     };
             }
         });
-    };
+    }, []);
 
     return (
         <Dialog open={isOpen} onClose={close}>
@@ -110,7 +129,14 @@ const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerP
                     </form>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" fullWidth onClick={onClickSaveHandler}>Edit lesson</Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        onClick={onClickSaveHandler}
+                    >
+                        {isLoading ? "Editting..." : 'Edit'}
+                    </Button>
                 </CardActions>
             </Card>
         </Dialog>

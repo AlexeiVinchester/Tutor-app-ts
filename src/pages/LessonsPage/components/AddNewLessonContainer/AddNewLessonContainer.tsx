@@ -1,15 +1,12 @@
 import { Dialog, IconButton, Card, CardContent, Typography, Grid, TextField, CardActions, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { ILesson } from "../../../../share/interfaces/lesson.interface";
-//import { useDispatch, useSelector } from "react-redux";
-//import { Store } from "../../../../redux/store/interface/store.interface";
 import CloseIcon from '@mui/icons-material/Close';
-//import { addNewLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
-import { EditMessageContext } from "../../../../context/EditMessage/EditMessageProvider";
 import { AddNewLessonContainerProps } from "./interface/AddNewLessonContainer.interface";
+import { useDispatch } from "react-redux";
+import { addNewLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
 
-const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWindow, amount }: AddNewLessonContainerProps) => {
-    const { openEditMessage } = useContext(EditMessageContext)
+const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWindow, amount, showSnackBar }: AddNewLessonContainerProps) => {
     const [lesson, setLesson] = useState<ILesson>({
         id: amount,
         name: '',
@@ -17,8 +14,40 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
         date: '',
         paidStatus: false
     });
-    
-    const onChangeTextFieldHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const onClickSaveHandler = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch('http://localhost:3002/addLesson', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(lesson)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                dispatch(addNewLesson(data));
+                showSnackBar(`${lesson.id}: New lesson was added!`, 'success');
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                showSnackBar(`Error while additing! Error: ${error.message}`, 'error');
+            } else {
+                showSnackBar(`Unknown error occurred!`, 'error');
+            }
+        } finally {
+            setIsLoading(false);
+            closeCreateLessonWindow();
+        }
+    }, [closeCreateLessonWindow, dispatch, lesson, showSnackBar]);
+
+
+    const onChangeTextFieldHandler = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
             switch (e.target.name) {
                 case 'paidStatus':
@@ -40,22 +69,10 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
                     };
             }
         });
-    };
+    }, []);
 
-    const onClickSaveHandler = () => {
-        fetch('http://localhost:3002/addLesson', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(lesson)
-        })
-        closeCreateLessonWindow();
-        openEditMessage(`${lesson.id}: New lesson was added!`);
-    };
-
+    
     return (
-        
         <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
             <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
             <Card sx={{ maxWidth: 500, margin: ' 0 auto', padding: '10px 5px', boxShadow: '0 15px 20px #ABB2B9;', backgroundColor: '#f7f5f5f9' }}>
@@ -120,7 +137,14 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
                     </form>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" fullWidth onClick={onClickSaveHandler}>Create</Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        fullWidth 
+                        onClick={onClickSaveHandler}
+                    >
+                        {isLoading ? 'Creating...' : 'Create'}
+                    </Button>
                 </CardActions>
             </Card>
         </Dialog>

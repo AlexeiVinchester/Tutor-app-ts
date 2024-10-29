@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 import { Store } from "../store/interface/store.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 
-export const selectLessons = (state: Store) => state.lessons;
+export const selectLessons = (state: Store) => state.lessons.allLessons;
 
 export const selectAmountOfLessons = (lessons: ILesson[]) => lessons.length;
 export const selectMemoAmountOfLessons = createSelector(
