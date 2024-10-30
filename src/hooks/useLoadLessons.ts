@@ -10,7 +10,7 @@ const useLoadLessons = () => {
         error,
         allLessons,
         allLessonsLoaded
-    } = useSelector(selectLessonsObj)
+    } = useSelector(selectLessonsObj);
 
     const thunkDispatch = useCustomThunkDispatch();
 

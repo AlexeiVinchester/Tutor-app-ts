@@ -2,19 +2,22 @@ import { Container } from "@mui/material";
 import { IChildren } from "../../share/interfaces/children.interface"
 import { useEffect } from "react";
 import { Spinner } from "../Spinner/Spinner";
-import { useSnackMessage } from "../../hooks/useSnackMessage";
-import { SnackContainer } from "../SnackContainer/SnackContainer";
 import { useLoadLessons } from "../../hooks/useLoadLessons";
+import { useDispatch } from "react-redux";
+import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
 
 const StatisticsMainWrapper = ({ children }: IChildren) => {
-    const { isOpenSnackBar, showSnackBar, closeSnackBar, severity, message } = useSnackMessage();
     const { isLoading, error, allLessons } = useLoadLessons();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (error) {
-            showSnackBar(`Error while loading: ${error}`, 'error');
+            dispatch(showSnackMessage({
+                message: `Error while loading: ${error}`,
+                severity: 'error'
+            }));
         }
-    }, [error, showSnackBar]);
+    }, [dispatch, error]);
 
     if (isLoading) {
         return <Spinner />
@@ -24,12 +27,6 @@ const StatisticsMainWrapper = ({ children }: IChildren) => {
         <div className="flex flex-col min-h-full pb-10 bg-statistics-back">
             <Container>
                 {allLessons.length > 1 && children}
-                <SnackContainer
-                    isOpen={isOpenSnackBar}
-                    close={closeSnackBar}
-                    severity={severity}
-                    message={message}
-                />
             </Container>
         </div>
     );

@@ -5,13 +5,9 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNewLessonContainer";
 import { useModalWindow } from "../../hooks/useModalWindow";
 import { Spinner } from "../../components/Spinner/Spinner";
-import { useSnackMessage } from "../../hooks/useSnackMessage";
-import { ShowSnackBarProvider } from "./components/ShowSnackBarProvider/ShowSnackBarProvider";
-import { SnackContainer } from "../../components/SnackContainer/SnackContainer";
 import { useLoadLessons } from "../../hooks/useLoadLessons";
 
 const LessonsPage = () => {
-    const { isOpenSnackBar, showSnackBar, closeSnackBar, severity, message } = useSnackMessage();
     const { isLoading, error, allLessons } = useLoadLessons();
 
     const {
@@ -19,9 +15,8 @@ const LessonsPage = () => {
         open: openCreateLessonWindow,
         close: closeCreateLessonWindow
     } = useModalWindow();
-
+    
     return (
-        <ShowSnackBarProvider showSnackBar={showSnackBar}>
             <div>
                 {isLoading && <Spinner />}
                 {error && <h2>{error}</h2>}
@@ -32,7 +27,6 @@ const LessonsPage = () => {
                 }
                 {
                     isOpenCreateLessonWindow && <AddNewLessonContainer
-                        showSnackBar={showSnackBar}
                         amount={allLessons.length + 1}
                         isOpenCreateLessonWindow={isOpenCreateLessonWindow}
                         closeCreateLessonWindow={closeCreateLessonWindow}
@@ -41,14 +35,8 @@ const LessonsPage = () => {
                 <RoundAddButton openHandler={openCreateLessonWindow}>
                     <PostAddIcon fontSize="large" />
                 </RoundAddButton>
-                <SnackContainer
-                    isOpen={isOpenSnackBar}
-                    close={closeSnackBar}
-                    severity={severity}
-                    message={message}
-                />
+                
             </div>
-        </ShowSnackBarProvider>
     );
 };
 

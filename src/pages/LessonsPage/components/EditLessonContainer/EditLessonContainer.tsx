@@ -1,15 +1,14 @@
 import { Button, Card, CardActions, CardContent, Dialog, Grid, IconButton, TextField, Typography } from "@mui/material";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { ILesson } from "../../../../share/interfaces/lesson.interface";
 import CloseIcon from '@mui/icons-material/Close';
 import { IEditLessonContainerProps } from "./interface/EditLessonContainer.interface";
 import { useDispatch } from "react-redux";
 import { editLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
-import { ShowSnackBarContext } from "../ShowSnackBarProvider/ShowSnackBarProvider";
+import { showSnackMessage } from "../../../../redux/slices/snackMessageSlice/snackMessageSlice";
 
 const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerProps) => {
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
-    const showSnackBar = useContext(ShowSnackBarContext)
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -26,19 +25,28 @@ const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerP
             
             if (response.ok) {
                 dispatch(editLesson(lesson));
-                showSnackBar(`Lesson with ${lesson.id} id was edited!`, 'success');
+                dispatch(showSnackMessage({
+                    message: `Lesson with ${lesson.id} id was edited!`,
+                    severity: 'success'
+                }));
             }
         } catch (error) {
             if (error instanceof Error) {
-                showSnackBar(`Error while editing lesson ${lesson.id}!`, 'error');
+                dispatch(showSnackMessage({
+                    message: `Error while editing lesson ${lesson.id}!`,
+                    severity: 'error'
+                }));
             } else {
-                showSnackBar(`Unknown error occured!`, 'error');
+                dispatch(showSnackMessage({
+                    message: `Unknown error occured!`,
+                    severity: 'error'
+                }));
             }
         } finally {
             setIsLoading(false);
             close();
         }
-    }, [close, dispatch, lesson, showSnackBar]);
+    }, [close, dispatch, lesson]);
 
     const onChangeTextFieldHandler = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLesson((prev: ILesson) => {
