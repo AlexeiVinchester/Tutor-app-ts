@@ -2,7 +2,14 @@ import { createSelector } from "reselect";
 import { Store } from "../store/interface/store.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 
+/* Common selectors for lessons slice */
+
 export const selectLessons = (state: Store) => state.lessons.allLessons;
+export const selectAllLessonLoadedFlag = (state: Store) => state.lessons.allLessonsLoaded;
+export const selectLoadingFlag = (state: Store) => state.lessons.loading;
+export const selectErrorField = (state: Store) => state.lessons.error;
+
+/* Selectors of statistics per full period of time*/
 
 export const selectAmountOfLessons = (lessons: ILesson[]) => lessons.length;
 export const selectMemoAmountOfLessons = createSelector(
@@ -38,7 +45,7 @@ export const selectMemoFullIncomePerStudent = createSelector(
     selectFullIncomePerStudent
 );
 
-// selectors for selective statistics
+/* Selectors for selective statistics */
 
 const selectLessonsPerMonthAndYear = (lessons: ILesson[], year: string, month: string) => lessons.filter((lesson) => lesson.date.includes(`${year}-${month}-`));
 
@@ -62,7 +69,7 @@ export const memoSelectFullIncomeForMonthAndYear = createSelector(
     selectFullIncomeForMonthAndYear
 );
 
-const selectLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string,  year: string, month: string,) => {
+const selectLessonsPerStudentPerMonthAndYear = (lessons: ILesson[], name: string, year: string, month: string,) => {
     return selectLessonsPerMonthAndYear(lessons, year, month)
         .filter((lesson) => lesson.name === name);
 };

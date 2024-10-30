@@ -1,4 +1,4 @@
-import { Alert, Container, Snackbar } from "@mui/material";
+import { Container } from "@mui/material";
 import { RoundAddButton } from "../../share/components/RoundAddButton/RoundAddButton";
 import { useEffect } from "react";
 import { TableOfLessons } from "../../components/TableOfLessons/TableOfLessons";
@@ -7,18 +7,23 @@ import { AddNewLessonContainer } from "./components/AddNewLessonContainer/AddNew
 import { useModalWindow } from "../../hooks/useModalWindow";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { useSelector } from "react-redux";
-import { selectLessons } from "../../redux/selectors/lessonsSelectors";
-import { Store } from "../../redux/store/interface/store.interface";
 import { loadAllLessons } from "../../redux/slices/lessonsSlice/lessonsSlice";
 import { useCustomThunkDispatch } from "../../hooks/useCustomThunkDispatch";
 import { useSnackMessage } from "../../hooks/useSnackMessage";
 import { ShowSnackBarProvider } from "./components/ShowSnackBarProvider/ShowSnackBarProvider";
+import {
+    selectLessons,
+    selectAllLessonLoadedFlag,
+    selectErrorField,
+    selectLoadingFlag
+} from "../../redux/selectors/lessonsSelectors";
+import { SnackContainer } from "../../components/SnackContainer/SnackContainer";
 
 const LessonsPage = () => {
     const lessons = useSelector(selectLessons);
-    const allLessonsLoaded = useSelector((store: Store) => store.lessons.allLessonsLoaded);
-    const isLoading = useSelector((store: Store) => store.lessons.loading);
-    const isError = useSelector((store: Store) => store.lessons.error);
+    const allLessonsLoaded = useSelector(selectAllLessonLoadedFlag);
+    const isLoading = useSelector(selectLoadingFlag);
+    const isError = useSelector(selectErrorField);
     const { isOpenSnackBar, showSnackBar, closeSnackBar, severity, message } = useSnackMessage();
     const thunkDispatch = useCustomThunkDispatch();
 
@@ -56,19 +61,14 @@ const LessonsPage = () => {
                 <RoundAddButton openHandler={openCreateLessonWindow}>
                     <PostAddIcon fontSize="large" />
                 </RoundAddButton>
-
-                <Snackbar
-                    open={isOpenSnackBar}
-                    autoHideDuration={6000}
-                    onClose={closeSnackBar}
-                >
-                    <Alert onClose={closeSnackBar} severity={severity} sx={{ width: '100%' }}>
-                        {message}
-                    </Alert>
-                </Snackbar>
+                <SnackContainer
+                    isOpen={isOpenSnackBar}
+                    close={closeSnackBar}
+                    severity={severity}
+                    message={message}
+                />
             </div>
         </ShowSnackBarProvider>
-
     );
 };
 
