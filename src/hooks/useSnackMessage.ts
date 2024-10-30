@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { TSnackBarSeverity } from "../share/interfaces/snackBarSeverity.type";
 
 const useSnackMessage = () => {
@@ -6,16 +6,16 @@ const useSnackMessage = () => {
     const [severity, setSeverity] = useState<TSnackBarSeverity>('success');
     const [isOpenSnackBar, setIsOpenSnackBar] = useState<boolean>(false);
 
-    const showSnackBar = (message: string, severity: TSnackBarSeverity) => {
+    const showSnackBar = useCallback((message: string, severity: TSnackBarSeverity) => {
         setMessage(message);
         setSeverity(severity);
         setIsOpenSnackBar(true);
-    };
+    }, []);
 
-    const closeSnackBar = () => {
+    const closeSnackBar = useCallback(() => {
         setMessage(null);
         setIsOpenSnackBar(false);
-    };
+    }, []);;
 
     return { isOpenSnackBar, message, severity, showSnackBar, closeSnackBar };
 };

@@ -5,7 +5,7 @@ export interface Store {
     students: Student[],
     lessons: {
         allLessons: ILesson[],
-        loading: boolean,
+        isLoading: boolean,
         error: null | string | undefined,
         allLessonsLoaded: boolean
     }

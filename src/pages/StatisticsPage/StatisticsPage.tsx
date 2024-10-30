@@ -3,21 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { FULL_STATISTICS, SELECTIVE_STATISTICS, } from "../../Router/routes";
 import { ContainedButton } from "../../share/components/ContainedButton/ContainedButton";
 import { PageHeaderWrapper } from "../../components/PageHeaderWrapper/PageHeaderWrapper";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store/store";
-import { useEffect } from "react";
-import { loadAllLessons } from "../../redux/slices/lessonsSlice/lessonsSlice";
+
 
 const StatisticsPage = () => {
     const navigate = useNavigate();
-
-    const useThunkDispatch = () => useDispatch<AppDispatch>();
-
-    const thunkDispatch = useThunkDispatch();
-    useEffect(() => {
-        thunkDispatch(loadAllLessons('http://localhost:3002/getLessons'))
-    }, [thunkDispatch]);
-
+    
     const onClickFullStatisticsHandler = () => {
         navigate(FULL_STATISTICS);
     };

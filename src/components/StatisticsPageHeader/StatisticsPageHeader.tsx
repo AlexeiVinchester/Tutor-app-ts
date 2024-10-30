@@ -9,7 +9,8 @@ const StatisticsPageHeader = ({ description }: StatisticsPageHeaderProps) => {
     const navigate = useNavigate();
     const handleCLickBackToGeneralStatisticPage = () => {
         navigate(STATISTICS);
-    }
+    };
+    
     return (
         <PageHeaderWrapper heightInPx={280}>
             <div className="w-full">

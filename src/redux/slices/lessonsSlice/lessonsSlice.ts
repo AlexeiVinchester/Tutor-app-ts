@@ -13,7 +13,7 @@ const loadAllLessons: AsyncThunk<ILesson[], string, { dispatch: AppDispatch, sta
 
 interface IInitialLessonsSlice {
     allLessons: ILesson[],
-    loading: boolean,
+    isLoading: boolean,
     error: null | string | undefined,
     allLessonsLoaded: boolean,
 }
@@ -26,7 +26,7 @@ const initialLessonsSlice: IInitialLessonsSlice = {
         price: 30,
         paidStatus: false
     }],
-    loading: false,
+    isLoading: false,
     error: null,
     allLessonsLoaded: false
 }
@@ -46,15 +46,16 @@ export const lessonsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loadAllLessons.pending, (state) => {
-                state.loading = true
+                state.error = null;
+                state.isLoading = true;
             })
             .addCase(loadAllLessons.fulfilled, (state, action) => {
                 state.allLessons = action.payload;
-                state.loading = false;
+                state.isLoading = false;
                 state.allLessonsLoaded = true;
             })
             .addCase(loadAllLessons.rejected, (state, action) => {
-                state.loading = false;
+                state.isLoading = false;
                 state.error = action.error.message
             })
     }

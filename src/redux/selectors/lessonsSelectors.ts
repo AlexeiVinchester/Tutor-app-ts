@@ -3,10 +3,10 @@ import { Store } from "../store/interface/store.interface";
 import { ILesson } from "../../share/interfaces/lesson.interface";
 
 /* Common selectors for lessons slice */
-
+export const selectLessonsObj = (state: Store) => state.lessons;
 export const selectLessons = (state: Store) => state.lessons.allLessons;
 export const selectAllLessonLoadedFlag = (state: Store) => state.lessons.allLessonsLoaded;
-export const selectLoadingFlag = (state: Store) => state.lessons.loading;
+export const selectLoadingFlag = (state: Store) => state.lessons.isLoading;
 export const selectErrorField = (state: Store) => state.lessons.error;
 
 /* Selectors of statistics per full period of time*/
