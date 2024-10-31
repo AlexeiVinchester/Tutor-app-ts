@@ -3,16 +3,19 @@ import { ILesson } from "../../../share/interfaces/lesson.interface";
 import { TSnackBarSeverity } from "../../../share/interfaces/snackBarSeverity.type";
 
 export interface Store {
-    students: Student[],
+    students: Student[];
     lessons: {
-        allLessons: ILesson[],
-        isLoading: boolean,
-        error: null | string | undefined,
-        allLessonsLoaded: boolean
-    },
+        allLessons: ILesson[];
+        isLoading: boolean;
+        error: null | string | undefined;
+        allLessonsLoaded: boolean;
+    };
     snackMessage: {
-        isOpen: boolean,
-        message: string | null,
-        severity: TSnackBarSeverity
-    }
+        isOpen: boolean;
+        message: string | null;
+        severity: TSnackBarSeverity;
+    };
+    loadingFlag: {
+        isLoading: boolean;
+    } 
 }

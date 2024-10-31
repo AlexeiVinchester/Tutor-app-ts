@@ -7,14 +7,17 @@ import { SelectContainer } from "../../components/SelectContainer/SelectContaine
 import { FullStatisticsDataContainer } from "./components/FullStatisticsDataContainer/FullStatisticsDataContainer";
 import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
 import { createSnackMessage } from "../../utils/createSnackMessage";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 const FullStatisticsPage = () => {
     const [studentsNames, setStudentsNames] = useState<string[]>(['']);
     const [studentName, setStudentName] = useState(studentsNames[0]);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch(`http://localhost:3002/getStudentsNames`);
                 const data = await response.json();
@@ -32,6 +35,8 @@ const FullStatisticsPage = () => {
                         'error'
                     )));
                 }
+            } finally {
+                setIsLoading(false)
             }
         };
         fetchData();
@@ -40,6 +45,10 @@ const FullStatisticsPage = () => {
     const onselectStudentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setStudentName(e.target.value);
     };
+
+    if (isLoading) {
+        return <Spinner />
+    }
 
     return (
         <>
