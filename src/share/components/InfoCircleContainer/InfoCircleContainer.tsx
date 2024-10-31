@@ -1,7 +1,8 @@
 import { Box, Card, CardContent } from "@mui/material"
 import { InfoCircleContainerProps } from "./interface/InfoCircleContainer.interface";
+import React from "react";
 
-const InfoCircleContainer = ({ value, label }: InfoCircleContainerProps) => {
+const InfoCircleContainer = React.memo(({ value, label }: InfoCircleContainerProps) => {
     return (
         <Box sx={{
             minWidth: 275,
@@ -27,6 +28,6 @@ const InfoCircleContainer = ({ value, label }: InfoCircleContainerProps) => {
             </Card>
         </Box>
     );
-};
+});
 
 export { InfoCircleContainer };

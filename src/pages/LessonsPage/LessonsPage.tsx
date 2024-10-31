@@ -14,7 +14,7 @@ import { createSnackMessage } from "../../utils/createSnackMessage";
 const LessonsPage = () => {
     const { isLoading, error, allLessons } = useLoadLessons();
     const dispatch = useDispatch();
-
+    console.log('new render')
     useEffect(() => {
         if (error) {
             dispatch(showSnackMessage(createSnackMessage(

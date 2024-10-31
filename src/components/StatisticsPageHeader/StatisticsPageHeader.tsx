@@ -4,13 +4,14 @@ import { STATISTICS } from "../../Router/routes";
 import { ContainedButton } from "../../share/components/ContainedButton/ContainedButton";
 import { StatisticsPageHeaderProps } from "./interface/StatisticsPageHeader.interface";
 import { PageHeaderWrapper } from "../PageHeaderWrapper/PageHeaderWrapper";
+import React from "react";
 
-const StatisticsPageHeader = ({ description }: StatisticsPageHeaderProps) => {
+const StatisticsPageHeader = React.memo(({ description }: StatisticsPageHeaderProps) => {
     const navigate = useNavigate();
     const handleCLickBackToGeneralStatisticPage = () => {
         navigate(STATISTICS);
     };
-    
+
     return (
         <PageHeaderWrapper heightInPx={280}>
             <div className="w-full">
@@ -57,6 +58,6 @@ const StatisticsPageHeader = ({ description }: StatisticsPageHeaderProps) => {
             </div>
         </PageHeaderWrapper>
     );
-};
+});
 
 export { StatisticsPageHeader };

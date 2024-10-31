@@ -1,7 +1,8 @@
 import { Typography } from "@mui/material"
 import { IStatisticsTopTextProps } from "./interface/StatisticsTopText.interface"
+import React from "react";
 
-const StatisticsTopText = ({ value }: IStatisticsTopTextProps) => {
+const StatisticsTopText = React.memo(({ value }: IStatisticsTopTextProps) => {
     return (
         <Typography
             variant="h1"
@@ -18,7 +19,7 @@ const StatisticsTopText = ({ value }: IStatisticsTopTextProps) => {
         >
             {value}
         </Typography>
-    )
-}
+    );
+});
 
-export { StatisticsTopText } 
+export { StatisticsTopText };
