@@ -9,6 +9,7 @@ import { useLoadLessons } from "../../hooks/useLoadLessons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
+import { createSnackMessage } from "../../utils/createSnackMessage";
 
 const LessonsPage = () => {
     const { isLoading, error, allLessons } = useLoadLessons();
@@ -16,10 +17,10 @@ const LessonsPage = () => {
 
     useEffect(() => {
         if (error) {
-            dispatch(showSnackMessage({
-                message: `Error while loading: ${error}`,
-                severity: 'error'
-            }));
+            dispatch(showSnackMessage(createSnackMessage(
+                `Error while loading: ${error}`,
+                'error'
+            )))
         }
     }, [dispatch, error]);
 

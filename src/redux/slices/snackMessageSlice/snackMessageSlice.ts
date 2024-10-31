@@ -3,7 +3,7 @@ import { TSnackBarSeverity } from "../../../share/interfaces/snackBarSeverity.ty
 
 interface ISnackMessageState {
     isOpen: boolean;
-    severity: TSnackBarSeverity,
+    severity: TSnackBarSeverity, // 'error' | 'success' | 'info' | 'warning'
     message: null | string;
 }
 
@@ -32,3 +32,4 @@ const shackMessageSlice = createSlice({
 
 export const {showSnackMessage, hideSnackMessage} = shackMessageSlice.actions;
 export default shackMessageSlice.reducer;
+

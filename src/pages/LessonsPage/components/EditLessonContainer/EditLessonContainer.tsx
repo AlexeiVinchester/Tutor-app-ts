@@ -6,6 +6,7 @@ import { IEditLessonContainerProps } from "./interface/EditLessonContainer.inter
 import { useDispatch } from "react-redux";
 import { editLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
 import { showSnackMessage } from "../../../../redux/slices/snackMessageSlice/snackMessageSlice";
+import { createSnackMessage } from "../../../../utils/createSnackMessage";
 
 const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerProps) => {
     const [lesson, setLesson] = useState<ILesson>(oldLesson);
@@ -22,25 +23,25 @@ const EditLessonContainer = ({ oldLesson, isOpen, close }: IEditLessonContainerP
                 },
                 body: JSON.stringify(lesson)
             })
-            
+
             if (response.ok) {
                 dispatch(editLesson(lesson));
-                dispatch(showSnackMessage({
-                    message: `Lesson with ${lesson.id} id was edited!`,
-                    severity: 'success'
-                }));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Lesson with ${lesson.id} id was edited!`,
+                    'success'
+                )));
             }
         } catch (error) {
             if (error instanceof Error) {
-                dispatch(showSnackMessage({
-                    message: `Error while editing lesson ${lesson.id}!`,
-                    severity: 'error'
-                }));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while editing lesson ${lesson.id}!`,
+                    'error'
+                )));
             } else {
-                dispatch(showSnackMessage({
-                    message: `Unknown error occured!`,
-                    severity: 'error'
-                }));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Unknown error occured!`,
+                    'error'
+                )));
             }
         } finally {
             setIsLoading(false);

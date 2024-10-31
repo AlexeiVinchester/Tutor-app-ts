@@ -6,6 +6,7 @@ import { AddNewLessonContainerProps } from "./interface/AddNewLessonContainer.in
 import { useDispatch } from "react-redux";
 import { addNewLesson } from "../../../../redux/slices/lessonsSlice/lessonsSlice";
 import { showSnackMessage } from "../../../../redux/slices/snackMessageSlice/snackMessageSlice";
+import { createSnackMessage } from "../../../../utils/createSnackMessage";
 
 const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWindow, amount }: AddNewLessonContainerProps) => {
     const [lesson, setLesson] = useState<ILesson>({
@@ -32,22 +33,22 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
             if (response.ok) {
                 const data = await response.json();
                 dispatch(addNewLesson(data));
-                dispatch(showSnackMessage({
-                    message: `${lesson.id}: New lesson was added!`,
-                    severity: 'success'
-                }));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `${lesson.id}: New lesson was added!`,
+                    'success'
+                )));
             }
         } catch (error) {
             if (error instanceof Error) {
-                dispatch(showSnackMessage({
-                    message: `Error while additing! Error: ${error.message}`,
-                    severuty: 'error'
-                }));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while additing! Error: ${error.message}`,
+                    'error'
+                )));
             } else {
-                dispatch(showSnackMessage({
-                    message: `Unknown error occurred!`,
-                    severity: 'error'
-                } ));
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Unknown error occurred!`,
+                    'error'
+                )));
             }
         } finally {
             setIsLoading(false);
@@ -80,7 +81,7 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
         });
     }, []);
 
-    
+
     return (
         <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
             <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
@@ -146,10 +147,10 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
                     </form>
                 </CardContent>
                 <CardActions>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        fullWidth 
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
                         onClick={onClickSaveHandler}
                     >
                         {isLoading ? 'Creating...' : 'Create'}

@@ -5,6 +5,7 @@ import { Spinner } from "../Spinner/Spinner";
 import { useLoadLessons } from "../../hooks/useLoadLessons";
 import { useDispatch } from "react-redux";
 import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
+import { createSnackMessage } from "../../utils/createSnackMessage";
 
 const StatisticsMainWrapper = ({ children }: IChildren) => {
     const { isLoading, error, allLessons } = useLoadLessons();
@@ -12,10 +13,10 @@ const StatisticsMainWrapper = ({ children }: IChildren) => {
 
     useEffect(() => {
         if (error) {
-            dispatch(showSnackMessage({
-                message: `Error while loading: ${error}`,
-                severity: 'error'
-            }));
+            dispatch(showSnackMessage(createSnackMessage(
+                `Error while loading: ${error}`,
+                'error'
+            )));
         }
     }, [dispatch, error]);
 
