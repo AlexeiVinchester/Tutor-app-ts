@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { hideSnackMessage, showSnackMessage } from "../../../../redux/slices/snackMessageSlice/snackMessageSlice";
+import { showSnackMessage } from "../../../../redux/slices/snackMessageSlice/snackMessageSlice";
 import { InfoCircleContainer } from "../../../../share/components/InfoCircleContainer/InfoCircleContainer";
 import { IFullStatisticsData } from "../../../../share/interfaces/fullStatisticsData";
 import { createSnackMessage } from "../../../../utils/createSnackMessage";
+import { stopLoading, startLoading } from "../../../../redux/slices/loadingSlice/loadingSlice";
 
 const FullStatisticsDataContainer = ({ studentName }: { studentName: string }) => {
     const [data, setData] = useState<IFullStatisticsData>({
@@ -16,11 +17,11 @@ const FullStatisticsDataContainer = ({ studentName }: { studentName: string }) =
 
     useEffect(() => {
         const fetchData = async () => {
+            dispatch(startLoading());
             try {
                 const response = await fetch(`http://localhost:3002/getfullStatistics?name=${studentName}`);
                 const data = await response.json();
                 setData(data);
-                dispatch(hideSnackMessage());
             } catch (error) {
                 if (error instanceof Error) {
                     dispatch(showSnackMessage(createSnackMessage(
@@ -32,7 +33,9 @@ const FullStatisticsDataContainer = ({ studentName }: { studentName: string }) =
                         `Error while loading statistics data: unknown error!`,
                         'error'
                     )));
-                }
+                } 
+            } finally {
+                dispatch(stopLoading())
             }
         };
 

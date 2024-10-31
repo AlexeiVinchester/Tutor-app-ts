@@ -2,7 +2,7 @@ import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/Stat
 import { StatisticsMainWrapper } from "../../components/StatisticsMainWrapper/StatisticsMainWrapper";
 import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
 import { useEffect, useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { SelectContainer } from "../../components/SelectContainer/SelectContainer";
 import { FullStatisticsDataContainer } from "./components/FullStatisticsDataContainer/FullStatisticsDataContainer";
 import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
@@ -14,7 +14,7 @@ const FullStatisticsPage = () => {
     const [studentName, setStudentName] = useState(studentsNames[0]);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
@@ -46,9 +46,7 @@ const FullStatisticsPage = () => {
         setStudentName(e.target.value);
     };
 
-    if (isLoading) {
-        return <Spinner />
-    }
+    if (isLoading) return <Spinner />;
 
     return (
         <>

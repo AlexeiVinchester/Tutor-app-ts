@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     students: studentsSlice,
     lessons: lessonsSlice,
     snackMessage: snackMessageSLice,
-    isLoading: loadingSlice
+    loadingFlag: loadingSlice
 });
 
 export { rootReducer };

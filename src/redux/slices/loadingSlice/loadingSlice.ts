@@ -12,14 +12,14 @@ const loadingSlice = createSlice({
     name: 'loadingFlag',
     initialState: initialLoadingState,
     reducers: {
-        showLoadingInSnack(state) {
+        startLoading(state) {
             state.isLoading = true;
         },
-        hideLoadingInSnack(state){
+        stopLoading(state) {
             state.isLoading = false;
         }
     }
 });
 
-export const {showLoadingInSnack, hideLoadingInSnack} = loadingSlice.actions;
+export const { startLoading, stopLoading } = loadingSlice.actions;
 export default loadingSlice.reducer;
