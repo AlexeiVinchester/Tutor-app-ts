@@ -1,19 +1,49 @@
 import { StatisticsPageHeader } from "../../components/StatisticsPageHeader/StatisticsPageHeader";
 import { StatisticsMainWrapper } from "../../components/StatisticsMainWrapper/StatisticsMainWrapper";
 import { StatisticsTopText } from "../../components/StatisticsTopText/StatisticsTopText";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SelectContainer } from "../../components/SelectContainer/SelectContainer";
 import { FullStatisticsDataContainer } from "./components/FullStatisticsDataContainer/FullStatisticsDataContainer";
 import { showSnackMessage } from "../../redux/slices/snackMessageSlice/snackMessageSlice";
 import { createSnackMessage } from "../../utils/createSnackMessage";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { startLoading, stopLoading } from "../../redux/slices/loadingSlice/loadingSlice";
+import { IFullStatisticsData } from "../../share/interfaces/fullStatisticsData";
 
 const FullStatisticsPage = () => {
-    const [studentsNames, setStudentsNames] = useState<string[]>(['']);
-    const [studentName, setStudentName] = useState(studentsNames[0]);
+    const [studentsNames, setStudentsNames] = useState<string[]>(['']);    
     const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState<IFullStatisticsData>({
+        fullAmountOfLessons: 0,
+        fullIncome: 0,
+        fullIncomePerStudent: 0,
+        fullAmountPerStudent: 0,
+    });
     const dispatch = useDispatch();
+
+    const fetchStudentData = useCallback(async (name: string) => {
+        dispatch(startLoading());
+        try {
+            const response = await fetch(`http://localhost:3002/getfullStatistics?name=${name}`);
+            const data = await response.json();
+            setData(data);
+        } catch (error) {
+            if (error instanceof Error) {
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while loading statistics data: ${error.message}!`,
+                    'error'
+                )));
+            } else {
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while loading statistics data: unknown error!`,
+                    'error'
+                )));
+            }
+        } finally {
+            dispatch(stopLoading())
+        }
+    }, [dispatch]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +52,7 @@ const FullStatisticsPage = () => {
                 const response = await fetch(`http://localhost:3002/getStudentsNames`);
                 const data = await response.json();
                 setStudentsNames(data);
-                setStudentName(data[0]);
+                await fetchStudentData(data[0]);
             } catch (error) {
                 if (error instanceof Error) {
                     dispatch(showSnackMessage(createSnackMessage(
@@ -40,10 +70,10 @@ const FullStatisticsPage = () => {
             }
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, fetchStudentData]);
 
-    const onselectStudentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setStudentName(e.target.value);
+    const onselectStudentChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        await fetchStudentData(e.target.value);
     };
 
     if (isLoading) return <Spinner />;
@@ -59,7 +89,7 @@ const FullStatisticsPage = () => {
                     data={studentsNames}
                     onChange={onselectStudentChange}
                 />
-                <FullStatisticsDataContainer studentName={studentName} />
+                <FullStatisticsDataContainer data={data} />
             </StatisticsMainWrapper>
         </>
     );
