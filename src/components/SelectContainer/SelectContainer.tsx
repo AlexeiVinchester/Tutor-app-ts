@@ -1,6 +1,7 @@
+import React from "react";
 import { SelectContainerProps } from "./interface/SelectContainer.interface";
 
-const SelectContainer = ({ onChange, data, value }: SelectContainerProps) => {
+const SelectContainer = React.memo(({ onChange, data, value }: SelectContainerProps) => {
     return (
         <div className="flex justify-center items-center">
             <select
@@ -19,6 +20,6 @@ const SelectContainer = ({ onChange, data, value }: SelectContainerProps) => {
             </select>
         </div>
     );
-};
+});
 
 export { SelectContainer }; 
