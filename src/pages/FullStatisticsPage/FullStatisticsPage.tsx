@@ -21,6 +21,10 @@ const FullStatisticsPage = () => {
         dispatch(startLoading());
         try {
             const response = await fetch(`http://localhost:3002/getfullStatistics?name=${name}`);
+            if (!response.ok) {
+                throw new Error(`Server error while getting data for ${name}!`);
+
+            }
             const data = await response.json();
             setData(data);
         } catch (error) {
@@ -40,16 +44,20 @@ const FullStatisticsPage = () => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`http://localhost:3002/getStudentsNames`);
+                if (!response.ok) {
+                    throw new Error('Server Error while loading names for students!');
+                }
+
                 const data = await response.json();
                 setStudentsNames(data);
                 setIsNamesLoading(false);
 
-                if (data.length > 1) {
+                if (data.length > 0) {
                     await fetchStudentData(data[0]);
                 }
             } catch (error) {
                 dispatch(showSnackMessage(createSnackMessage(
-                    `Error while loading students names: ${error instanceof Error ?
+                    `Error while loading: ${error instanceof Error ?
                         error.message :
                         'unknown error occurred!'
                     }!`,
@@ -82,7 +90,6 @@ const FullStatisticsPage = () => {
                         {data && <FullStatisticsDataContainer data={data} />}
                     </StatisticsMainWrapper>
             }
-
         </>
     );
 };
