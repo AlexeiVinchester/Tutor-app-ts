@@ -74,7 +74,7 @@ const FullStatisticsPage = () => {
         }
     }, [dispatch]);
 
-    const onselectStudentChange = useCallback(async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChangeStudentName = useCallback(async (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedStudentName(e.target.value);
         await fetchStudentData(e.target.value);
     }, [fetchStudentData]);;
@@ -84,33 +84,35 @@ const FullStatisticsPage = () => {
             <StatisticsPageHeader
                 description="Here you can find statistics for full time: amount of lessons and full income. In the bottom part choose student and find income and amount of lessons for interested student!"
             />
-            {
-                isInitialDataLoaded ?
-                    <Spinner /> :
-                    <StatisticsMainWrapper>
-                        <StatisticsTopText value="Full Statistics" />
-                        <SelectContainer
-                            onChange={onselectStudentChange}
-                            data={studentsNames}
-                            value={selectedStudentName}
-                            initialOption="ChooseStudent"
-                        />
-                        <StatisticsDataContainer
-                            amountLabel="Common amount"
-                            amount={commonStatistics?.amountOfLessons}
-                            incomeLabel="Common income"
-                            income={commonStatistics?.income}
-                        />
-                        {studentStatistics && (
-                            <StatisticsDataContainer
-                                amountLabel="Student amount"
-                                amount={studentStatistics.amountOfLessons}
-                                incomeLabel="Student income"
-                                income={studentStatistics.income}
+            <StatisticsMainWrapper>
+                <StatisticsTopText value="Full Statistics" />
+                {
+                    isInitialDataLoaded ?
+                        <Spinner /> :
+                        <>
+                            <SelectContainer
+                                onChange={handleChangeStudentName}
+                                data={studentsNames}
+                                value={selectedStudentName}
+                                initialOption="Choose Student"
                             />
-                        )}
-                    </StatisticsMainWrapper>
-            }
+                            <StatisticsDataContainer
+                                amountLabel="Common amount"
+                                amount={commonStatistics?.amountOfLessons}
+                                incomeLabel="Common income"
+                                income={commonStatistics?.income}
+                            />
+                            {studentStatistics && (
+                                <StatisticsDataContainer
+                                    amountLabel="Student amount"
+                                    amount={studentStatistics.amountOfLessons}
+                                    incomeLabel="Student income"
+                                    income={studentStatistics.income}
+                                />
+                            )}
+                        </>
+                }
+            </StatisticsMainWrapper>
         </>
     );
 };

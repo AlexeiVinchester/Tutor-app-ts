@@ -24,12 +24,13 @@ const StudentCard = ({ student }: StudentCardProps) => {
         <CardContainer>
             <IconButton
                 onClick={handleClickStatusIcon}
+                className="relative top-3 left-3"
             >
                 <TaskAltIcon
                     sx={student.status === 'active' ?
                         { color: 'green', } :
                         { color: 'red' }}
-                    className="relative top-3 left-3"
+                    
                     fontSize="large"
 
                 />
