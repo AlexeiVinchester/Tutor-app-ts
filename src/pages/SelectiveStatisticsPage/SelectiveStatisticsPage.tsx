@@ -23,39 +23,38 @@ const SelectiveStatisticsPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (selectedMonth && selectedYear) {
-            const loadStudentsNamesForPeriod = async () => {
-                setIsInitialDataLoaded(true);
-                try {
-                    const responseNames = await fetch(`http://localhost:3002/getStudentsNamesForPeriod?year=${selectedYear}&month=${selectedMonth}`);
-                    if (!responseNames.ok) {
-                        throw new Error('Server error while loading names for period');
-                    }
-                    const names = await responseNames.json();
-
-                    const responseOfCommonStatistics = await fetch(`http://localhost:3002/getCommonStatisticsForPeriod?year=${selectedYear}&month=${selectedMonth}`)
-                    if (!responseOfCommonStatistics) {
-                        throw new Error('Server error while loading common statistics for period');
-
-                    }
-                    const commonStatistics = await responseOfCommonStatistics.json();
-
-                    setStudentsNames(names);
-                    setCommonStatistics(commonStatistics);
-                } catch (error) {
-                    dispatch(showSnackMessage(createSnackMessage(
-                        `Error while loading initial data: ${error instanceof Error ?
-                            error.message :
-                            'unknown error occured'
-                        }!`,
-                        'error'
-                    )));
-                } finally {
-                    setIsInitialDataLoaded(false);
+        const loadInitialData = async () => {
+            setIsInitialDataLoaded(true);
+            try {
+                const responseNames = await fetch(`http://localhost:3002/getStudentsNamesForPeriod?year=${selectedYear}&month=${selectedMonth}`);
+                if (!responseNames.ok) {
+                    throw new Error('Server error while loading names for period');
                 }
-            };
-            loadStudentsNamesForPeriod();
-        }
+                const names = await responseNames.json();
+
+                const responseOfCommonStatistics = await fetch(`http://localhost:3002/getCommonStatisticsForPeriod?year=${selectedYear}&month=${selectedMonth}`)
+                if (!responseOfCommonStatistics) {
+                    throw new Error('Server error while loading common statistics for period');
+
+                }
+                const commonStatistics = await responseOfCommonStatistics.json();
+
+                setStudentsNames(names);
+                setCommonStatistics(commonStatistics);
+            } catch (error) {
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while loading initial data: ${error instanceof Error ?
+                        error.message :
+                        'unknown error occured'
+                    }!`,
+                    'error'
+                )));
+            } finally {
+                setIsInitialDataLoaded(false);
+            }
+        };
+        loadInitialData();
+
 
     }, [dispatch, selectedMonth, selectedYear]);
 
@@ -75,7 +74,7 @@ const SelectiveStatisticsPage = () => {
                 description="Here you can find selective common and student's statistics for choosen period "
             />
             <StatisticsMainWrapper>
-                <StatisticsTopText 
+                <StatisticsTopText
                     value="Selective statistics"
                 />
                 <div className="flex justify-center gap-6 items-center mb-10">
