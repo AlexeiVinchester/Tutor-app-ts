@@ -33,7 +33,7 @@ const LessonsPage = () => {
     if (isLoading) {
         return <Spinner />
     }
-
+    
     return (
         <>
             {allLessons.length > 1 &&

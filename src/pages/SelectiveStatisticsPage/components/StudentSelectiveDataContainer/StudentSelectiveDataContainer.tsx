@@ -13,30 +13,28 @@ const StudentSelectiveDataContainer = ({ studentsNames, year, month }: { student
     const dispatch = useDispatch();
 
     const fetchStudentStatistics = useCallback(async (name: string) => {
-        if (year && month && name) {
-            dispatch(startLoading());
-            const loadStudentStatisticsForPeriod = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3002/getStudentStatisticsForPeriod?year=${year}&month=${month}&name=${name}`)
-                    if (!response.ok) {
-                        throw new Error('Server error while loading names for period');
-                    }
-                    const data = await response.json();
-                    setStudentStatistics(data);
-                } catch (error) {
-                    dispatch(showSnackMessage(createSnackMessage(
-                        `Error while loading students data for period: ${error instanceof Error ?
-                            error.message :
-                            'unknown error occured'
-                        }!`,
-                        'error'
-                    )));
-                } finally {
-                    dispatch(stopLoading());
+        dispatch(startLoading());
+        const loadStudentStatisticsForPeriod = async () => {
+            try {
+                const response = await fetch(`http://localhost:3002/getStudentStatisticsForPeriod?year=${year}&month=${month}&name=${name}`)
+                if (!response.ok) {
+                    throw new Error('Server error while loading names for period');
                 }
-            };
-            loadStudentStatisticsForPeriod();
-        }
+                const data = await response.json();
+                setStudentStatistics(data);
+            } catch (error) {
+                dispatch(showSnackMessage(createSnackMessage(
+                    `Error while loading students data for period: ${error instanceof Error ?
+                        error.message :
+                        'unknown error occured'
+                    }!`,
+                    'error'
+                )));
+            } finally {
+                dispatch(stopLoading());
+            }
+        };
+        loadStudentStatisticsForPeriod();
     }, [dispatch, month, year]);
 
     const handleChangeName = useCallback(async (e: React.ChangeEvent<HTMLSelectElement>) => {

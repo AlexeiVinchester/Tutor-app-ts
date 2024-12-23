@@ -1,8 +1,10 @@
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { TableOfLessonsProps } from "./interface/TableOfLessons.interface";
 import { BodyTableRow } from "../BodyTableRow/BodyTableRow";
+import React from "react";
 
-const TableOfLessons = ({ lessons }: TableOfLessonsProps) => {
+const TableOfLessons = React.memo(({ lessons }: TableOfLessonsProps) => {
+    console.log('lessons table render')
     return (
         <>
             <TableContainer component={Paper} sx={{ maxHeight: 640 }}>
@@ -26,6 +28,6 @@ const TableOfLessons = ({ lessons }: TableOfLessonsProps) => {
             </TableContainer>
         </>
     );
-};
+});
 
 export { TableOfLessons }; 
