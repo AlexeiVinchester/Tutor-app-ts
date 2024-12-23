@@ -1,8 +1,9 @@
+import React from "react";
 import { getValueForMonthOption } from "./dateWorker";
 import { SelectMonthContainerProps } from "./interface/SelectMonthContainer.interface";
 
-const SelectMonthContainer = ({ onChange, data, value }: SelectMonthContainerProps ) => {
-    
+const SelectMonthContainer = React.memo(({ onChange, data, value }: SelectMonthContainerProps ) => {
+    console.log('render of month select')
     return (
         <div className="flex justify-center items-center">
             <select
@@ -21,6 +22,6 @@ const SelectMonthContainer = ({ onChange, data, value }: SelectMonthContainerPro
             </select>
         </div>
     );
-};
+});
 
 export { SelectMonthContainer }
