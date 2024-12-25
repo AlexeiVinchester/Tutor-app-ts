@@ -1,4 +1,4 @@
 export interface ContainedButtonProps {
-    onClick: () => void;
+    onClick?: () => void;
     value: string;
 };

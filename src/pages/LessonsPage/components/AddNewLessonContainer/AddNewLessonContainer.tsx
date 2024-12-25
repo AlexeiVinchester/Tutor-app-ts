@@ -81,7 +81,6 @@ const AddNewLessonContainer = ({ isOpenCreateLessonWindow, closeCreateLessonWind
         });
     }, []);
 
-
     return (
         <Dialog open={isOpenCreateLessonWindow} onClose={closeCreateLessonWindow}>
             <IconButton sx={{ position: 'absolute', right: '5px', top: '5px' }} onClick={closeCreateLessonWindow} ><CloseIcon /></IconButton>
