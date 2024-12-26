@@ -1,7 +1,7 @@
 import {
   CreateNewLessonForm,
-  StyledFormWrapper,
 } from '../../FSD/features/createNewLessonForm/createNewLessonForm';
+import { StyledFormWrapper } from '../../share/components/StyledFormWrapper/styledFormWrapper';
 
 const AboutAppPage = () => {
   return (

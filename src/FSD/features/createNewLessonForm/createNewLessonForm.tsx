@@ -1,9 +1,9 @@
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loadStudentsNames } from '../../entities/student/api/loadStudentsNames';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { Spinner } from '../../../components/Spinner/Spinner';
-import { Button, Card, CardContent, Checkbox } from '@mui/material';
+import { Button, Checkbox } from '@mui/material';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -22,25 +22,6 @@ import {
   DateValidationError,
 } from '@mui/x-date-pickers/models';
 import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
-
-type TStyledFormWrapperProps = {
-  children: ReactNode;
-};
-
-export const StyledFormWrapper = ({ children }: TStyledFormWrapperProps) => {
-  return (
-    <Card
-      sx={{
-        maxWidth: 500,
-        margin: ' 0 auto',
-        padding: '10px 5px',
-        boxShadow: '0 15px 20px #ABB2B9;',
-      }}
-    >
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-};
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
