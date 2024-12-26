@@ -4,15 +4,12 @@ import { loadStudentsNames } from '../../entities/student/api/loadStudentsNames'
 import { useState } from 'react';
 import { Spinner } from '../../../components/Spinner/Spinner';
 import { Button, Checkbox } from '@mui/material';
-
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 import { defaultValues } from './model/defaultValues';
 import {
   schemaCreateNewLessonForm,
   TSchemaCreateNewLessonFrom,
 } from './model/schema';
-import { StyledInput } from '../../shared/ui/StyledInput/styledInput';
 import { StyledSelect } from '../../shared/ui/StyledSelect/StyledSelect';
 import { StyledDatePicker } from '../../shared/ui/StyledDatePicker/styledDatePicker';
 
@@ -22,6 +19,7 @@ import {
   DateValidationError,
 } from '@mui/x-date-pickers/models';
 import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
+import { ControlledInputField } from '../../shared/ui/ControlledInputField/controlledInputField';
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
@@ -56,22 +54,11 @@ export const CreateNewLessonForm = () => {
           <StyledSelect options={options} fieldState={fieldState} {...field} />
         )}
       />
-      <Controller
+      <ControlledInputField
         name="price"
-        control={methods.control}
-        render={({ field, fieldState }) => {
-          return (
-            <StyledInput
-              fieldState={fieldState}
-              {...field}
-              fullWidth
-              name="price"
-              label="Price"
-              variant="outlined"
-              placeholder="Enter price of lesson"
-            />
-          );
-        }}
+        label="Price"
+        placeholder="Enter price of lesson"
+        variant="outlined"
       />
       <Controller
         control={methods.control}

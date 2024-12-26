@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@mui/material";
-import { ReactNode } from "react";
+import { Card, CardContent } from '@mui/material';
+import { ReactNode } from 'react';
 
 type TStyledFormWrapperProps = {
   children: ReactNode;
