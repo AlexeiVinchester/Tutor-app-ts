@@ -3,8 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loadStudentsNames } from '../../entities/student/api/loadStudentsNames';
 import { useState } from 'react';
 import { Spinner } from '../../../components/Spinner/Spinner';
-import { Button, Checkbox } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Button } from '@mui/material';
 import { defaultValues } from './model/defaultValues';
 import {
   schemaCreateNewLessonForm,
@@ -21,6 +20,7 @@ import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
 import { ControlledInputField } from '../../shared/ui/ControlledInputField/controlledInputField';
 import { ControlledSelectField } from '../../shared/ui/ControlledSelectField/controlledSelectField';
 import { createSelectOptions } from '../../shared/utils/createSelectOption';
+import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
@@ -78,12 +78,9 @@ export const CreateNewLessonForm = () => {
           );
         }}
       />
-      <Controller
-        control={methods.control}
+      <ControlledCheckboxField 
         name="paidStatus"
-        render={({ field }) => (
-          <FormControlLabel label="Paid" control={<Checkbox {...field} />} />
-        )}
+        label="Paid"
       />
       <Button
         type="submit"
