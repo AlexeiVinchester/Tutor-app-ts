@@ -1,12 +1,20 @@
-import { FormControlLabel, Checkbox, FormControlLabelProps } from "@mui/material";
-import { Controller, useFormContext } from "react-hook-form";
+import {
+  FormControlLabel,
+  Checkbox,
+  FormControlLabelProps,
+} from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 type TControlledCheckboxFieldProps = {
   name: string;
   label: string;
 } & Omit<FormControlLabelProps, 'control' | 'label'>;
 
-export const ControlledCheckboxField = ({ name, label, ...props }: TControlledCheckboxFieldProps) => {
+export const ControlledCheckboxField = ({
+  name,
+  label,
+  ...props
+}: TControlledCheckboxFieldProps) => {
   const { control } = useFormContext();
 
   return (
@@ -16,12 +24,10 @@ export const ControlledCheckboxField = ({ name, label, ...props }: TControlledCh
       render={({ field }) => (
         <FormControlLabel
           label={label}
-          control={
-            <Checkbox {...field} />
-          }
+          control={<Checkbox {...field} />}
           {...props}
         />
       )}
     />
   );
-}
+};

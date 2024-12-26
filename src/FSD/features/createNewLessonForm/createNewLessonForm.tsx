@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loadStudentsNames } from '../../entities/student/api/loadStudentsNames';
 import { useState } from 'react';
@@ -9,18 +9,13 @@ import {
   schemaCreateNewLessonForm,
   TSchemaCreateNewLessonFrom,
 } from './model/schema';
-import { StyledDatePicker } from '../../shared/ui/StyledDatePicker/styledDatePicker';
 
-import dayjs from 'dayjs';
-import {
-  PickerChangeHandlerContext,
-  DateValidationError,
-} from '@mui/x-date-pickers/models';
 import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
 import { ControlledInputField } from '../../shared/ui/ControlledInputField/controlledInputField';
 import { ControlledSelectField } from '../../shared/ui/ControlledSelectField/controlledSelectField';
 import { createSelectOptions } from '../../shared/utils/createSelectOption';
 import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
+import { ControlledDatePicker } from '../../shared/ui/ControlledDatePicker/controlledDatePicker';
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
@@ -59,29 +54,8 @@ export const CreateNewLessonForm = () => {
         placeholder="Enter price of lesson"
         variant="outlined"
       />
-      <Controller
-        control={methods.control}
-        name="lessonDate"
-        render={({ field: { onChange, value } }) => {
-          const handleChangeDate = (
-            date: dayjs.Dayjs | null,
-            context: PickerChangeHandlerContext<DateValidationError>
-          ) => {
-            const isoDate = date ? date.format('YYYY-MM-DD') : null;
-            onChange(isoDate, context);
-          };
-          return (
-            <StyledDatePicker
-              handleChangeDate={handleChangeDate}
-              value={dayjs(value)}
-            />
-          );
-        }}
-      />
-      <ControlledCheckboxField 
-        name="paidStatus"
-        label="Paid"
-      />
+      <ControlledDatePicker name="lessonDate" />
+      <ControlledCheckboxField name="paidStatus" label="Paid" />
       <Button
         type="submit"
         variant="contained"
