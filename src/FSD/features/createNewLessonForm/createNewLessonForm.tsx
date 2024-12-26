@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loadStudentsNames } from '../../entities/student/api/loadStudentsNames';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Spinner } from '../../../components/Spinner/Spinner';
-import { Button } from '@mui/material';
 import { defaultValues } from './model/defaultValues';
 import {
   schemaCreateNewLessonForm,
@@ -16,9 +15,14 @@ import { ControlledSelectField } from '../../shared/ui/ControlledSelectField/con
 import { createSelectOptions } from '../../shared/utils/createSelectOption';
 import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
 import { ControlledDatePicker } from '../../shared/ui/ControlledDatePicker/controlledDatePicker';
+import { StyledButton } from '../../shared/ui/StyledButton/StyledButton';
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
+  const studentNamesOptions = useMemo(
+    () => createSelectOptions(options),
+    [options]
+  );
   const methods = useForm<TSchemaCreateNewLessonFrom>({
     resolver: zodResolver(schemaCreateNewLessonForm),
     defaultValues: async () => {
@@ -45,7 +49,7 @@ export const CreateNewLessonForm = () => {
     >
       <ControlledSelectField
         name="studentName"
-        options={createSelectOptions(options)}
+        options={studentNamesOptions}
         label="Student"
       />
       <ControlledInputField
@@ -56,22 +60,7 @@ export const CreateNewLessonForm = () => {
       />
       <ControlledDatePicker name="lessonDate" />
       <ControlledCheckboxField name="paidStatus" label="Paid" />
-      <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        sx={{
-          borderRadius: '15px',
-          bgcolor: 'rgb(255, 92, 53)',
-          padding: '16px',
-          color: 'white',
-          ':hover': {
-            bgcolor: 'rgb(80, 201, 173)',
-          },
-        }}
-      >
-        Create new Lesson
-      </Button>
+      <StyledButton type="submit">Create new Lesson</StyledButton>
     </FormWrapper>
   );
 };
