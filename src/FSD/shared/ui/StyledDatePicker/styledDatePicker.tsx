@@ -1,35 +1,31 @@
-import { forwardRef, useCallback } from "react";
-import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
+import { forwardRef } from "react";
+import { ControllerFieldState } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";
-import { FormControl } from "@mui/material";
+import { FormControl, FormHelperText } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker, DesktopDatePickerProps } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
 type TCustomDatePickerProps = {
-    field: ControllerRenderProps;
-    fieldState: ControllerFieldState;
+    fieldState?: ControllerFieldState;
+    handleChangeDate?: (date: dayjs.Dayjs | null, context: PickerChangeHandlerContext<DateValidationError>) => void
 };
 
 type TStyledDatePickerProps = DesktopDatePickerProps<Dayjs> & TCustomDatePickerProps;
 
 export const StyledDatePicker = forwardRef<HTMLDivElement, TStyledDatePickerProps>(
-    ({ field, ...props }, ref) => {
-        const handleChangeDate = useCallback((date: dayjs.Dayjs | null) => {
-            const isoDate = date ? date.format("YYYY-MM-DD") : null;
-            field.onChange(isoDate)
-        }, [field]);
-
+    ({ fieldState, handleChangeDate, ...props }, ref) => {
         return (
             <FormControl fullWidth>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                         ref={ref}
-                        value={field.value ? dayjs(field.value) : null}
+                        value={props.value ? dayjs(props.value) : null}
                         onChange={handleChangeDate}
-                        {...props}
                     />
                 </LocalizationProvider>
+                <FormHelperText>{fieldState?.error && fieldState.error.message}</FormHelperText>
             </FormControl>
         );
     }
