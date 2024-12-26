@@ -10,7 +10,6 @@ import {
   schemaCreateNewLessonForm,
   TSchemaCreateNewLessonFrom,
 } from './model/schema';
-import { StyledSelect } from '../../shared/ui/StyledSelect/StyledSelect';
 import { StyledDatePicker } from '../../shared/ui/StyledDatePicker/styledDatePicker';
 
 import dayjs from 'dayjs';
@@ -20,6 +19,8 @@ import {
 } from '@mui/x-date-pickers/models';
 import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
 import { ControlledInputField } from '../../shared/ui/ControlledInputField/controlledInputField';
+import { ControlledSelectField } from '../../shared/ui/ControlledSelectField/controlledSelectField';
+import { createSelectOptions } from '../../shared/utils/createSelectOption';
 
 export const CreateNewLessonForm = () => {
   const [options, setOptions] = useState<string[]>([]);
@@ -47,12 +48,10 @@ export const CreateNewLessonForm = () => {
       onSubmit={handleSubmitForm}
       className="flex flex-col gap-3"
     >
-      <Controller
-        control={methods.control}
+      <ControlledSelectField
         name="studentName"
-        render={({ field, fieldState }) => (
-          <StyledSelect options={options} fieldState={fieldState} {...field} />
-        )}
+        options={createSelectOptions(options)}
+        label="Student"
       />
       <ControlledInputField
         name="price"

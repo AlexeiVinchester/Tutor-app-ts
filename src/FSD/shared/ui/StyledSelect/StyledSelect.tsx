@@ -1,3 +1,5 @@
+import { forwardRef, useId } from 'react';
+import { ControllerFieldState } from 'react-hook-form';
 import {
   FormControl,
   FormHelperText,
@@ -6,33 +8,28 @@ import {
   Select,
   SelectProps,
 } from '@mui/material';
-import { forwardRef, useId } from 'react';
-import { ControllerFieldState } from 'react-hook-form';
+import { TSelectOption } from '../../types/selectOption';
 
 type TCustomSelectProps = {
   fieldState?: ControllerFieldState;
-  options: string[];
+  options: TSelectOption[];
+  label: string;
 };
 
-export type TStyledSelectProps = SelectProps & TCustomSelectProps;
+type TStyledSelectProps = TCustomSelectProps &
+  Omit<SelectProps, 'label' | 'labelId'>;
 
 export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
-  ({ fieldState, options, ...props }, ref) => {
+  ({ fieldState, options, label, ...props }, ref) => {
     const labelId = useId();
 
     return (
       <FormControl fullWidth>
-        <InputLabel id={labelId}>Select Student</InputLabel>
-        <Select
-          ref={ref}
-          fullWidth
-          {...props}
-          labelId={labelId}
-          label="Select student"
-        >
+        <InputLabel id={labelId}>{label}</InputLabel>
+        <Select ref={ref} fullWidth labelId={labelId} label={label} {...props}>
           {options.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+            <MenuItem key={option.value} value={option.value}>
+              {option.name}
             </MenuItem>
           ))}
         </Select>
