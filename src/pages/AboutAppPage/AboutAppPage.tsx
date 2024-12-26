@@ -1,10 +1,10 @@
-import { CreateNewLessonForm, FormWrapper } from "../../FSD/features/createNewLessonForm/createNewLessonForm";
+import { CreateNewLessonForm, StyledFormWrapper } from "../../FSD/features/createNewLessonForm/createNewLessonForm";
 
 const AboutAppPage = () => {
     return (
-        <FormWrapper>
+        <StyledFormWrapper>
             <CreateNewLessonForm />
-        </FormWrapper>
+        </StyledFormWrapper>
 
     );
 
