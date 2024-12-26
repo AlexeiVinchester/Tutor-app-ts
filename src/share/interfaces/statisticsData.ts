@@ -1,4 +1,4 @@
 export interface IStatisticsData {
-    amountOfLessons: number;
-    income: number;
-};
+  amountOfLessons: number;
+  income: number;
+}

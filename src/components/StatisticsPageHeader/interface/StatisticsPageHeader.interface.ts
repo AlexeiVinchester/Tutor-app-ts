@@ -1,3 +1,3 @@
 export interface StatisticsPageHeaderProps {
-    description: string;
-};
+  description: string;
+}

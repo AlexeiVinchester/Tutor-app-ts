@@ -30,7 +30,7 @@ main {
 }
 
 .test {
-  color:rgb(80, 201, 173)
+  color: rgb(80, 201, 173);
 }
 
 .menu-open-icon-button {
@@ -43,8 +43,8 @@ main {
 }
 
 @media (max-width: 1100px) {
-
-  .menu-box, .log-in-button {
+  .menu-box,
+  .log-in-button {
     display: none;
   }
 

@@ -1,24 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface ILoadingSlice {
-    isLoading: boolean
+  isLoading: boolean;
 }
 
 const initialLoadingState: ILoadingSlice = {
-    isLoading: false
-}
+  isLoading: false,
+};
 
 const loadingSlice = createSlice({
-    name: 'loadingFlag',
-    initialState: initialLoadingState,
-    reducers: {
-        startLoading(state) {
-            state.isLoading = true;
-        },
-        stopLoading(state) {
-            state.isLoading = false;
-        }
-    }
+  name: 'loadingFlag',
+  initialState: initialLoadingState,
+  reducers: {
+    startLoading(state) {
+      state.isLoading = true;
+    },
+    stopLoading(state) {
+      state.isLoading = false;
+    },
+  },
 });
 
 export const { startLoading, stopLoading } = loadingSlice.actions;

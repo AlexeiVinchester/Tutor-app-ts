@@ -1,8 +1,8 @@
 export interface ISelectiveDateParams {
-    year: string;
-    month: string;
+  year: string;
+  month: string;
 }
 
 export interface ISelectiveStatisticsParams extends ISelectiveDateParams {
-    studentName: string;
-};
+  studentName: string;
+}

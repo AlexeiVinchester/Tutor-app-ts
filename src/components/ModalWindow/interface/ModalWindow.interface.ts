@@ -1,6 +1,6 @@
 export interface ModalWindowProps {
-    children: React.ReactNode;
-    modalState: boolean;
-    onClose: () => void;
-    title: string;
+  children: React.ReactNode;
+  modalState: boolean;
+  onClose: () => void;
+  title: string;
 }

@@ -3,12 +3,9 @@ import { persistReducer } from 'redux-persist';
 import { rootReducer } from '../rootReducer/rootReducer';
 
 const persistConfig = {
-    key: 'my-tutor',
-    storage,
-    blacklist: [
-        'lessons',
-        'snackMessage'
-    ]
+  key: 'my-tutor',
+  storage,
+  blacklist: ['lessons', 'snackMessage'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

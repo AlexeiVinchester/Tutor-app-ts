@@ -4,12 +4,12 @@ import { router } from './Router/router';
 import { SnackPortal } from './components/SnackPortal/SnackPortal';
 
 function App() {
-    return (
-        <>
-            <RouterProvider router={router} />
-            <SnackPortal />
-        </>
-    );
-};
+  return (
+    <>
+      <RouterProvider router={router} />
+      <SnackPortal />
+    </>
+  );
+}
 
-export { App }; 
+export { App };

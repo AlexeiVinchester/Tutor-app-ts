@@ -1,5 +1,5 @@
 export interface AddNewLessonContainerProps {
-    isOpenCreateLessonWindow: boolean;
-    closeCreateLessonWindow: () => void;
-    amount: number;
-};
+  isOpenCreateLessonWindow: boolean;
+  closeCreateLessonWindow: () => void;
+  amount: number;
+}

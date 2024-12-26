@@ -1,5 +1,5 @@
-import { SelectContainerProps } from "../../../../../components/SelectContainer/interface/SelectContainer.interface";
+import { SelectContainerProps } from '../../../../../components/SelectContainer/interface/SelectContainer.interface';
 
 export interface SelectMonthContainerProps extends SelectContainerProps {
-    value: string | undefined;
-};
+  value: string | undefined;
+}

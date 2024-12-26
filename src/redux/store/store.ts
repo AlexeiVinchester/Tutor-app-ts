@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { persistedReducer } from "../persistReducer/persistReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import { persistedReducer } from '../persistReducer/persistReducer';
 import {
   persistStore,
   FLUSH,

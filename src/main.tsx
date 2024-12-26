@@ -8,15 +8,15 @@ import { ModalWindowProvider } from './context/modalWindow/ModalWindowProvider.t
 import { EditMessageProvider } from './context/EditMessage/EditMessageProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
-    <>
-        <Provider store={store} >
-            <PersistGate loading={null} persistor={persistor}>
-                <ModalWindowProvider>
-                    <EditMessageProvider>
-                        <App />
-                    </EditMessageProvider>
-                </ModalWindowProvider>
-            </PersistGate>
-        </Provider>
-    </>
+  <>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ModalWindowProvider>
+          <EditMessageProvider>
+            <App />
+          </EditMessageProvider>
+        </ModalWindowProvider>
+      </PersistGate>
+    </Provider>
+  </>
 );

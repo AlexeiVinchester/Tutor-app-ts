@@ -1,5 +1,5 @@
-import { ILesson } from "../../../share/interfaces/lesson.interface";
+import { ILesson } from '../../../share/interfaces/lesson.interface';
 
 export interface TableOfLessonsProps {
-    lessons: ILesson[];
-};
+  lessons: ILesson[];
+}

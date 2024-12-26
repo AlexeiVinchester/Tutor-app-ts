@@ -1,3 +1,3 @@
 export interface CloseWindowButtonProps {
-    onClose: () => void;
+  onClose: () => void;
 }

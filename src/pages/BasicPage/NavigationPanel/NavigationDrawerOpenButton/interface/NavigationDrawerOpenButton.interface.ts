@@ -1,3 +1,3 @@
 export interface NavigationDrawerOpenButtonProps {
-    onOpen: () => void;
+  onOpen: () => void;
 }

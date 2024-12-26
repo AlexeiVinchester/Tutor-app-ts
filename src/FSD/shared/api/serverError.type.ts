@@ -1,3 +1,3 @@
 export type TServerError = {
-    message: string;
-}
+  message: string;
+};

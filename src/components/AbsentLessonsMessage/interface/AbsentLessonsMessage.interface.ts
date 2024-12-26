@@ -1,4 +1,3 @@
 export interface IAbsentLessonsMessageProps {
-    message: string;
-};
-
+  message: string;
+}

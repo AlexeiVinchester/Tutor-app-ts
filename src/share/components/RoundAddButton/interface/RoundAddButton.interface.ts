@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
 export interface RoundAddButtonProps {
-    openHandler: () => void;
-    children: React.ReactNode;
-};
+  openHandler: () => void;
+  children: React.ReactNode;
+}
