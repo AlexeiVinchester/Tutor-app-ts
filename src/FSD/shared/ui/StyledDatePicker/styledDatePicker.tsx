@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import dayjs, { Dayjs } from 'dayjs';
-import { FormControl, FormHelperText } from '@mui/material';
+import { FormControl, FormHelperText, TextFieldProps } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   DesktopDatePicker,
@@ -19,6 +19,7 @@ type TCustomDatePickerProps = {
     date: dayjs.Dayjs | null,
     context: PickerChangeHandlerContext<DateValidationError>
   ) => void;
+  size?: TextFieldProps['size'];
 };
 
 type TStyledDatePickerProps = DesktopDatePickerProps<Dayjs> &
@@ -27,11 +28,17 @@ type TStyledDatePickerProps = DesktopDatePickerProps<Dayjs> &
 export const StyledDatePicker = forwardRef<
   HTMLDivElement,
   TStyledDatePickerProps
->(({ fieldState, handleChangeDate, ...props }, ref) => {
+>(({ fieldState, handleChangeDate, size, ...props }, ref) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DesktopDatePicker
+          sx={{
+            '& .MuiInputBase-root': {
+              height: size === 'small' ? 40 : 56, // Регулируем высоту
+              fontSize: size === 'small' ? '0.875rem' : '1rem', // Шрифт
+            },
+          }}
           ref={ref}
           value={props.value ? dayjs(props.value) : null}
           onChange={handleChangeDate}

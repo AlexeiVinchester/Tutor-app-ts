@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
 export const schemaCreateNewLessonForm = z.object({
-  studentName: z.string().nonempty('You should choose any name'),
+  name: z.string().nonempty('You should choose any name'),
   price: z
     .string()
     .min(1, 'Sum is required')
@@ -13,7 +13,7 @@ export const schemaCreateNewLessonForm = z.object({
         message: 'Price should be a positive number!',
       }
     ),
-  lessonDate: z.string(),
+  date: z.string(),
   paidStatus: z.boolean(),
 });
 

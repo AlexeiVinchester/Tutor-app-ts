@@ -6,9 +6,11 @@ import {
 } from '@mui/x-date-pickers/models';
 import { DesktopDatePickerProps } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StyledDatePicker } from '../StyledDatePicker/styledDatePicker';
+import { TextFieldProps } from '@mui/material';
 
 type TControlledDatePickerProps = {
   name: string;
+  size?: TextFieldProps['size'];
 } & DesktopDatePickerProps<Dayjs>;
 
 export const ControlledDatePicker = ({

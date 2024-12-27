@@ -4,7 +4,7 @@ import { StyledFormWrapper } from '../../FSD/shared/ui/StyledFormWrapper/styledF
 const AboutAppPage = () => {
   return (
     <StyledFormWrapper>
-      <CreateNewLessonForm />
+      <CreateNewLessonForm nextId={33} />
     </StyledFormWrapper>
   );
 };

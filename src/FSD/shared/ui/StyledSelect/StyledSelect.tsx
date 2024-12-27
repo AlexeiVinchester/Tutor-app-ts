@@ -20,13 +20,22 @@ type TStyledSelectProps = TCustomSelectProps &
   Omit<SelectProps, 'label' | 'labelId'>;
 
 export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
-  ({ fieldState, options, label, ...props }, ref) => {
+  ({ fieldState, options, label, size, ...props }, ref) => {
     const labelId = useId();
 
     return (
       <FormControl fullWidth>
-        <InputLabel id={labelId}>{label}</InputLabel>
-        <Select ref={ref} fullWidth labelId={labelId} label={label} {...props}>
+        <InputLabel id={labelId} size={size === 'small' ? size : 'normal'}>
+          {label}
+        </InputLabel>
+        <Select
+          size={size}
+          ref={ref}
+          fullWidth
+          labelId={labelId}
+          label={label}
+          {...props}
+        >
           {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.name}

@@ -9,7 +9,7 @@ export const StyledFormWrapper = ({ children }: TStyledFormWrapperProps) => {
   return (
     <Card
       sx={{
-        maxWidth: 500,
+        maxWidth: 350,
         margin: ' 0 auto',
         padding: '10px 5px',
         boxShadow: '0 15px 20px #ABB2B9;',
