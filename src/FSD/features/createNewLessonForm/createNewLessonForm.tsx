@@ -20,9 +20,9 @@ import { createSelectOptions } from '../../shared/utils/createSelectOption';
 import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
 import { ControlledDatePicker } from '../../shared/ui/ControlledDatePicker/controlledDatePicker';
 import { StyledButton } from '../../shared/ui/StyledButton/StyledButton';
-import { showSnackMessage } from '../../../redux/slices/snackMessageSlice/snackMessageSlice';
-import { createSnackMessage } from '../../../utils/createSnackMessage';
-import { useDispatch } from 'react-redux';
+import { showSuccessMessage } from '../../shared/context/snackMessageContext/lib/helpers';
+import { createApiErrorMessage } from '../../shared/api/createApiErrorMessage';
+import { useSnackMessageContext } from '../../shared/context/snackMessageContext/lib/useSnackMessageContext';
 
 export const CreateNewLessonForm = () => {
   const [newLessonParams, setNewLessonParams] = useState<TServerAnswer>({ names: [], nextId: 0 })
@@ -32,6 +32,7 @@ export const CreateNewLessonForm = () => {
   );
   console.log(`nextId: ${newLessonParams.nextId}`)
 
+  const { openSnackMessage } = useSnackMessageContext();
   const methods = useForm<TSchemaCreateNewLessonFrom>({
     resolver: zodResolver(schemaCreateNewLessonForm),
     defaultValues: async () => {
@@ -46,42 +47,21 @@ export const CreateNewLessonForm = () => {
     mode: 'onChange',
   });
 
-  const dispatch = useDispatch();
-
   const handleSubmitForm = async (data: TSchemaCreateNewLessonFrom) => {
     const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
-    console.log(sendingData);
+    
     try {
       const response = await sendNewLesson(sendingData);
 
       if (response) {
-        dispatch(
-          showSnackMessage(
-            createSnackMessage(`${newLessonParams.nextId}: Lesson was added!`, 'success')
-          )
-        );
+        openSnackMessage(showSuccessMessage(`${newLessonParams.nextId}: Lesson was added!`))
         setNewLessonParams((prev) => ({
           ...prev,
           nextId: response.nextId
         }))
       }
     } catch (error) {
-      if (error instanceof Error) {
-        dispatch(
-          showSnackMessage(
-            createSnackMessage(
-              `Error while additing! Error: ${error.message}`,
-              'error'
-            )
-          )
-        );
-      } else {
-        dispatch(
-          showSnackMessage(
-            createSnackMessage(`Unknown error occurred!`, 'error')
-          )
-        );
-      }
+      openSnackMessage(createApiErrorMessage(error))
     }
     finally {
       methods.reset();

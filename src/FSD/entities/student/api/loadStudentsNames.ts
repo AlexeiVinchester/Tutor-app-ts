@@ -1,7 +1,7 @@
 import { ILesson } from '../../../../share/interfaces/lesson.interface';
 import { HTTPMethods } from '../../../shared/api/httpMethods.enum';
 import { makeApiRequest } from '../../../shared/api/makeApiRequest';
-import { TLoaderData } from '../../../shared/types/loaderData.type';
+import { TLoaderData } from '../../../shared/api/loaderData.type';
 import { studentsEndPoints } from './endPoints';
 
 export type TServerAnswer = {
