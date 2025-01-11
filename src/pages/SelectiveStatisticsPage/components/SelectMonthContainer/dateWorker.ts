@@ -13,7 +13,7 @@ const MONTHS = [
   'December',
 ];
 
-const YEARS = ['2024', '2023'];
+const YEARS = ['2025', '2024', '2023'];
 
 const getCorrectCurrentMonth = () => {
   const jsMonth = new Date().getMonth();

@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  loadStudentsNames,
-  //sendNewLesson,
+  loadStudentsNamesAndNextId,
+  sendNewLesson,
+  TServerAnswer,
 } from '../../entities/student/api/loadStudentsNames';
 import { useMemo, useState } from 'react';
 import { Spinner } from '../../../components/Spinner/Spinner';
@@ -19,62 +20,72 @@ import { createSelectOptions } from '../../shared/utils/createSelectOption';
 import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
 import { ControlledDatePicker } from '../../shared/ui/ControlledDatePicker/controlledDatePicker';
 import { StyledButton } from '../../shared/ui/StyledButton/StyledButton';
-// import { useDispatch } from 'react-redux';
-// import { showSnackMessage } from '../../../redux/slices/snackMessageSlice/snackMessageSlice';
-// import { createSnackMessage } from '../../../utils/createSnackMessage';
+import { showSnackMessage } from '../../../redux/slices/snackMessageSlice/snackMessageSlice';
+import { createSnackMessage } from '../../../utils/createSnackMessage';
+import { useDispatch } from 'react-redux';
 
-type TCreateNewLessonForm = {
-  nextId: number;
-};
-
-export const CreateNewLessonForm = ({ nextId }: TCreateNewLessonForm) => {
-  const [options, setOptions] = useState<string[]>([]);
+export const CreateNewLessonForm = () => {
+  const [newLessonParams, setNewLessonParams] = useState<TServerAnswer>({ names: [], nextId: 0 })
   const studentNamesOptions = useMemo(
-    () => createSelectOptions(options),
-    [options]
+    () => createSelectOptions(newLessonParams.names),
+    [newLessonParams.names]
   );
-  //const dispatch = useDispatch();
+  console.log(`nextId: ${newLessonParams.nextId}`)
+
   const methods = useForm<TSchemaCreateNewLessonFrom>({
     resolver: zodResolver(schemaCreateNewLessonForm),
     defaultValues: async () => {
-      const studentNames = await loadStudentsNames();
-      setOptions(studentNames);
+      const { names, nextId } = await loadStudentsNamesAndNextId();
+      setNewLessonParams((prev) => ({
+        ...prev,
+        names,
+        nextId
+      }))
       return defaultValues;
     },
     mode: 'onChange',
   });
 
-  const handleSubmitForm = async (data: TSchemaCreateNewLessonFrom) => {
-    const sendingData = { id: nextId, ...data, price: +data.price };
-    console.log(sendingData);
-    // try {
-    //   const response = await sendNewLesson(sendingData);
+  const dispatch = useDispatch();
 
-    //   if (response) {
-    //     dispatch(
-    //       showSnackMessage(
-    //         createSnackMessage(`${nextId}: Lesson was added!`, 'success')
-    //       )
-    //     );
-    //   }
-    // } catch (error) {
-    //   if (error instanceof Error) {
-    //     dispatch(
-    //       showSnackMessage(
-    //         createSnackMessage(
-    //           `Error while additing! Error: ${error.message}`,
-    //           'error'
-    //         )
-    //       )
-    //     );
-    //   } else {
-    //     dispatch(
-    //       showSnackMessage(
-    //         createSnackMessage(`Unknown error occurred!`, 'error')
-    //       )
-    //     );
-    //   }
-    //}
+  const handleSubmitForm = async (data: TSchemaCreateNewLessonFrom) => {
+    const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
+    console.log(sendingData);
+    try {
+      const response = await sendNewLesson(sendingData);
+
+      if (response) {
+        dispatch(
+          showSnackMessage(
+            createSnackMessage(`${newLessonParams.nextId}: Lesson was added!`, 'success')
+          )
+        );
+        setNewLessonParams((prev) => ({
+          ...prev,
+          nextId: response.nextId
+        }))
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(
+          showSnackMessage(
+            createSnackMessage(
+              `Error while additing! Error: ${error.message}`,
+              'error'
+            )
+          )
+        );
+      } else {
+        dispatch(
+          showSnackMessage(
+            createSnackMessage(`Unknown error occurred!`, 'error')
+          )
+        );
+      }
+    }
+    finally {
+      methods.reset();
+    }
   };
 
   if (methods.formState.isLoading) {

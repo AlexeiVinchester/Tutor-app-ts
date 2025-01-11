@@ -47,7 +47,6 @@ const LessonsPage = () => {
       )}
       {isOpenCreateLessonWindow && (
         <AddNewLessonContainer
-          amount={allLessons.length + 1}
           isOpenCreateLessonWindow={isOpenCreateLessonWindow}
           closeCreateLessonWindow={closeCreateLessonWindow}
         />
