@@ -1,4 +1,4 @@
-import { TSnackMessageState } from "../../../../shared/context/snackMessageContext/model/types";
+import { TSnackMessageState } from "../../../../shared/types/snackMessage";
 
 export const defaultSnackMessageState: TSnackMessageState = {
   isOpen: false,

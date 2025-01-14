@@ -72,6 +72,10 @@ export const CreateNewLessonForm = () => {
     return <Spinner />;
   }
 
+  const customHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(`Custom handler! Value: ${event.target.value}`);
+  }
+
   return (
     <FormWrapper
       methods={methods}
@@ -90,6 +94,7 @@ export const CreateNewLessonForm = () => {
         placeholder="Enter price of lesson"
         variant="outlined"
         size="small"
+        customHandler={customHandler}
       />
       <ControlledDatePicker name="date" size="small" />
       <ControlledCheckboxField name="paidStatus" label="Paid" />
