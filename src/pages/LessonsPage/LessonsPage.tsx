@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { showSnackMessage } from '../../redux/slices/snackMessageSlice/snackMessageSlice';
 import { createSnackMessage } from '../../utils/createSnackMessage';
+import { LessonsDebtors } from '../../FSD/widgets/lessonsDebtors/lessonsDebtors';
 
 const LessonsPage = () => {
   const { isLoading, error, allLessons } = useLoadLessons();
@@ -43,6 +44,7 @@ const LessonsPage = () => {
           maxWidth="md"
         >
           <TableOfLessons lessons={allLessons} />
+          <LessonsDebtors />
         </Container>
       )}
       {isOpenCreateLessonWindow && (
