@@ -26,7 +26,7 @@ export const makeApiRequest = async <T = undefined>(
       if (serverError.response) {
         throw new ApiError(
           serverError.response.data?.message ||
-            'Unknown error occured on server!',
+            'Unknown error occured on client while loading data!',
           serverError.response.status
         );
       } else {

@@ -17,6 +17,4 @@ export const schemaCreateNewLessonForm = z.object({
   paidStatus: z.boolean(),
 });
 
-export type TSchemaCreateNewLessonFrom = z.infer<
-  typeof schemaCreateNewLessonForm
->;
+export type TSchemaCreateNewLessonFrom = z.infer<typeof schemaCreateNewLessonForm>;

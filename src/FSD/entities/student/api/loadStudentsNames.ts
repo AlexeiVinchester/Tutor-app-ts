@@ -4,13 +4,13 @@ import { makeApiRequest } from '../../../shared/api/makeApiRequest';
 import { TLoaderData } from '../../../shared/api/loaderData.type';
 import { studentsEndPoints } from './endPoints';
 
-export type TServerAnswer = {
+export type TCreateNewLessonFormServerAnswer = {
   names: string[];
   nextId: number;
 }
 
-export const loadStudentsNamesAndNextId: TLoaderData<TServerAnswer> = async () => {
-  const response: TServerAnswer = await makeApiRequest(
+export const loadStudentsNamesAndNextId: TLoaderData<TCreateNewLessonFormServerAnswer> = async () => {
+  const response: TCreateNewLessonFormServerAnswer = await makeApiRequest(
     'http://localhost:3002/getNamesAndNextId',
     HTTPMethods.GET
   );
