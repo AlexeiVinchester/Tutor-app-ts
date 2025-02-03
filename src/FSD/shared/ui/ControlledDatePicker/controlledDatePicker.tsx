@@ -30,6 +30,7 @@ export const ControlledDatePicker = ({
           const isoDate = date ? date.format('YYYY-MM-DD') : null;
           onChange(isoDate, context);
         };
+        
         return (
           <StyledDatePicker
             handleChangeDate={handleChangeDate}

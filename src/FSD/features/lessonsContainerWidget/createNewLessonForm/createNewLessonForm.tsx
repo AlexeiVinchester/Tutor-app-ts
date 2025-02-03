@@ -1,28 +1,25 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  loadStudentsNamesAndNextId,
-  sendNewLesson,
-  TServerAnswer,
-} from '../../entities/student/api/loadStudentsNames';
-import { useMemo, useState } from 'react';
-import { Spinner } from '../../../components/Spinner/Spinner';
+
 import { defaultValues } from './model/defaultValues';
 import {
   schemaCreateNewLessonForm,
   TSchemaCreateNewLessonFrom,
 } from './model/schema';
+import { useState, useMemo } from 'react';
+import { Spinner } from '../../../../components/Spinner/Spinner';
+import { TServerAnswer, loadStudentsNamesAndNextId, sendNewLesson } from '../../../entities/student/api/loadStudentsNames';
+import { createApiErrorMessage } from '../../../shared/api/createApiErrorMessage';
+import { showSuccessMessage } from '../../../shared/context/snackMessageContext/lib/helpers';
+import { useSnackMessageContext } from '../../../shared/context/snackMessageContext/lib/useSnackMessageContext';
+import { ControlledCheckboxField } from '../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
+import { ControlledDatePicker } from '../../../shared/ui/ControlledDatePicker/controlledDatePicker';
+import { ControlledInputField } from '../../../shared/ui/ControlledInputField/controlledInputField';
+import { ControlledSelectField } from '../../../shared/ui/ControlledSelectField/controlledSelectField';
+import { FormWrapper } from '../../../shared/ui/FormWrapper/formWrapper';
+import { StyledButton } from '../../../shared/ui/StyledButton/StyledButton';
+import { createSelectOptions } from '../../../shared/utils/createSelectOption';
 
-import { FormWrapper } from '../../shared/ui/FormWrapper/formWrapper';
-import { ControlledInputField } from '../../shared/ui/ControlledInputField/controlledInputField';
-import { ControlledSelectField } from '../../shared/ui/ControlledSelectField/controlledSelectField';
-import { createSelectOptions } from '../../shared/utils/createSelectOption';
-import { ControlledCheckboxField } from '../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
-import { ControlledDatePicker } from '../../shared/ui/ControlledDatePicker/controlledDatePicker';
-import { StyledButton } from '../../shared/ui/StyledButton/StyledButton';
-import { showSuccessMessage } from '../../shared/context/snackMessageContext/lib/helpers';
-import { createApiErrorMessage } from '../../shared/api/createApiErrorMessage';
-import { useSnackMessageContext } from '../../shared/context/snackMessageContext/lib/useSnackMessageContext';
 
 export const CreateNewLessonForm = () => {
   const [newLessonParams, setNewLessonParams] = useState<TServerAnswer>({ names: [], nextId: 0 })
@@ -30,9 +27,9 @@ export const CreateNewLessonForm = () => {
     () => createSelectOptions(newLessonParams.names),
     [newLessonParams.names]
   );
-  console.log(`nextId: ${newLessonParams.nextId}`)
 
   const { openSnackMessage } = useSnackMessageContext();
+
   const methods = useForm<TSchemaCreateNewLessonFrom>({
     resolver: zodResolver(schemaCreateNewLessonForm),
     defaultValues: async () => {
@@ -46,6 +43,8 @@ export const CreateNewLessonForm = () => {
     },
     mode: 'onChange',
   });
+
+  
 
   const handleSubmitForm = async (data: TSchemaCreateNewLessonFrom) => {
     const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
@@ -72,8 +71,8 @@ export const CreateNewLessonForm = () => {
     return <Spinner />;
   }
 
-  const customHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`Custom handler! Value: ${event.target.value}`);
+  const customHandler = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(`Custom handler! Value: ${event?.target.value}`);
   }
 
   return (

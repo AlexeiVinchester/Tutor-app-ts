@@ -7,7 +7,7 @@ type TControlledSelectFieldProps = {
   name: string;
   label: string;
   options: TSelectOption[];
-} & Omit<SelectProps, 'name'>;
+} & Omit<SelectProps, 'name' | 'label'>;
 
 export const ControlledSelectField = ({
   options,
@@ -15,6 +15,7 @@ export const ControlledSelectField = ({
   ...props
 }: TControlledSelectFieldProps) => {
   const { control } = useFormContext();
+
   return (
     <Controller
       control={control}

@@ -6,3 +6,4 @@ export const defaultValues = {
   paidStatus: false,
   name: '',
 };
+

@@ -6,39 +6,35 @@ type TControlledInput = {
   name: string;
   label: string;
   placeholder: string;
-  customHandler?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  customHandler?: (event?: React.ChangeEvent<HTMLInputElement>) => void
 } & Omit<TextFieldProps, 'name' | 'label' | 'placeholder'>;
 
 export const ControlledInputField = ({
   name,
-  label,
-  placeholder,
   customHandler,
   ...props
 }: TControlledInput) => {
   const { control } = useFormContext();
-
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => {
+      render={({ field: {onChange, ...restField}, fieldState }) => {
         const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-          field.onChange(event);
+          onChange(event);
           if(customHandler){
             customHandler(event);
           }
         }
+
         return (
           <StyledInput
             {...props}
-            {...field}
+            {...restField}
             onChange={onChangeHandler}
             fieldState={fieldState}
-            fullWidth
             name={name}
-            label={label}
-            placeholder={placeholder}
+            fullWidth
           />
         );
       }}

@@ -29,14 +29,15 @@ export const StyledDatePicker = forwardRef<
   HTMLDivElement,
   TStyledDatePickerProps
 >(({ fieldState, handleChangeDate, size, ...props }, ref) => {
+  console.log('Date value type: ', props.value)
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DesktopDatePicker
           sx={{
             '& .MuiInputBase-root': {
-              height: size === 'small' ? 40 : 56, // Регулируем высоту
-              fontSize: size === 'small' ? '0.875rem' : '1rem', // Шрифт
+              height: size === 'small' ? 40 : 56, 
+              fontSize: size === 'small' ? '0.875rem' : '1rem', 
             },
           }}
           ref={ref}

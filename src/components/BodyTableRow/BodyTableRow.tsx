@@ -35,7 +35,7 @@ const BodyTableRow = ({ lesson }: IBodyTableRowProps) => {
           {lesson.paidStatus ? (
             <DoneIcon color="success" />
           ) : (
-            <CloseIcon color="warning" />
+            <CloseIcon color="warning"/>
           )}
         </TableCell>
         <TableCell align="center">

@@ -9,9 +9,8 @@ export type TProviderSnackMessageProps = {
 
 export const ProviderSnackMessage = ({ children }: TProviderSnackMessageProps) => {
   const [snackMessageState, setSnackMessageState] = useState<TSnackMessageState>(defaultSnackMessageState);
-  console.log(snackMessageState)
+  
   const openSnackMessage = useCallback((messageInfo: TSnackMessageInfo) => {
-    console.log('open snack')
     setSnackMessageState((prev) => ({
       ...prev,
       isOpen: true,
@@ -21,7 +20,6 @@ export const ProviderSnackMessage = ({ children }: TProviderSnackMessageProps) =
   }, []);
 
   const closeSnackMessage = useCallback(() => {
-    console.log('close snack')
     setSnackMessageState((prev) => ({
       ...prev,
       ...defaultSnackMessageState

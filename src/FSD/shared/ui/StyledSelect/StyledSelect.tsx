@@ -10,14 +10,11 @@ import {
 } from '@mui/material';
 import { TSelectOption } from '../../types/selectOption';
 
-type TCustomSelectProps = {
+type TStyledSelectProps = {
   fieldState?: ControllerFieldState;
   options: TSelectOption[];
   label: string;
-};
-
-type TStyledSelectProps = TCustomSelectProps &
-  Omit<SelectProps, 'label' | 'labelId'>;
+} & Omit<SelectProps, 'label'>;
 
 export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
   ({ fieldState, options, label, size, ...props }, ref) => {
@@ -37,7 +34,7 @@ export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
           {...props}
         >
           {options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
+            <MenuItem key={option.name} value={option.value}>
               {option.name}
             </MenuItem>
           ))}
