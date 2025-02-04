@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { TSelectOption } from '../../../../shared/types/selectOption';
-import { TCreateNewLessonFormServerAnswer } from '../../../../entities/student/api/loadStudentsNames';
+import { TLoadInitialDataServerAnswer } from './api.types';
 
 export const formDefaultValues = {
   price: '30',
@@ -11,5 +11,5 @@ export const formDefaultValues = {
 
 export const optionsDefaultValues: TSelectOption[] = [{ name: '', value: '' }];
 
-export const lessonsParamsDefaultValues: TCreateNewLessonFormServerAnswer = { names: [], nextId: 0 };
+export const lessonsParamsDefaultValues: TLoadInitialDataServerAnswer = { names: [], nextId: 0 };
 

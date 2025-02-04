@@ -2,9 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formDefaultValues, optionsDefaultValues } from './model/defaultValues';
 import { schemaCreateNewLessonForm, TSchemaCreateNewLessonFrom, } from './model/schema';
-import { useMemo } from 'react';
 import { Spinner } from '../../../../components/Spinner/Spinner';
-import { TServerAnswerAddLesson, loadStudentsNamesAndNextId, sendNewLesson } from '../../../entities/student/api/loadStudentsNames';
 import { createApiErrorMessage } from '../../../shared/api/createApiErrorMessage';
 import { showSuccessMessage } from '../../../shared/context/snackMessageContext/lib/helpers';
 import { ControlledCheckboxField } from '../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField';
@@ -15,6 +13,8 @@ import { FormWrapper } from '../../../shared/ui/FormWrapper/formWrapper';
 import { StyledButton } from '../../../shared/ui/StyledButton/StyledButton';
 import { createSelectOptions } from '../../../shared/utils/createSelectOption';
 import { useLoadDataFromServer } from '../../../shared/hooks/useLoadDataFromServer';
+import { loadInitialData, sendNewLesson } from './api/loaders';
+import { TSendNewLessonServerAnswer } from './model/api.types';
 
 export const CreateNewLessonForm = () => {
   const { 
@@ -23,14 +23,9 @@ export const CreateNewLessonForm = () => {
     openSnackMessage,
     isLoading, 
     isError,
-  } = useLoadDataFromServer(loadStudentsNamesAndNextId);
+  } = useLoadDataFromServer(loadInitialData);
 
-  const studentNamesOptions = useMemo(
-    () => {
-      return newLessonParams ? createSelectOptions(newLessonParams.names) : optionsDefaultValues;
-    },
-    [newLessonParams]
-  );
+  const studentNamesOptions = newLessonParams ? createSelectOptions(newLessonParams.names) : optionsDefaultValues;
 
   const methods = useForm<TSchemaCreateNewLessonFrom>({
     resolver: zodResolver(schemaCreateNewLessonForm),
@@ -43,7 +38,7 @@ export const CreateNewLessonForm = () => {
       const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
 
       try {
-        const response: TServerAnswerAddLesson = await sendNewLesson(sendingData);
+        const response: TSendNewLessonServerAnswer = await sendNewLesson(sendingData);
 
         if (response) {
           openSnackMessage(showSuccessMessage(`${newLessonParams.nextId}: Lesson was added!`))
@@ -60,12 +55,7 @@ export const CreateNewLessonForm = () => {
         methods.reset();
       }
     }
-
   };
-
-  const customHandler = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`Custom handler! Value: ${event?.target.value}`);
-  }
 
   if (isLoading) {
     return <Spinner />;
@@ -93,7 +83,6 @@ export const CreateNewLessonForm = () => {
         placeholder="Enter price of lesson"
         variant="outlined"
         size="small"
-        customHandler={customHandler}
       />
       <ControlledDatePicker name="date" size="small" />
       <ControlledCheckboxField name="paidStatus" label="Paid" />
