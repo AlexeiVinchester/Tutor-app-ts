@@ -7,7 +7,7 @@ import {
   YEARS,
 } from './components/SelectMonthContainer/dateWorker';
 import { StudentSelectiveDataContainer } from './components/StudentSelectiveDataContainer/StudentSelectiveDataContainer';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Spinner } from '../../FSD/shared/ui/Spinner/Spinner';
 import { StatisticsDataContainer } from '../../components/StatisticsDataContainer/StatisticsDataContainer';
 import { StatisticsPageHeader } from '../../components/StatisticsPageHeader/StatisticsPageHeader';
 import { StatisticsMainWrapper } from '../../components/StatisticsMainWrapper/StatisticsMainWrapper';

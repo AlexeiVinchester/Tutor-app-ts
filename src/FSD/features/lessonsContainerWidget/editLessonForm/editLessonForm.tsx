@@ -1,49 +1,29 @@
-import { useForm } from "react-hook-form"
-import { schemaEditLessonForm, TSchemaEditLessonForm } from "./model/schema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { TLesson } from "../../../entities/lesson/model/lesson.type"
-import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer";
-import { createSelectOptions } from "../../../shared/utils/createSelectOption";
-import { loadInitialData } from "../createNewLessonForm/api/loaders";
-import { optionsDefaultValues } from "../createNewLessonForm/model/defaultValues";
-import { Spinner } from "../../../../components/Spinner/Spinner";
-import { ControlledCheckboxField } from "../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField";
-import { ControlledDatePicker } from "../../../shared/ui/ControlledDatePicker/controlledDatePicker";
-import { ControlledInputField } from "../../../shared/ui/ControlledInputField/controlledInputField";
-import { ControlledSelectField } from "../../../shared/ui/ControlledSelectField/controlledSelectField";
-import { FormWrapper } from "../../../shared/ui/FormWrapper/formWrapper";
-import { StyledButton } from "../../../shared/ui/StyledButton/StyledButton";
 import { sendEditedLesson } from "./api/loaders";
 import { TSendEditedLessonServerAnswer } from "./model/api.types";
+import { TSchemaEditLessonForm } from "./model/schema"
+import { TLesson } from "../../../entities/lesson/model/lesson.type"
+import { LessonForm } from "../../../entities/lesson/ui/lessonForm";
+import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer";
+import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../shared/context/snackMessageContext/lib/helpers";
+import { loadInitialData } from "../../../entities/lesson/api/loaders";
 
 type TEditLessonFormProps = {
   lesson: TLesson;
 };
 
 export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
-  const methods = useForm<TSchemaEditLessonForm>({
-    resolver: zodResolver(schemaEditLessonForm),
-    defaultValues: {
-      ...lesson,
-      price: lesson.price.toString()
-    },
-    mode: 'onChange'
-  })
-
   const {
-    data: newLessonParams,
+    data: editLessonParams,
     openSnackMessage,
     isLoading,
     setIsLoading,
     isError,
   } = useLoadDataFromServer(loadInitialData);
 
-  const studentNamesOptions = newLessonParams ? createSelectOptions(newLessonParams.names) : optionsDefaultValues;
-
   const handleSubmitForm = async (data: TSchemaEditLessonForm) => {
-    if (newLessonParams) {
+    if (editLessonParams) {
       const sendingData = { ...lesson, ...data, price: +data.price };
       try {
         setIsLoading(true);
@@ -56,7 +36,6 @@ export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
         openSnackMessage(createApiErrorMessage(error));
       } finally {
         setIsLoading(false);
-        methods.reset();
       }
     }
   }
@@ -65,32 +44,18 @@ export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (isError || !editLessonParams) {
     return <p>Yooops, something goes wrong!</p>
   }
 
   return (
-    <FormWrapper
-      methods={methods}
+    <LessonForm 
+      defaultValues={{...lesson, price: lesson.price.toString()}}
       onSubmit={handleSubmitForm}
-      className="flex flex-col gap-3"
-    >
-      <ControlledSelectField
-        name="name"
-        options={studentNamesOptions}
-        label="Student"
-        size="small"
-      />
-      <ControlledInputField
-        name="price"
-        label="Price"
-        placeholder="Enter price of lesson"
-        variant="outlined"
-        size="small"
-      />
-      <ControlledDatePicker name="date" size="small" />
-      <ControlledCheckboxField name="paidStatus" label="Paid" />
-      <StyledButton type="submit">Edit Lesson</StyledButton>
-    </FormWrapper>
+      isLoading={isLoading}
+      isError={isError}
+      names={editLessonParams.names}
+      buttonName="Edit lesson"
+    />
   );
 }

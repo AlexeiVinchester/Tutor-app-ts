@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Spinner } from '../../FSD/shared/ui/Spinner/Spinner';
 import { StatisticsMainWrapper } from '../../components/StatisticsMainWrapper/StatisticsMainWrapper';
 import { StatisticsPageHeader } from '../../components/StatisticsPageHeader/StatisticsPageHeader';
 import { StatisticsTopText } from '../../components/StatisticsTopText/StatisticsTopText';

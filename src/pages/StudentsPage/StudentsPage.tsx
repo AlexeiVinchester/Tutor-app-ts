@@ -25,7 +25,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { PageHeaderWrapper } from '../../components/PageHeaderWrapper/PageHeaderWrapper';
 import { Student } from '../../share/interfaces/student.interface';
 import { useFetch } from '../../hooks/useFetch';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Spinner } from '../../FSD/shared/ui/Spinner/Spinner';
 
 const getAmountOfActiveStudents = (students: Student[]) => {
   return students.filter((student) => student.status === 'active').length;

@@ -4,7 +4,7 @@ import { TableOfLessons } from '../../components/TableOfLessons/TableOfLessons';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { AddNewLessonContainer } from './components/AddNewLessonContainer/AddNewLessonContainer';
 import { useModalWindow } from '../../hooks/useModalWindow';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Spinner } from '../../FSD/shared/ui/Spinner/Spinner';
 import { useLoadLessons } from '../../hooks/useLoadLessons';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
