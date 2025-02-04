@@ -22,6 +22,7 @@ export const CreateNewLessonForm = () => {
     setData: setNewLessonParams,
     openSnackMessage,
     isLoading, 
+    setIsLoading,
     isError,
   } = useLoadDataFromServer(loadInitialData);
 
@@ -38,6 +39,7 @@ export const CreateNewLessonForm = () => {
       const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
 
       try {
+        setIsLoading(true);
         const response: TSendNewLessonServerAnswer = await sendNewLesson(sendingData);
 
         if (response) {
@@ -52,6 +54,7 @@ export const CreateNewLessonForm = () => {
         openSnackMessage(createApiErrorMessage(error))
       }
       finally {
+        setIsLoading(false);
         methods.reset();
       }
     }

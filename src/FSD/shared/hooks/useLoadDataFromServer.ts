@@ -26,5 +26,13 @@ export const useLoadDataFromServer = <T, P = void>(loader: TLoaderData<T, P>, pa
     })();
   }, [loader, openSnackMessage, params]);
 
-  return { data, setData, isLoading, isError, openSnackMessage };
+  return {
+    data,
+    setData,
+    isLoading,
+    setIsLoading,
+    isError,
+    setIsError,
+    openSnackMessage
+  };
 }
