@@ -21,13 +21,17 @@ export const ControlledCheckboxField = ({
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormControlLabel
-          label={label}
-          control={<Checkbox {...field} />}
-          {...props}
-        />
-      )}
+      render={({ field }) => {
+        return (
+          <FormControlLabel
+            label={label}
+            control={<Checkbox {...field} checked={field.value} />}
+            {...props}
+          />
+        );
+      }
+
+      }
     />
   );
 };

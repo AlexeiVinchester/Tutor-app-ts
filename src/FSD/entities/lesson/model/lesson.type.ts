@@ -1,6 +1,6 @@
 export interface TLesson {
   _id?: string;
-  id: number;
+  id?: number;
   name: string;
   date: string;
   price: number;
