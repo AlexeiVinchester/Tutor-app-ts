@@ -1,13 +1,13 @@
 import { formDefaultValues } from './model/defaultValues';
-import { TSchemaCreateNewLessonFrom, } from './model/schema';
-import { Spinner } from '../../../shared/ui/Spinner/Spinner';
-import { createApiErrorMessage } from '../../../shared/api/createApiErrorMessage';
-import { showSuccessMessage } from '../../../shared/context/snackMessageContext/lib/helpers';
-import { useLoadDataFromServer } from '../../../shared/hooks/useLoadDataFromServer';
 import { sendNewLesson } from './api/loaders';
 import { TSendNewLessonServerAnswer } from './model/api.types';
 import { LessonForm } from '../../../entities/lesson/ui/lessonForm';
 import { loadInitialData } from '../../../entities/lesson/api/loaders';
+import { TLessonFromSchema } from '../../../entities/lesson/model/lessonFormSchema';
+import { Spinner } from '../../../shared/ui/Spinner/Spinner';
+import { createApiErrorMessage } from '../../../shared/api/createApiErrorMessage';
+import { showSuccessMessage } from '../../../shared/context/snackMessageContext/lib/helpers';
+import { useLoadDataFromServer } from '../../../shared/hooks/useLoadDataFromServer';
 
 export const CreateNewLessonForm = () => {
   const {
@@ -19,7 +19,7 @@ export const CreateNewLessonForm = () => {
     isError,
   } = useLoadDataFromServer(loadInitialData);
 
-  const handleSubmitForm = async (data: TSchemaCreateNewLessonFrom) => {
+  const handleSubmitForm = async (data: TLessonFromSchema) => {
     if (newLessonParams) {
       const sendingData = { id: newLessonParams.nextId, ...data, price: +data.price };
 

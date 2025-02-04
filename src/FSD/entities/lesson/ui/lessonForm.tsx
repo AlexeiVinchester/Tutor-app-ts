@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { lessonFormSchema, TLessonFromSchema } from "../model/lessonFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { lessonFormSchema, TLessonFromSchema } from "../model/lessonFormSchema"
+import { optionsDefaultValues } from "../model/defaultValues";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { ControlledCheckboxField } from "../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField";
 import { ControlledDatePicker } from "../../../shared/ui/ControlledDatePicker/controlledDatePicker";
@@ -9,7 +10,6 @@ import { ControlledSelectField } from "../../../shared/ui/ControlledSelectField/
 import { FormWrapper } from "../../../shared/ui/FormWrapper/formWrapper";
 import { StyledButton } from "../../../shared/ui/StyledButton/StyledButton";
 import { createSelectOptions } from "../../../shared/utils/createSelectOption";
-import { optionsDefaultValues } from "../model/defaultValues";
 
 type TLessonFormProps = {
   defaultValues: TLessonFromSchema;

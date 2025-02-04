@@ -1,13 +1,13 @@
 import { sendEditedLesson } from "./api/loaders";
 import { TSendEditedLessonServerAnswer } from "./model/api.types";
-import { TSchemaEditLessonForm } from "./model/schema"
 import { TLesson } from "../../../entities/lesson/model/lesson.type"
 import { LessonForm } from "../../../entities/lesson/ui/lessonForm";
+import { loadInitialData } from "../../../entities/lesson/api/loaders";
+import { TLessonFromSchema } from "../../../entities/lesson/model/lessonFormSchema";
 import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../shared/context/snackMessageContext/lib/helpers";
-import { loadInitialData } from "../../../entities/lesson/api/loaders";
 
 type TEditLessonFormProps = {
   lesson: TLesson;
@@ -22,7 +22,7 @@ export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
     isError,
   } = useLoadDataFromServer(loadInitialData);
 
-  const handleSubmitForm = async (data: TSchemaEditLessonForm) => {
+  const handleSubmitForm = async (data: TLessonFromSchema) => {
     if (editLessonParams) {
       const sendingData = { ...lesson, ...data, price: +data.price };
       try {
