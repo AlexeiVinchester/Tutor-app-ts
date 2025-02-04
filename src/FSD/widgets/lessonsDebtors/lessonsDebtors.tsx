@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { TLoaderData } from "../../shared/api/loaderData.type";
+import { TLoaderData } from "../../shared/types/loaderData.type";
 import { makeApiRequest } from "../../shared/api/makeApiRequest";
-import { HTTPMethods } from "../../shared/api/httpMethods.enum";
+import { HTTPMethods } from "../../shared/types/httpMethods.enum";
 
 type TDebtor = {
   name: string;

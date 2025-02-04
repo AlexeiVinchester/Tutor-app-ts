@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ApiError } from './apiError';
-import { HTTPMethods } from './httpMethods.enum';
-import { TServerError } from './serverError.type';
+import { HTTPMethods } from '../types/httpMethods.enum';
+import { TServerError } from '../types/serverError.type';
 import { baseDomain } from '../config/config';
 
 const axiosApiClient = axios.create({
