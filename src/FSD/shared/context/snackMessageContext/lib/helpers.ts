@@ -1,4 +1,4 @@
-import { TAlertSeverity, TSnackMessageInfo } from "../../../types/snackMessage";
+import { TAlertSeverity, TSnackMessageInfo } from "../../../types/snackMessage.type";
 
 export const createSnackMessage = (message: string, severity: TAlertSeverity): TSnackMessageInfo => {
   return { message, severity };

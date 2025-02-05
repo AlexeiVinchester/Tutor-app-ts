@@ -1,4 +1,4 @@
-import { TSnackMessageInfo } from "../types/snackMessage";
+import { TSnackMessageInfo } from "../types/snackMessage.type";
 import { ApiError } from "./apiError";
 
 export const createApiErrorMessage = (error: unknown): TSnackMessageInfo => {

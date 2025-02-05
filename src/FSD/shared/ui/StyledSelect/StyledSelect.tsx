@@ -8,7 +8,7 @@ import {
   Select,
   SelectProps,
 } from '@mui/material';
-import { TSelectOption } from '../../types/selectOption';
+import { TSelectOption } from '../../types/selectOption.type';
 
 type TStyledSelectProps = {
   fieldState?: ControllerFieldState;

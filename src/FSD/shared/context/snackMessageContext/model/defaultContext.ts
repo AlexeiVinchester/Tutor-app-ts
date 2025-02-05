@@ -1,4 +1,4 @@
-import { TSnackMessageInfo } from "../../../types/snackMessage"
+import { TSnackMessageInfo } from "../../../types/snackMessage.type"
 
 export type TSnackMessageContext = {
   isOpen: boolean;

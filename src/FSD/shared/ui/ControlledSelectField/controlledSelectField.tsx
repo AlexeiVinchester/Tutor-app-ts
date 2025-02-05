@@ -1,7 +1,7 @@
 import { useFormContext, Controller } from 'react-hook-form';
 import { SelectProps } from '@mui/material';
 import { StyledSelect } from '../StyledSelect/StyledSelect';
-import { TSelectOption } from '../../types/selectOption';
+import { TSelectOption } from '../../types/selectOption.type';
 
 type TControlledSelectFieldProps = {
   name: string;

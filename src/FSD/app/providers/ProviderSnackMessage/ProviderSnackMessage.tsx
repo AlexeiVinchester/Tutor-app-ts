@@ -1,7 +1,7 @@
 import { ReactNode, useState, useCallback } from "react";
 import { SnackMessageContext } from "../../../shared/context/snackMessageContext/snackMessageContext";
 import { defaultSnackMessageState } from "./model/defaultSnackMessageState";
-import { TSnackMessageState, TSnackMessageInfo } from "../../../shared/types/snackMessage";
+import { TSnackMessageState, TSnackMessageInfo } from "../../../shared/types/snackMessage.type";
 
 export type TProviderSnackMessageProps = {
   children: ReactNode;
