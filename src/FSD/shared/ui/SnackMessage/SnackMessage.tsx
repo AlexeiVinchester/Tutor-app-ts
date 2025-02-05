@@ -1,7 +1,7 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import ReactDOM from "react-dom";
 import { Alert, Snackbar } from "@mui/material";
-import { SnackMessageContext } from "../../context/snackMessageContext/snackMessageContext";
+import { useSnackMessageContext } from "../../context/snackMessageContext/lib/useSnackMessageContext";
 
 export const SnackMessage = () => {
   const {
@@ -9,13 +9,13 @@ export const SnackMessage = () => {
     message,
     severity,
     closeSnackMessage
-  } = useContext(SnackMessageContext);
+  } = useSnackMessageContext();
 
   const portalContainer = useMemo(() => document.getElementById('snackBar-portal'), []);
 
-  if(!portalContainer) {
+  if (!portalContainer) {
     return null;
-  } 
+  }
 
   return ReactDOM.createPortal(
     <Snackbar
@@ -26,7 +26,7 @@ export const SnackMessage = () => {
       <Alert
         severity={severity}
         onClose={closeSnackMessage}
-        sx={{width: '100%'}}
+        sx={{ width: '100%' }}
       >
         {message}
       </Alert>

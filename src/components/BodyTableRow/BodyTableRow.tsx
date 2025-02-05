@@ -17,6 +17,8 @@ const BodyTableRow = ({ lesson }: IBodyTableRowProps) => {
     openEditLessonWindow();
   };
 
+  
+
   return (
     <>
       {isOpenEditLessonWindow && (
