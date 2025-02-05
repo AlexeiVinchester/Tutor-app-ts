@@ -1,6 +1,5 @@
 import { Container } from '@mui/material';
 import { RoundAddButton } from '../../share/components/RoundAddButton/RoundAddButton';
-import { TableOfLessons } from '../../components/TableOfLessons/TableOfLessons';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { AddNewLessonContainer } from './components/AddNewLessonContainer/AddNewLessonContainer';
 import { useModalWindow } from '../../hooks/useModalWindow';
@@ -11,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { showSnackMessage } from '../../redux/slices/snackMessageSlice/snackMessageSlice';
 import { createSnackMessage } from '../../utils/createSnackMessage';
 import { LessonsDebtors } from '../../FSD/widgets/lessonsDebtors/lessonsDebtors';
+import { LessonsTable } from '../../FSD/features/lessonsContainerWidget/lessonsTable/ui/lessonsTable';
 
 const LessonsPage = () => {
   const { isLoading, error, allLessons } = useLoadLessons();
@@ -43,7 +43,7 @@ const LessonsPage = () => {
           sx={{ paddingTop: '50px', paddingBottom: '50px' }}
           maxWidth="md"
         >
-          <TableOfLessons lessons={allLessons} />
+          <LessonsTable lessons={allLessons} />
           <LessonsDebtors />
         </Container>
       )}

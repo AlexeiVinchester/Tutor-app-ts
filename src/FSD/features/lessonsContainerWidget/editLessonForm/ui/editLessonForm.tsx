@@ -1,13 +1,13 @@
-import { sendEditedLesson } from "./api/loaders";
-import { TSendEditedLessonServerAnswer } from "./model/api.types";
-import { TLesson } from "../../../entities/lesson/model/lesson.type"
-import { LessonForm } from "../../../entities/lesson/ui/lessonForm";
-import { loadInitialData } from "../../../entities/lesson/api/loaders";
-import { TLessonFromSchema } from "../../../entities/lesson/model/lessonFormSchema";
-import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
-import { showSuccessMessage } from "../../../shared/context/snackMessageContext/lib/helpers";
+import { TSendEditedLessonServerAnswer } from "../model/api.types";
+import { sendEditedLesson } from "../api/loaders";
+import { loadInitialData } from "../../../../entities/lesson/api/loaders";
+import { TLesson } from "../../../../entities/lesson/model/lesson.type";
+import { TLessonFromSchema } from "../../../../entities/lesson/model/lessonFormSchema";
+import { LessonForm } from "../../../../entities/lesson/ui/lessonForm";
+import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
+import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
+import { useLoadDataFromServer } from "../../../../shared/hooks/useLoadDataFromServer";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TEditLessonFormProps = {
   lesson: TLesson;

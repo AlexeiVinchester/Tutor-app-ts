@@ -9,7 +9,7 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 import { AddNewLessonContainerProps } from './interface/AddNewLessonContainer.interface';
-import { CreateNewLessonForm } from '../../../../FSD/features/lessonsContainerWidget/createNewLessonForm/createNewLessonForm';
+import { CreateNewLessonForm } from '../../../../FSD/features/lessonsContainerWidget/createNewLessonForm/ui/createNewLessonForm';
 
 const AddNewLessonContainer = ({
   isOpenCreateLessonWindow,

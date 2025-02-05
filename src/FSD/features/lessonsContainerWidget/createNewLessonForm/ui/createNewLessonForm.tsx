@@ -1,13 +1,13 @@
-import { formDefaultValues } from './model/defaultValues';
-import { sendNewLesson } from './api/loaders';
-import { TSendNewLessonServerAnswer } from './model/api.types';
-import { LessonForm } from '../../../entities/lesson/ui/lessonForm';
-import { loadInitialData } from '../../../entities/lesson/api/loaders';
-import { TLessonFromSchema } from '../../../entities/lesson/model/lessonFormSchema';
-import { Spinner } from '../../../shared/ui/Spinner/Spinner';
-import { createApiErrorMessage } from '../../../shared/api/createApiErrorMessage';
-import { showSuccessMessage } from '../../../shared/context/snackMessageContext/lib/helpers';
-import { useLoadDataFromServer } from '../../../shared/hooks/useLoadDataFromServer';
+import { sendNewLesson } from "../api/loaders";
+import { formDefaultValues } from "../model/defaultValues";
+import { TSendNewLessonServerAnswer } from "../model/api.types";
+import { loadInitialData } from "../../../../entities/lesson/api/loaders";
+import { TLessonFromSchema } from "../../../../entities/lesson/model/lessonFormSchema";
+import { LessonForm } from "../../../../entities/lesson/ui/lessonForm";
+import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
+import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
+import { useLoadDataFromServer } from "../../../../shared/hooks/useLoadDataFromServer";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 export const CreateNewLessonForm = () => {
   const {

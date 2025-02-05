@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { IEditLessonContainerProps } from './interface/EditLessonContainer.interface';
-import { EditLessonForm } from '../../../../FSD/features/lessonsContainerWidget/editLessonForm/editLessonForm';
+import { EditLessonForm } from '../../../../FSD/features/lessonsContainerWidget/editLessonForm/ui/editLessonForm';
 
 const EditLessonContainer = ({
   oldLesson,
