@@ -1,5 +1,5 @@
 export interface TLesson {
-  _id?: string;
+  _id: string;
   id?: number;
   name: string;
   date: string;

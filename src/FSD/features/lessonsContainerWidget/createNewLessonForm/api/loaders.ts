@@ -5,7 +5,7 @@ import { makeApiRequest } from "../../../../shared/api/makeApiRequest";
 import { HTTPMethods } from "../../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../../shared/types/loaderData.type";
 
-export const sendNewLesson: TLoaderData<TSendNewLessonServerAnswer, TLesson> = async (data) => {
+export const sendNewLesson: TLoaderData<TSendNewLessonServerAnswer, Omit<TLesson, '_id'>> = async (data) => {
   const response: TSendNewLessonServerAnswer = await makeApiRequest(
     endPoints.sendNewLesson,
     HTTPMethods.POST,
