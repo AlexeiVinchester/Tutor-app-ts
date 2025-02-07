@@ -50,7 +50,7 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
       <TableCell align="center">{currentlesson.date}</TableCell>
       <TableCell align="center">
         <IconButton onClick={handleClickPaidStatus}>
-          {isLoading ? <HourglassTopIcon color="info"/> : currentlesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color="warning" />}
+          {isLoading ? <HourglassTopIcon color="warning"/> : currentlesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color="warning" />}
         </IconButton>
       </TableCell>
       <TableCell align="center">
