@@ -11,6 +11,8 @@ import { showSnackMessage } from '../../redux/slices/snackMessageSlice/snackMess
 import { createSnackMessage } from '../../utils/createSnackMessage';
 import { LessonsDebtors } from '../../FSD/widgets/lessonsDebtors/lessonsDebtors';
 import { LessonsTable } from '../../FSD/features/lessonsContainerWidget/lessonsTable/ui/lessonsTable';
+import { TLesson } from '../../FSD/entities/lesson/model/lesson.type';
+import { CurrentMonthInfoBoard } from '../../FSD/widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard';
 
 const LessonsPage = () => {
   const { isLoading, error, allLessons } = useLoadLessons();
@@ -43,8 +45,9 @@ const LessonsPage = () => {
           sx={{ paddingTop: '50px', paddingBottom: '50px' }}
           maxWidth="md"
         >
-          <LessonsTable lessons={allLessons} />
+          <LessonsTable lessons={allLessons as TLesson[]} />
           <LessonsDebtors />
+          <CurrentMonthInfoBoard />
         </Container>
       )}
       {isOpenCreateLessonWindow && (
