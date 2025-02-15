@@ -1,20 +1,31 @@
-import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer"
+
+import { IconButton } from "@mui/material";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { loadCurrentMonthInfo } from "../api/loader"
+import { TInfoAboutLessonsCurrentMonth } from "../model/info.type";
 
-export const CurrentMonthInfoBoard = () => {
-  const { data, isLoading, isError } = useLoadDataFromServer(loadCurrentMonthInfo);
+type TCurrentMonthInfoBoardProps = {
+  data: TInfoAboutLessonsCurrentMonth | null;
+  isLoading: boolean;
+  isError: boolean;
+  updateData: () => void;
+}
 
+export const CurrentMonthInfoBoard = ({ data, isLoading, isError, updateData }: TCurrentMonthInfoBoardProps) => {
   if (isLoading) {
     return <Spinner />
   }
 
-  if(isError || !data) {
-    return <p>Yooops, something goes wrong!</p>
+  if (isError || !data) {
+    return (
+      <>
+        <p>Yooops, something goes wrong!</p>
+        <IconButton onClick={updateData}>Update lessons</IconButton>
+      </>
+    )
   }
 
   return (
-    <div>
+    <div className="bg-red-300">
       <p>Current amount: {data.currentAmount}</p>
       <p>Current full income: {data.currentFullIncome}</p>
       <p>Current paid income: {data.currentPaidIncome}</p>

@@ -9,12 +9,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { showSnackMessage } from '../../redux/slices/snackMessageSlice/snackMessageSlice';
 import { createSnackMessage } from '../../utils/createSnackMessage';
-import { LessonsDebtors } from '../../FSD/widgets/lessonsDebtors/lessonsDebtors';
 import { LessonsTable } from '../../FSD/features/lessonsContainerWidget/lessonsTable/ui/lessonsTable';
 import { TLesson } from '../../FSD/entities/lesson/model/lesson.type';
-import { CurrentMonthInfoBoard } from '../../FSD/widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard';
 
-const LessonsPage = () => {
+const LessonsPageOld = () => {
   const { isLoading, error, allLessons } = useLoadLessons();
   const dispatch = useDispatch();
 
@@ -45,9 +43,7 @@ const LessonsPage = () => {
           sx={{ paddingTop: '50px', paddingBottom: '50px' }}
           maxWidth="md"
         >
-          <LessonsTable lessons={allLessons as TLesson[]} />
-          <LessonsDebtors />
-          <CurrentMonthInfoBoard />
+          <LessonsTable lessons={allLessons as TLesson[]} isLoading={isLoading} isError={false}/>
         </Container>
       )}
       {isOpenCreateLessonWindow && (
@@ -63,4 +59,4 @@ const LessonsPage = () => {
   );
 };
 
-export { LessonsPage };
+export { LessonsPageOld };

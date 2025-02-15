@@ -12,7 +12,7 @@ const useLoadLessons = () => {
 
   useEffect(() => {
     if (!allLessonsLoaded) {
-      thunkDispatch(loadAllLessons('http://localhost:3002/getLessons'));
+      thunkDispatch(loadAllLessons('http://localhost:3002/lessons/getLessons'));
     }
   }, [allLessonsLoaded, thunkDispatch]);
 
