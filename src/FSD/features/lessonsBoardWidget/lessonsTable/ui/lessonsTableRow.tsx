@@ -24,7 +24,13 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
   const { updateAllData } = useLessonsPageContext();
 
   const handleClickEdit = () => {
-    open(<EditLessonForm lesson={lesson} updateAllData={updateAllData}/>, 'Edit lesson');
+    open(
+      <EditLessonForm
+        lesson={lesson}
+        updateAllData={updateAllData}
+      />,
+      'Edit lesson'
+    );
   };
 
   const handleClickPaidStatus = async () => {

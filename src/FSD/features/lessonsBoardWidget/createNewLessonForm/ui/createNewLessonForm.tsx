@@ -9,7 +9,11 @@ import { showSuccessMessage } from "../../../../shared/context/snackMessageConte
 import { useLoadDataFromServer } from "../../../../shared/hooks/useLoadDataFromServer";
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
-export const CreateNewLessonForm = () => {
+type TCreateNewLessonFormProps = {
+  updateAllData: () => Promise<void>;
+}
+
+export const CreateNewLessonForm = ({updateAllData}: TCreateNewLessonFormProps) => {
   const {
     data: newLessonParams,
     setData: setNewLessonParams,
@@ -34,6 +38,7 @@ export const CreateNewLessonForm = () => {
             names: prev?.names || [],
             nextId: response.nextId
           }))
+          updateAllData();
         }
       } catch (error) {
         openSnackMessage(createApiErrorMessage(error))
