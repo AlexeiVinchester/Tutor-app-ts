@@ -3,7 +3,6 @@ import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
 import { LessonsDebtors} from "../../../widgets/lessonsDebtors/ui/lessonsDebtors";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
-import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
 import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
 import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
@@ -13,6 +12,7 @@ import { loadLessons } from "../../../entities/lesson/api/loaders";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
+import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
 
 export const LessonsPage = () => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
@@ -107,7 +107,7 @@ export const LessonsPage = () => {
         maxWidth="lg"
       >
         <div className="flex flex-row">
-          <LessonsTable
+          <LessonsBoard
             lessons={lessons}
             isLoading={isLoadingLessons}
             isError={isErrorLessons}
