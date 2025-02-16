@@ -24,6 +24,7 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
   const handleClickEdit = () => {
     open(<EditLessonForm lesson={lesson} />, 'Edit lesson');
   };
+  
   const handleClickPaidStatus = async () => {
     try {
       setIsLoading(true);

@@ -92,15 +92,17 @@ export const LessonsPage = () => {
       })();
     }
   }, [openSnackMessage]);
-
+  
+  const updateAllData = useCallback(() => loadData({ updateLessons: true, updateDebtors: true, updateInfo: true }), [loadData])
   const updateLessons = useCallback(() => loadData({ updateLessons: true }), [loadData]);
   const updateDebtors = useCallback(() => loadData({ updateDebtors: true }), [loadData]);
   const updateInfo = useCallback(() => loadData({ updateInfo: true }), [loadData]);
 
   console.log('new render of page lessons')
+
   useEffect(() => {
-    loadData({ updateLessons: true, updateDebtors: true, updateInfo: true })
-  }, [loadData]);
+    updateAllData();
+  }, [updateAllData]);
 
   if (isLoadingDebtors && isLoadingLessons && isLoadingLessonsInfoBoard) {
     return <Spinner />;
