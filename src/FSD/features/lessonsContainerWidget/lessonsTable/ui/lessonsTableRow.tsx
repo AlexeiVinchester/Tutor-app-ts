@@ -10,6 +10,7 @@ import { sendNewPaidStatus, TSendNewpaidStatusData, TSendNewPaidStatusServerAnsw
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { useState } from "react";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
+import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 
 type TLessonsTableRowProps = {
   lesson: TLesson;
@@ -17,24 +18,25 @@ type TLessonsTableRowProps = {
 
 export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentlesson, setCurrentLesson] = useState<TLesson>(lesson);
   const { openSnackMessage } = useSnackMessageContext();
   const { open } = useModalWindowContext();
 
+  const { updateAllData } = useLessonsPageContext();
+
   const handleClickEdit = () => {
-    open(<EditLessonForm lesson={lesson} />, 'Edit lesson');
+    open(<EditLessonForm lesson={lesson} updateAllData={updateAllData}/>, 'Edit lesson');
   };
-  
+
   const handleClickPaidStatus = async () => {
     try {
       setIsLoading(true);
       const sendingData: TSendNewpaidStatusData = {
-        newPaidStatus: !currentlesson.paidStatus, 
-        _id: currentlesson._id
+        newPaidStatus: !lesson.paidStatus,
+        _id: lesson._id
       }
       const response: TSendNewPaidStatusServerAnswer = await sendNewPaidStatus(sendingData);
       if (response) {
-        setCurrentLesson((prev) => ({ ...prev, paidStatus: response.newPaidStatus }))
+        updateAllData();
       }
     } catch (error) {
       openSnackMessage(createApiErrorMessage(error));
@@ -45,13 +47,13 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
 
   return (
     <TableRow>
-      <TableCell>{currentlesson.id}</TableCell>
-      <TableCell align="left">{currentlesson.name}</TableCell>
-      <TableCell align="center">{currentlesson.price}</TableCell>
-      <TableCell align="center">{currentlesson.date}</TableCell>
+      <TableCell>{lesson.id}</TableCell>
+      <TableCell align="left">{lesson.name}</TableCell>
+      <TableCell align="center">{lesson.price}</TableCell>
+      <TableCell align="center">{lesson.date}</TableCell>
       <TableCell align="center">
         <IconButton onClick={handleClickPaidStatus}>
-          {isLoading ? <HourglassTopIcon color="warning"/> : currentlesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color="warning" />}
+          {isLoading ? <HourglassTopIcon color="warning" /> : lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color="warning" />}
         </IconButton>
       </TableCell>
       <TableCell align="center">

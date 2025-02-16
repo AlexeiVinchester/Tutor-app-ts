@@ -11,16 +11,17 @@ import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TEditLessonFormProps = {
   lesson: TLesson;
+  updateAllData: () => Promise<void>;
 };
 
-export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
+export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) => {
   const {
     data: editLessonParams,
     openSnackMessage,
     isLoading,
     setIsLoading,
     isError,
-  } = useLoadDataFromServer(loadInitialData);
+  } = useLoadDataFromServer(loadInitialData);  
 
   const handleSubmitForm = async (data: TLessonFromSchema) => {
     if (editLessonParams) {
@@ -31,6 +32,7 @@ export const EditLessonForm = ({ lesson }: TEditLessonFormProps) => {
 
         if (response) {
           openSnackMessage(showSuccessMessage(`${response.editedLesson.id} lesoon was edited successfully!`))
+          updateAllData()
         }
       } catch (error) {
         openSnackMessage(createApiErrorMessage(error));

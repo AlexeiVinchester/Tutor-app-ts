@@ -13,6 +13,7 @@ import { LessonsTable } from "../../../features/lessonsContainerWidget/lessonsTa
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
 import { Container } from "@mui/material";
+import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
 
 export const loadLessons: TLoaderData<TLesson[]> = async () => {
   const lessons: TLesson[] = await makeApiRequest(
@@ -92,7 +93,7 @@ export const LessonsPage = () => {
       })();
     }
   }, [openSnackMessage]);
-  
+
   const updateAllData = useCallback(() => loadData({ updateLessons: true, updateDebtors: true, updateInfo: true }), [loadData])
   const updateLessons = useCallback(() => loadData({ updateLessons: true }), [loadData]);
   const updateDebtors = useCallback(() => loadData({ updateDebtors: true }), [loadData]);
@@ -109,7 +110,7 @@ export const LessonsPage = () => {
   }
 
   return (
-    <div>
+    <LessonsPageContextProvider updateAllData={updateAllData}>
       <Container
         sx={{ paddingTop: '50px', paddingBottom: '50px' }}
         maxWidth="lg"
@@ -136,10 +137,7 @@ export const LessonsPage = () => {
             />
           </div>
         </div>
-
-
       </Container>
-
-    </div>
+    </LessonsPageContextProvider>
   );
 };
