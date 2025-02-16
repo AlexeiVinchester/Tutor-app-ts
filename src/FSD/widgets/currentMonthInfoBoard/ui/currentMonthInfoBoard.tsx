@@ -1,7 +1,7 @@
 
 import { IconButton } from "@mui/material";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { TInfoAboutLessonsCurrentMonth } from "../model/info.type";
+import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
 
 type TCurrentMonthInfoBoardProps = {
   data: TInfoAboutLessonsCurrentMonth | null;

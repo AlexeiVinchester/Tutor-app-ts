@@ -1,27 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import { LessonsDebtors, loadDebtors, TDebtor } from "../../../widgets/lessonsDebtors/lessonsDebtors";
-import { TLesson } from "../../../entities/lesson/model/lesson.type";
-import { TInfoAboutLessonsCurrentMonth } from "../../../widgets/currentMonthInfoBoard/model/info.type";
-import { loadCurrentMonthInfo } from "../../../widgets/currentMonthInfoBoard/api/loader";
-import { TLoaderData } from "../../../shared/types/loaderData.type";
-import { makeApiRequest } from "../../../shared/api/makeApiRequest";
-import { endPoints } from "../../../entities/lesson/api/endPoints";
-import { HTTPMethods } from "../../../shared/types/httpMethods.enum";
-import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
-import { LessonsTable } from "../../../features/lessonsContainerWidget/lessonsTable/ui/lessonsTable";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
 import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
-
-export const loadLessons: TLoaderData<TLesson[]> = async () => {
-  const lessons: TLesson[] = await makeApiRequest(
-    endPoints.loadLessons,
-    HTTPMethods.GET
-  )
-  return lessons;
-}
+import { LessonsDebtors} from "../../../widgets/lessonsDebtors/ui/lessonsDebtors";
+import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
+import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
+import { TLesson } from "../../../entities/lesson/model/lesson.type";
+import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
+import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
+import { loadDebtors } from "../../../entities/debtor/api/loaders";
+import { TDebtor } from "../../../entities/debtor/model/debtor.type";
+import { loadLessons } from "../../../entities/lesson/api/loaders";
+import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
+import { Spinner } from "../../../shared/ui/Spinner/Spinner";
+import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 
 export const LessonsPage = () => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);

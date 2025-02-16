@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { showSnackMessage } from '../../redux/slices/snackMessageSlice/snackMessageSlice';
 import { createSnackMessage } from '../../utils/createSnackMessage';
-import { LessonsTable } from '../../FSD/features/lessonsContainerWidget/lessonsTable/ui/lessonsTable';
+import { LessonsTable } from '../../FSD/features/lessonsBoardWidget/lessonsTable/ui/lessonsTable';
 import { TLesson } from '../../FSD/entities/lesson/model/lesson.type';
 
 const LessonsPageOld = () => {

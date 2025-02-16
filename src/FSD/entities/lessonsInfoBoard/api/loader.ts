@@ -1,4 +1,4 @@
-import { endPoints } from "../../../entities/lesson/api/endPoints";
+import { endPoints } from "../../lesson/api/endPoints";
 import { makeApiRequest } from "../../../shared/api/makeApiRequest";
 import { HTTPMethods } from "../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../shared/types/loaderData.type";
