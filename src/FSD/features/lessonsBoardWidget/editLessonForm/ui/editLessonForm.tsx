@@ -8,6 +8,7 @@ import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMess
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { useLoadDataFromServer } from "../../../../shared/hooks/useLoadDataFromServer";
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
+import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 
 type TEditLessonFormProps = {
   lesson: TLesson;
@@ -21,7 +22,9 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
     isLoading,
     setIsLoading,
     isError,
-  } = useLoadDataFromServer(loadInitialData);  
+  } = useLoadDataFromServer(loadInitialData);
+
+  const { close } = useModalWindowContext();
 
   const handleSubmitForm = async (data: TLessonFromSchema) => {
     if (editLessonParams) {
@@ -38,6 +41,7 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
         openSnackMessage(createApiErrorMessage(error));
       } finally {
         setIsLoading(false);
+        close();
       }
     }
   }
@@ -51,8 +55,8 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
   }
 
   return (
-    <LessonForm 
-      defaultValues={{...lesson, price: lesson.price.toString()}}
+    <LessonForm
+      defaultValues={{ ...lesson, price: lesson.price.toString() }}
       onSubmit={handleSubmitForm}
       isLoading={isLoading}
       isError={isError}
