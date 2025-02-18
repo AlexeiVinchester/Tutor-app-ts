@@ -19,7 +19,7 @@ type TStyledSelectProps = {
 export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
   ({ fieldState, options, label, size, ...props }, ref) => {
     const labelId = useId();
-
+    console.log(options)
     return (
       <FormControl fullWidth>
         <InputLabel id={labelId} size={size === 'small' ? size : 'normal'}>
@@ -35,7 +35,7 @@ export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
         >
           {options.map((option) => (
             <MenuItem key={option.name} value={option.value}>
-              {option.name}
+              {option.name} - {option.activity}
             </MenuItem>
           ))}
         </Select>

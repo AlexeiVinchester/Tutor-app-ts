@@ -35,7 +35,7 @@ export const CreateNewLessonForm = ({updateAllData}: TCreateNewLessonFormProps) 
           openSnackMessage(showSuccessMessage(`${newLessonParams.nextId}: Lesson was added!`))
           setNewLessonParams((prev) => ({
             ...prev,
-            names: prev?.names || [],
+            studentsParams: prev?.studentsParams || [],
             nextId: response.nextId
           }))
           updateAllData();
@@ -63,7 +63,7 @@ export const CreateNewLessonForm = ({updateAllData}: TCreateNewLessonFormProps) 
       onSubmit={handleSubmitForm}
       isLoading={isLoading}
       isError={isError}
-      names={newLessonParams.names}
+      initialLessonsParams={newLessonParams}
       shouldResetFields
       buttonName='Create new lesson'
     />

@@ -11,11 +11,21 @@ import { FormWrapper } from "../../../shared/ui/FormWrapper/formWrapper";
 import { StyledButton } from "../../../shared/ui/StyledButton/StyledButton";
 import { createSelectOptions } from "../../../shared/utils/createSelectOption";
 
+export type TStudentParam = { 
+  name: string;
+  activity: 'active' | 'inactive';
+}
+
+export type TInitialLessonParams = {
+  studentsParams: TStudentParam[];
+  nextId: number;
+}
+
 type TLessonFormProps = {
   defaultValues: TLessonFromSchema;
   isLoading: boolean;
   isError: boolean;
-  names: string[];
+  initialLessonsParams: TInitialLessonParams;
   shouldResetFields?: boolean;
   buttonName: string;
   onSubmit: (data: TLessonFromSchema) => void;
@@ -27,7 +37,7 @@ export const LessonForm = (
     defaultValues,
     isError,
     isLoading,
-    names,
+    initialLessonsParams,
     shouldResetFields,
     buttonName
   }: TLessonFormProps
@@ -37,8 +47,7 @@ export const LessonForm = (
     mode: 'onChange',
     resolver: zodResolver(lessonFormSchema)
   })
-
-  const studentNamesOptions = names ? createSelectOptions(names) : optionsDefaultValues;
+  const studentNamesOptions = initialLessonsParams ? createSelectOptions(initialLessonsParams.studentsParams) : optionsDefaultValues;
 
   const handleSUbmitForm = async (data: TLessonFromSchema) => {
     onSubmit(data);

@@ -1,4 +1,6 @@
+import { TStudentParam } from "../ui/lessonForm";
+
 export type TLoadInitialDataServerAnswer = {
-  names: string[];
+  studentsParams: TStudentParam[];
   nextId: number;
 }
