@@ -8,6 +8,7 @@ import {
   Select,
   SelectProps,
 } from '@mui/material';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { TSelectOption } from '../../types/selectOption.type';
 
 type TStyledSelectProps = {
@@ -19,7 +20,7 @@ type TStyledSelectProps = {
 export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
   ({ fieldState, options, label, size, ...props }, ref) => {
     const labelId = useId();
-    console.log(options)
+
     return (
       <FormControl fullWidth>
         <InputLabel id={labelId} size={size === 'small' ? size : 'normal'}>
@@ -35,7 +36,12 @@ export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
         >
           {options.map((option) => (
             <MenuItem key={option.name} value={option.value}>
-              {option.name} - {option.activity}
+              <TaskAltIcon sx={
+                option.activity === 'active'
+                  ? { color: 'green' }
+                  : { color: 'red' }
+              } />
+              {option.name}
             </MenuItem>
           ))}
         </Select>

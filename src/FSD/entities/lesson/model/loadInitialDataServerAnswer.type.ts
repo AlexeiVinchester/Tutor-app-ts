@@ -1,6 +1,9 @@
-import { TStudentParam } from "../ui/lessonForm";
+export type TInitialStudentParamForLessonForm = { 
+  name: string;
+  activity: 'active' | 'inactive';
+};
 
-export type TLoadInitialDataServerAnswer = {
-  studentsParams: TStudentParam[];
+export type TInitialLessonParams = {
+  studentsParams: TInitialStudentParamForLessonForm[];
   nextId: number;
-}
+};

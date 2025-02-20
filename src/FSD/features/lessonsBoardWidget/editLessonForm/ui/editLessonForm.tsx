@@ -60,7 +60,7 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
       onSubmit={handleSubmitForm}
       isLoading={isLoading}
       isError={isError}
-      studentsParams={editLessonParams.names}
+      initialLessonsParams={editLessonParams}
       buttonName="Edit lesson"
     />
   );
