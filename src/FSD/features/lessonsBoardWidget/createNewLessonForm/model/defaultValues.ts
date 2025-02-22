@@ -8,5 +8,5 @@ export const formDefaultValues = {
   name: '',
 };
 
-export const optionsDefaultValues: TSelectOption[] = [{ name: '', value: '' }];
+export const optionsDefaultValues: TSelectOption<string>[] = [{ label: '', value: ''}];
 

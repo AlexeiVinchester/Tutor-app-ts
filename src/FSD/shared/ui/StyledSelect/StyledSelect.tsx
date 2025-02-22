@@ -1,4 +1,4 @@
-import { forwardRef, useId } from 'react';
+import React, { forwardRef, useId } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import {
   FormControl,
@@ -8,17 +8,18 @@ import {
   Select,
   SelectProps,
 } from '@mui/material';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { TSelectOption } from '../../types/selectOption.type';
 
-type TStyledSelectProps = {
+type TStyledSelectProps<T extends string | number> = {
   fieldState?: ControllerFieldState;
-  options: TSelectOption[];
+  options: TSelectOption<T>[];
   label: string;
 } & Omit<SelectProps, 'label'>;
 
-export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
-  ({ fieldState, options, label, size, ...props }, ref) => {
+export const StyledSelect = forwardRef(
+  <T extends string | number>(
+    { fieldState, options, label, size, ...props }: TStyledSelectProps<T>,
+    ref: React.Ref<HTMLSelectElement>) => {
     const labelId = useId();
 
     return (
@@ -34,16 +35,17 @@ export const StyledSelect = forwardRef<HTMLSelectElement, TStyledSelectProps>(
           label={label}
           {...props}
         >
-          {options.map((option) => (
-            <MenuItem key={option.name} value={option.value}>
-              <TaskAltIcon sx={
-                option.activity === 'active'
-                  ? { color: 'green' }
-                  : { color: 'red' }
-              } />
-              {option.name}
-            </MenuItem>
-          ))}
+          {
+            options.map((option) => (
+              <MenuItem
+                key={String(option.value)}
+                value={option.value}
+                component='li'
+              >
+                {option.label}
+              </MenuItem>
+            ))
+          }
         </Select>
         <FormHelperText>
           {fieldState?.error && fieldState.error.message}

@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { lessonFormSchema, TLessonFromSchema } from "../model/lessonFormSchema"
 import { TInitialLessonParams } from "../model/loadInitialDataServerAnswer.type";
 import { optionsDefaultValues } from "../model/defaultValues";
+import { createLessonsNameSelectOptions } from "../lib/createSelectOption";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { ControlledCheckboxField } from "../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField";
 import { ControlledDatePicker } from "../../../shared/ui/ControlledDatePicker/controlledDatePicker";
@@ -10,7 +11,6 @@ import { ControlledInputField } from "../../../shared/ui/ControlledInputField/co
 import { ControlledSelectField } from "../../../shared/ui/ControlledSelectField/controlledSelectField";
 import { FormWrapper } from "../../../shared/ui/FormWrapper/formWrapper";
 import { StyledButton } from "../../../shared/ui/StyledButton/StyledButton";
-import { createSelectOptions } from "../../../shared/utils/createSelectOption";
 
 type TLessonFormProps = {
   defaultValues: TLessonFromSchema;
@@ -38,7 +38,7 @@ export const LessonForm = (
     mode: 'onChange',
     resolver: zodResolver(lessonFormSchema)
   })
-  const studentNamesOptions = initialLessonsParams ? createSelectOptions(initialLessonsParams.studentsParams) : optionsDefaultValues;
+  const studentNamesOptions = initialLessonsParams ? createLessonsNameSelectOptions(initialLessonsParams.studentsParams) : optionsDefaultValues;
 
   const handleSUbmitForm = async (data: TLessonFromSchema) => {
     onSubmit(data);

@@ -1,5 +1,6 @@
-export type TSelectOption = {
-  name: string;
-  value: string;
-  activity: 'active' | 'inactive';
+import { ReactNode } from "react";
+
+export type TSelectOption<T extends string | number> = {
+  label: ReactNode;
+  value: T;
 };
