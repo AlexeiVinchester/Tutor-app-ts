@@ -37,7 +37,7 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
   return (
     <Card
       variant="outlined"
-      className="!min-w-[350px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+      className="!w-[96%] !min-w-[350px] !shadow-[0_3px_8px_#ABB2B9] !rounded-[22px] "
     >
       <CardHeader
         avatar={
@@ -47,7 +47,7 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
           />
         }
         title={
-          <h5 className="! text-m font-bold  flex items-center gap-2">
+          <h5 className="!text-m font-bold">
             {debtor.name}
           </h5>
         }
