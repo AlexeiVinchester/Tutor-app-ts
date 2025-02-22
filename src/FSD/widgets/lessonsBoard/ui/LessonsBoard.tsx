@@ -33,12 +33,7 @@ export const LessonsBoard = ({ lessons, isLoading, isError, updateData }: TLesso
         updateData={updateData}
       />
       <IconButton
-        sx={{
-          position: 'absolute',
-          bottom: '50px',
-          right: '50px',
-          color: 'rgb(255, 69, 0)',
-        }}
+        className="!absolute bottom-[50px] right-[50px] !text-add-lesson-button-text"
         size="large"
         onClick={handleClickAddNewLesson}
       >
