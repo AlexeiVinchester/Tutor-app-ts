@@ -124,7 +124,7 @@ export const LessonsPage = () => {
               data={debtors}
               isLoading={isLoadingDebtors}
               isError={isErrorDebtors}
-              updateData={updateDebtors}
+              updateDebtors={updateDebtors}
             />
           </div>
         </div>

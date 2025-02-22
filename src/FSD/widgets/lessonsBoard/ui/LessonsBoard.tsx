@@ -15,14 +15,12 @@ export type TLessonsBoardProps = {
 }
 
 export const LessonsBoard = ({ lessons, isLoading, isError, updateData }: TLessonsBoardProps) => {
-  
-  const {open} = useModalWindowContext();
-  const {updateAllData} = useLessonsPageContext();
-  
+  const { open } = useModalWindowContext();
+  const { updateAllData } = useLessonsPageContext();
+
   const handleClickAddNewLesson = useCallback(() => {
-    open(<CreateNewLessonForm updateAllData={updateAllData}/>, 'New lesson'
-    )
-  },[open, updateAllData])
+    open(<CreateNewLessonForm updateAllData={updateAllData} />, 'New lesson');
+  }, [open, updateAllData])
 
   return (
     <>
@@ -40,6 +38,5 @@ export const LessonsBoard = ({ lessons, isLoading, isError, updateData }: TLesso
         <PostAddIcon fontSize="large" />
       </IconButton>
     </>
-
   );
 }

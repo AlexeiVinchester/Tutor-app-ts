@@ -5,4 +5,5 @@ export const endPoints: Readonly<Record<string, string>> = {
   sendNewLesson: '/lessons/addLesson',
   sendNewPaidStatus: '/lessons/changePaidStatus',
   loadCurrentMonthInfo: '/lessons/currentMonthInfo',
+  payDebt: '/lessons/payDebt'
 }

@@ -8,7 +8,7 @@ import { useModalWindowContext } from "../../../../shared/context/modalWindowCon
 import { EditLessonForm } from "../../editLessonForm/ui/editLessonForm";
 import { sendNewPaidStatus, TSendNewpaidStatusData, TSendNewPaidStatusServerAnswer } from "../api/loaders";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 
@@ -23,17 +23,11 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
 
   const { updateAllData } = useLessonsPageContext();
 
-  const handleClickEdit = () => {
-    open(
-      <EditLessonForm
-        lesson={lesson}
-        updateAllData={updateAllData}
-      />,
-      'Edit lesson'
-    );
-  };
+  const handleClickEdit = useCallback(() => {
+    open(<EditLessonForm lesson={lesson} updateAllData={updateAllData} />, 'Edit lesson');
+  }, [lesson, open, updateAllData]);
 
-  const handleClickPaidStatus = async () => {
+  const handleClickPaidStatus = useCallback(async () => {
     try {
       setIsLoading(true);
       const sendingData: TSendNewpaidStatusData = {
@@ -49,7 +43,7 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [lesson._id, lesson.paidStatus, openSnackMessage, updateAllData]);
 
   return (
     <TableRow>

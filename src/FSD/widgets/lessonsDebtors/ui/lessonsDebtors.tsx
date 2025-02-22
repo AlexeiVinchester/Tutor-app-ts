@@ -1,13 +1,15 @@
 import { IconButton } from "@mui/material";
 import { TDebtor } from "../../../entities/debtor/model/debtor.type";
+import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
 
-type TLessonsDebtorsProps = {
+export type TLessonsDebtorsProps = {
   data: TDebtor[] | null;
   isLoading: boolean;
   isError: boolean;
-  updateData: () => void;
+  updateDebtors: () => void;
 }
-export const LessonsDebtors = ({ data, isLoading, isError, updateData }: TLessonsDebtorsProps) => {
+
+export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLessonsDebtorsProps) => {
   if (isLoading) {
     return <p>Loading od debtors...</p>
   }
@@ -16,7 +18,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateData }: TLesson
     return (
       <>
         <p>Something go wrong!</p>
-        <IconButton onClick={updateData}>Update lessons</IconButton>
+        <IconButton onClick={updateDebtors}>Update Debtors</IconButton>
       </>
     )
   }
@@ -24,9 +26,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateData }: TLesson
   return (
     <div className="bg-slate-400">
       {data.map(item => (
-        <div>
-          <p>Name: {item.name} - debt: {item.debt} - amount of lessons: {item.amount}</p>
-        </div>
+        <DebtorContainer key={item.name} debtor={item} />
       ))}
     </div>
   );

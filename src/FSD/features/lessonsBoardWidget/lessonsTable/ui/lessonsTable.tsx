@@ -12,7 +12,7 @@ type TLessonsTableProps = {
 
 export const LessonsTable = React.memo(({ lessons, isLoading, isError, updateData }: TLessonsTableProps) => {
   if (isLoading) {
-    return <p>Loading od debtors...</p>
+    return <p>Loading of debtors...</p>
   }
 
   if (isError || !lessons) {
@@ -47,4 +47,4 @@ export const LessonsTable = React.memo(({ lessons, isLoading, isError, updateDat
       </Table>
     </TableContainer>
   );
-})
+});
