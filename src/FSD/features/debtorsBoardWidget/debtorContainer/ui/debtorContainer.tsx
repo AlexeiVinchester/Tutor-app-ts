@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { Avatar, Card, CardHeader, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
@@ -35,11 +35,40 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
   }
 
   return (
-    <div>
-      Name: {debtor.name} - debt: {debtor.debt} - amount of lessons: {debtor.amount}
-      <IconButton onClick={handleClickPayDebt} disabled={isPending} >
-        {isPending ? <HourglassEmptyIcon /> : <PaymentIcon />}
-      </IconButton>
-    </div>
+    <Card
+      variant="outlined"
+      className="!min-w-[350px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+    >
+      <CardHeader
+        avatar={
+          <Avatar
+            src="/assets/student.png"
+            className="!w-10 !h-10"
+          />
+        }
+        title={
+          <h5 className="! text-m font-bold  flex items-center gap-2">
+            {debtor.name}
+          </h5>
+        }
+        subheader={
+          <h5>
+            {debtor.debt} BYN - {debtor.amount} lessons
+          </h5>
+        }
+        action={
+          <IconButton
+            onClick={handleClickPayDebt}
+            disabled={isPending}
+            size="large"
+            className="!text-send-data-button-text"
+          >
+            {isPending ? <HourglassEmptyIcon /> : <PaymentIcon />}
+          </IconButton>
+        }
+      />
+
+    </Card>
+
   );
 }
