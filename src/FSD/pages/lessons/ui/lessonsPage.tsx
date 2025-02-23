@@ -7,7 +7,7 @@ import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
 import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
 import { loadDebtors } from "../../../entities/debtor/api/loaders";
-import { TDebtor } from "../../../entities/debtor/model/debtor.type";
+import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
 import { loadLessons } from "../../../entities/lesson/api/loaders";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
@@ -20,7 +20,7 @@ export const LessonsPage = () => {
   const [isErrorLessons, setIsErrorLessons] = useState<boolean>(false);
 
   const [isLoadingDebtors, setIsLoadingDebtors] = useState<boolean>(true);
-  const [debtors, setDebtors] = useState<TDebtor[] | null>(null);
+  const [debtors, setDebtors] = useState<TDebtorsInfo | null>(null);
   const [isErrorDebtors, setIsErrorDebtors] = useState<boolean>(false);
 
   const [isLoadingLessonsInfoBoard, setIsLoadingLessonInfoBoard] = useState<boolean>(true)

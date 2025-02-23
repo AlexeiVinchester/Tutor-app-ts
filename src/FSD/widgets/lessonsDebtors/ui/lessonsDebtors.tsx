@@ -1,9 +1,9 @@
 import { Card, CardHeader, IconButton } from "@mui/material";
-import { TDebtor } from "../../../entities/debtor/model/debtor.type";
+import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
 import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
 
 export type TLessonsDebtorsProps = {
-  data: TDebtor[] | null;
+  data: TDebtorsInfo | null;
   isLoading: boolean;
   isError: boolean;
   updateDebtors: () => void;
@@ -26,7 +26,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
   return (
     <Card
       variant="outlined"
-      className="!py-4 !min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+      className="!pb-3 !min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
     >
       <CardHeader
         title={
@@ -36,7 +36,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
         }
         subheader={
           <h5>
-            Total debt: { } BYN - { } lessons
+            Total debt: {data.totalDebt} BYN - {data.totalAmount} lessons
           </h5>
         }
         action={
@@ -50,7 +50,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
         }
       />
       <div className="!flex !flex-col items-center gap-2">
-        {data.map(item => (
+        {data.debtors.map(item => (
           <DebtorContainer key={item.name} debtor={item} />
         ))}
       </div>
