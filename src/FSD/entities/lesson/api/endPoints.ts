@@ -1,4 +1,4 @@
-export const endPoints: Readonly<Record<string, string>> = {
+export const lessonsEndPoints: Readonly<Record<string, string>> = {
   loadLessons: '/lessons/getLessons',
   sendEditedLesson: '/lessons/editLesson',
   loadInitialData: '/lessons/getInitialFormData',

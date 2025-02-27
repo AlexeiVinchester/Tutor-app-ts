@@ -1,4 +1,4 @@
-import { endPoints } from "../../../../entities/lesson/api/endPoints";
+import { lessonsEndPoints } from "../../../../entities/lesson/api/endPoints";
 import { makeApiRequest } from "../../../../shared/api/makeApiRequest";
 import { HTTPMethods } from "../../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../../shared/types/loaderData.type";
@@ -14,7 +14,7 @@ export type TSendNewpaidStatusData = {
 
 export const sendNewPaidStatus: TLoaderData<TSendNewPaidStatusServerAnswer, TSendNewpaidStatusData> = async (data) => {
   const response: TSendNewPaidStatusServerAnswer = await makeApiRequest(
-    endPoints.sendNewPaidStatus,
+    lessonsEndPoints.sendNewPaidStatus,
     HTTPMethods.PATCH,
     data
   );

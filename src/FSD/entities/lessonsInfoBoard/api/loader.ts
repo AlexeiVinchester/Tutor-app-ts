@@ -1,4 +1,4 @@
-import { endPoints } from "../../lesson/api/endPoints";
+import { lessonsEndPoints } from "../../lesson/api/endPoints";
 import { makeApiRequest } from "../../../shared/api/makeApiRequest";
 import { HTTPMethods } from "../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../shared/types/loaderData.type";
@@ -9,7 +9,7 @@ export const loadCurrentMonthInfo: TLoaderData<TInfoAboutLessonsCurrentMonth> = 
   const correctCurrentMonth = getCorrectCurrentMonth();
   const currentYear = new Date().getFullYear().toString();
   const response: TInfoAboutLessonsCurrentMonth = await makeApiRequest(
-    endPoints.loadCurrentMonthInfo + `?year=${currentYear}&month=${correctCurrentMonth}`,
+    lessonsEndPoints.loadCurrentMonthInfo + `?year=${currentYear}&month=${correctCurrentMonth}`,
     HTTPMethods.GET
   );
 
