@@ -1,12 +1,36 @@
 import { CardHeader, IconButton } from "@mui/material";
+import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
+import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
+import { useState } from "react";
+import { sendFullPayment } from "../api/loaders";
+import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
+import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 
 type TDebtorBoardHeaderProps = {
   totalDebt: number;
   totalAmount: number;
-  isLoading: boolean
 }
 
-export const DebtorBoardHeader = ({ isLoading, totalAmount, totalDebt }: TDebtorBoardHeaderProps) => {
+export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeaderProps) => {
+  const { updateAllData } = useLessonsPageContext();
+  const { openSnackMessage } = useSnackMessageContext();
+  const [isPending, setIsPending] = useState<boolean>(false);
+
+  const handlePayFullDebt = async () => {
+    try {
+      setIsPending(true);
+      const response = await sendFullPayment();
+      if (response.paymentStatus) {
+        updateAllData();
+        openSnackMessage(showSuccessMessage(`Debt in ${totalDebt} was paid successfully!`))
+      }
+    } catch (error) {
+      openSnackMessage(createApiErrorMessage(error))
+    } finally {
+      setIsPending(false)
+    }
+  }
+
   return (
     <CardHeader
       title={
@@ -21,9 +45,10 @@ export const DebtorBoardHeader = ({ isLoading, totalAmount, totalDebt }: TDebtor
       }
       action={
         <IconButton
-          disabled={isLoading}
           size="large"
-          className="!text-send-data-button-text"
+          className="!text-send-data-button-text disabled:bg-gray-400"
+          onClick={handlePayFullDebt}
+          disabled={isPending}
         >
           Pay
         </IconButton>

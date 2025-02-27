@@ -31,7 +31,6 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
       className="!pb-3 !min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
     >
       <DebtorBoardHeader
-        isLoading={isLoading}
         totalAmount={data.totalAmount}
         totalDebt={data.totalDebt}
       />

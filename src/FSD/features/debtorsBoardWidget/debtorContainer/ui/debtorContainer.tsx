@@ -67,7 +67,6 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
           </IconButton>
         }
       />
-
     </Card>
 
   );
