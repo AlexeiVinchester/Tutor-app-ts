@@ -2,6 +2,7 @@ import { Card, IconButton } from "@mui/material";
 import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
 import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
 import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader/ui/DebtorsBoardHeader";
+import { DebtorsList } from "./DebtorsList";
 
 export type TLessonsDebtorsProps = {
   data: TDebtorsInfo | null;
@@ -34,14 +35,7 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
         totalAmount={data.totalAmount}
         totalDebt={data.totalDebt}
       />
-      <div className="!flex !flex-col items-center gap-2">
-        {data.debtors.map(item => (
-          <DebtorContainer key={item.name} debtor={item} />
-        ))}
-      </div>
-
+      <DebtorsList debtors={data.debtors} />
     </Card>
-
-
   );
 };
