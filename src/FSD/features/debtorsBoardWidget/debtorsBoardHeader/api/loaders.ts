@@ -7,7 +7,7 @@ import { TSendFullPaymentServerAnswer } from "../model/api.types";
 export const sendFullPayment: TLoaderData<TSendFullPaymentServerAnswer> = async () => {
   const response: TSendFullPaymentServerAnswer = await makeApiRequest(
     debtorsEndPoints.payFullDebt,
-    HTTPMethods.POST
+    HTTPMethods.PATCH
   );
 
   return response;

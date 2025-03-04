@@ -1,6 +1,5 @@
 import { Card, IconButton } from "@mui/material";
 import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
-import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
 import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader/ui/DebtorsBoardHeader";
 import { DebtorsList } from "./DebtorsList";
 

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { sendFullPayment } from "../api/loaders";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
+import { TSendFullPaymentServerAnswer } from "../model/api.types";
 
 type TDebtorBoardHeaderProps = {
   totalDebt: number;
@@ -19,7 +20,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeader
   const handlePayFullDebt = async () => {
     try {
       setIsPending(true);
-      const response = await sendFullPayment();
+      const response: TSendFullPaymentServerAnswer = await sendFullPayment();
       if (response.paymentStatus) {
         updateAllData();
         openSnackMessage(showSuccessMessage(`Debt in ${totalDebt} was paid successfully!`))
