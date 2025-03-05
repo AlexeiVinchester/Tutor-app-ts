@@ -2,10 +2,10 @@ import { CardHeader, IconButton } from "@mui/material";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { useState } from "react";
-import { sendFullPayment } from "../api/loaders";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
-import { TSendFullPaymentServerAnswer } from "../model/api.types";
+import { TSendFullPaymentServerAnswer } from "../../../../entities/debtor/api/api.types";
+import { sendFullPayment } from "../../../../entities/debtor/api/loaders";
 
 type TDebtorBoardHeaderProps = {
   totalDebt: number;

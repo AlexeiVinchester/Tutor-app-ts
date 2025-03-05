@@ -7,8 +7,8 @@ import { useSnackMessageContext } from "../../../../shared/context/snackMessageC
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PaymentIcon from '@mui/icons-material/Payment';
 import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
-import { sendDebtorPayment } from "../api/loaders";
-import { TSendDebtorPaymentServerAnswer } from "../model/api.types";
+import { TSendDebtorPaymentServerAnswer } from "../../../../entities/debtor/api/api.types";
+import { sendDebtorPayment } from "../../../../entities/debtor/api/loaders";
 
 type TDebtorContainerProps = {
   debtor: TDebtor;
