@@ -4,8 +4,8 @@ import { useSnackMessageContext } from "../../../../shared/context/snackMessageC
 import { useState } from "react";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
-import { TSendFullPaymentServerAnswer } from "../../../../entities/debtor/api/api.types";
-import { sendFullPayment } from "../../../../entities/debtor/api/loaders";
+import { sendFullPayment } from "../api/loaders";
+import { TSendFullPaymentServerAnswer } from "../model/api.types";
 
 type TDebtorBoardHeaderProps = {
   totalDebt: number;

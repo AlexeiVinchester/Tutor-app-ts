@@ -1,8 +1,3 @@
-import {
-  TSendDebtorPaymentServerAnswer,
-  TSendDebtorPaymentData,
-  TSendFullPaymentServerAnswer
-} from "./api.types";
 import { debtorsEndPoints } from "./endPoints";
 import { TDebtorsInfo } from "../model/debtor.type";
 import { makeApiRequest } from "../../../shared/api/makeApiRequest";
@@ -18,21 +13,5 @@ export const loadDebtors: TLoaderData<TDebtorsInfo> = async () => {
   return debtors;
 };
 
-export const sendDebtorPayment: TLoaderData<TSendDebtorPaymentServerAnswer, TSendDebtorPaymentData> = async (data) => {
-  const response: TSendDebtorPaymentServerAnswer = await makeApiRequest(
-    debtorsEndPoints.payStudentDebt,
-    HTTPMethods.PATCH,
-    data
-  );
 
-  return response;
-};
 
-export const sendFullPayment: TLoaderData<TSendFullPaymentServerAnswer> = async () => {
-  const response: TSendFullPaymentServerAnswer = await makeApiRequest(
-    debtorsEndPoints.payFullDebt,
-    HTTPMethods.PATCH
-  );
-
-  return response;
-};
