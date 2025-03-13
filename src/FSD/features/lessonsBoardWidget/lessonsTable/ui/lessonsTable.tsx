@@ -4,18 +4,13 @@ import { LessonsTableRow } from "./lessonsTableRow";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
 
 type TLessonsTableProps = {
-  lessons: TLesson[] | null;
-  isLoading: boolean;
+  lessons: TLesson[];
   isError: boolean;
   updateData: () => void;
 }
 
-export const LessonsTable = React.memo(({ lessons, isLoading, isError, updateData }: TLessonsTableProps) => {
-  if (isLoading) {
-    return <p>Loading of debtors...</p>
-  }
-
-  if (isError || !lessons) {
+export const LessonsTable = React.memo(({ lessons, isError, updateData }: TLessonsTableProps) => {
+  if (isError) {
     return (
       <div>
         <p>Something goes wrong!</p>
@@ -25,7 +20,7 @@ export const LessonsTable = React.memo(({ lessons, isLoading, isError, updateDat
   }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 400 }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 400, minWidth: 650 }}>
       <Table sx={{ minWidth: 650 }} stickyHeader>
         <TableHead>
           <TableRow>

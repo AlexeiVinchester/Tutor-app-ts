@@ -28,20 +28,23 @@ export const LessonsBoard = ({
     <>
       <Card
         variant="outlined"
-        className="!pb-3 !min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+        className="!pb-3 !min-w-[700px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
       >
         <LessonBoardHeader updateData={updateData} />
         <CardContent>
-          <LessonsTable
-            lessons={lessons}
-            isLoading={isLoading}
-            isError={isError}
-            updateData={updateData}
-          />
-          <PaginationContainer
-            paginationParams={paginationParams}
-            handleChangePage={handleChangePage}
-          />
+          {isLoading && <div className="text-main-orange">Loading of lessons...</div>}
+          {(!isLoading && lessons) &&
+            <>
+              <LessonsTable
+                lessons={lessons}
+                isError={isError}
+                updateData={updateData}
+              />
+              <PaginationContainer
+                paginationParams={paginationParams}
+                handleChangePage={handleChangePage}
+              />
+            </>}
         </CardContent>
       </Card>
     </>
