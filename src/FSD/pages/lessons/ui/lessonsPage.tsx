@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
-import { LessonsDebtors} from "../../../widgets/lessonsDebtors/ui/lessonsDebtors";
+import { LessonsDebtors } from "../../../widgets/lessonsDebtors/ui/lessonsDebtors";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
 import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
@@ -14,7 +14,7 @@ import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
 
-export const LessonsPage = () => {
+export const LessonsPage = React.memo(() => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
   const [lessons, setLessons] = useState<TLesson[] | null>(null);
   const [isErrorLessons, setIsErrorLessons] = useState<boolean>(false);
@@ -93,6 +93,7 @@ export const LessonsPage = () => {
   console.log('new render of page lessons')
 
   useEffect(() => {
+    console.log('start effect')
     updateAllData();
   }, [updateAllData]);
 
@@ -106,19 +107,13 @@ export const LessonsPage = () => {
         sx={{ paddingTop: '50px', paddingBottom: '50px' }}
         maxWidth="lg"
       >
-        <div className="flex flex-row">
-          <LessonsBoard
-            lessons={lessons}
-            isLoading={isLoadingLessons}
-            isError={isErrorLessons}
-            updateData={updateLessons}
-          />
-          <div className="flex flex-col">
-            <CurrentMonthInfoBoard
-              data={lessonsInfoBoard}
-              isLoading={isLoadingLessonsInfoBoard}
-              isError={isErrorLessonsInfoBoard}
-              updateData={updateInfo}
+        <div className="flex flex-col">
+          <div className="flex gap-8">
+            <LessonsBoard
+              lessons={lessons}
+              isLoading={isLoadingLessons}
+              isError={isErrorLessons}
+              updateData={updateLessons}
             />
             <LessonsDebtors
               data={debtors}
@@ -127,8 +122,14 @@ export const LessonsPage = () => {
               updateDebtors={updateDebtors}
             />
           </div>
+          <CurrentMonthInfoBoard
+            data={lessonsInfoBoard}
+            isLoading={isLoadingLessonsInfoBoard}
+            isError={isErrorLessonsInfoBoard}
+            updateData={updateInfo}
+          />
         </div>
       </Container>
     </LessonsPageContextProvider>
   );
-};
+});

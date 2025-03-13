@@ -25,7 +25,7 @@ export const LessonsTable = React.memo(({ lessons, isLoading, isError, updateDat
   }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 640 }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 400 }}>
       <Table sx={{ minWidth: 650 }} stickyHeader>
         <TableHead>
           <TableRow>

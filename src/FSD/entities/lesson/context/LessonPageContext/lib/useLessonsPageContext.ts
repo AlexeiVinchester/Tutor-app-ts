@@ -7,4 +7,4 @@ export const useLessonsPageContext = () => {
     throw new Error("useLessonsPageContext must be used within LessonsPageContextProvider");
   }
   return context;
-}
+};
