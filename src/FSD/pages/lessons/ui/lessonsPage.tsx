@@ -29,7 +29,6 @@ export const LessonsPage = React.memo(() => {
 
   const { openSnackMessage } = useSnackMessageContext()
 
-
   const loadData = useCallback(async ({ updateLessons = false, updateDebtors = false, updateInfo = false }) => {
     if (updateLessons) {
       (async () => {
