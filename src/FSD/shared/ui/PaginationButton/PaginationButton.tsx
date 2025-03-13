@@ -7,10 +7,10 @@ type TPaginationButtonProps = {
 export const PaginationButton = ({ value, ...props }: TPaginationButtonProps) => {
   return (
     <button
-      className="rounded-2 border px-4 py-2 bg-send-data-button-text disabled:bg-gray-500 hover:bg-main-turquoise"
-      {...props}
+    className="text-white w-10 h-10 flex items-center justify-center border bg-send-data-button-text disabled:bg-gray-500 hover:bg-main-turquoise rounded-[50%]"
+    {...props}
     >
-      {value}
+      <span className="text-sm">{value}</span>
     </button>
   );
 };

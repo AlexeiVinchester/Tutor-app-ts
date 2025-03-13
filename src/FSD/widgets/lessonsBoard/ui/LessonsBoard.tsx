@@ -7,21 +7,34 @@ import { useCallback } from "react";
 import { CreateNewLessonForm } from "../../../features/lessonsBoardWidget/createNewLessonForm/ui/createNewLessonForm";
 import { useLessonsPageContext } from "../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
+import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
+import { TPaginationParams } from "../../../shared/types/pagination";
 
 export type TLessonsBoardProps = {
   lessons: TLesson[] | null;
   isLoading: boolean;
   isError: boolean;
   updateData: () => void;
+  paginationParams: TPaginationParams;
 };
 
-export const LessonsBoard = ({ lessons, isLoading, isError, updateData }: TLessonsBoardProps) => {
+export const LessonsBoard = ({
+  lessons,
+  isLoading,
+  isError,
+  updateData,
+  paginationParams
+}: TLessonsBoardProps) => {
   const { open } = useModalWindowContext();
   const { updateAllData } = useLessonsPageContext();
 
   const handleClickAddNewLesson = useCallback(() => {
     open(<CreateNewLessonForm updateAllData={updateAllData} />, 'New lesson');
   }, [open, updateAllData])
+
+  const handleChangePage = (page: number) => {
+    console.log(page);
+  };
 
   return (
     <>
@@ -36,6 +49,10 @@ export const LessonsBoard = ({ lessons, isLoading, isError, updateData }: TLesso
             isLoading={isLoading}
             isError={isError}
             updateData={updateData}
+          />
+          <PaginationContainer
+            paginationParams={paginationParams}
+            handleChangePage={handleChangePage}
           />
           <IconButton
             className="!absolute bottom-[50px] right-[50px] !text-send-data-button-text"

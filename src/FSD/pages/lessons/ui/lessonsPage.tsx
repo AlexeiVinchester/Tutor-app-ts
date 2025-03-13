@@ -13,6 +13,7 @@ import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
+import { TPaginationParams } from "../../../shared/types/pagination";
 
 export const LessonsPage = React.memo(() => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
@@ -96,6 +97,15 @@ export const LessonsPage = React.memo(() => {
     updateAllData();
   }, [updateAllData]);
 
+  const paginationParams: TPaginationParams = {
+    pages: 100,
+    page: 2,
+    perPage: 10,
+    nextPage: 3,
+    prevPage: 1,
+    totalPages: 10
+  };
+
   if (isLoadingDebtors && isLoadingLessons && isLoadingLessonsInfoBoard) {
     return <Spinner />;
   }
@@ -109,6 +119,7 @@ export const LessonsPage = React.memo(() => {
         <div className="flex flex-col">
           <div className="flex gap-8">
             <LessonsBoard
+              paginationParams={paginationParams}
               lessons={lessons}
               isLoading={isLoadingLessons}
               isError={isErrorLessons}
