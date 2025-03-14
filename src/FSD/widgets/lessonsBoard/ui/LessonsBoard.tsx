@@ -43,7 +43,7 @@ export const LessonsBoard = ({
     <>
       <Card
         variant="outlined"
-        className="!pb-3 !min-w-[700px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+        className="!pb-3 !min-w-[700px] !max-h-[670px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
       >
         <LessonBoardHeader updateData={updateData} />
         <CardContent>

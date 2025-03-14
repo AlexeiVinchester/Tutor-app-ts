@@ -20,8 +20,8 @@ export const LessonsTable = React.memo(({ lessons, isError, updateData }: TLesso
   }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 400, minWidth: 650 }}>
-      <Table sx={{ minWidth: 650 }} stickyHeader>
+    <TableContainer component={Paper} sx={{ maxHeight: 400, minWidth: 650, border:  "1px solid #d1d5db", borderRadius: '12px' }} >
+      <Table sx={{ minWidth: 650}} stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
