@@ -35,13 +35,13 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
             className="!text-send-data-button-text disabled:bg-gray-400"
             onClick={updateData}
           >
-            <UpdateIcon fontSize="large" />
+            <UpdateIcon fontSize="large" className="hover:text-main-turquoise" />
           </IconButton>
           <IconButton
             className="!text-send-data-button-text"
             onClick={handleClickAddNewLesson}
           >
-            <PostAddIcon fontSize="large" />
+            <PostAddIcon fontSize="large" className="hover:text-main-turquoise" />
           </IconButton>
         </div>
       }

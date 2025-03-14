@@ -4,6 +4,7 @@ import { Card, CardContent } from "@mui/material";
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
 import { TPaginationParams } from "../../../shared/types/pagination";
+import { useRef, useState } from "react";
 
 export type TLessonsBoardProps = {
   lessons: TLesson[] | null;
@@ -20,6 +21,20 @@ export const LessonsBoard = ({
   updateData,
   paginationParams
 }: TLessonsBoardProps) => {
+
+  const [seacrh, setSearch] = useState('');
+
+  const debounceSearchTimerId = useRef<number>(0);
+
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    if (debounceSearchTimerId.current) {
+      clearTimeout(debounceSearchTimerId.current);
+    }
+
+    debounceSearchTimerId.current = setTimeout(() => console.log(e.target.value), 500);
+  };
+
   const handleChangePage = (page: number) => {
     console.log(page);
   };
@@ -35,6 +50,13 @@ export const LessonsBoard = ({
           {isLoading && <div className="text-main-orange">Loading of lessons...</div>}
           {(!isLoading && lessons) &&
             <>
+              <input
+                className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none" 
+                placeholder="Search by name"
+                type="text"
+                value={seacrh}
+                onChange={handleChangeSearch}
+              />
               <LessonsTable
                 lessons={lessons}
                 isError={isError}

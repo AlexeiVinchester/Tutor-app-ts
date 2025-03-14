@@ -14,7 +14,7 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
   };
 
   return (
-    <div className="flex items-center justify-between mt-4">
+    <div className="flex items-center justify-between mt-6">
       <div className="flex gap-3">
         <PaginationButton onClick={handleClickPage(1)} value={1} />
         {page !== 1 && <>...</>}
