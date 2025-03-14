@@ -28,13 +28,15 @@ export const LessonsDebtors = ({ data, isLoading, isError, updateDebtors }: TLes
   return (
     <Card
       variant="outlined"
-      className="!pb-3 !min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+      className="!min-w-[400px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
     >
       <DebtorBoardHeader
         totalAmount={data.totalAmount}
         totalDebt={data.totalDebt}
       />
-      <DebtorsList debtors={data.debtors} />
+      <div className="max-h-[570px] overflow-y-auto">
+        <DebtorsList debtors={data.debtors} />
+      </div>
     </Card>
   );
 };

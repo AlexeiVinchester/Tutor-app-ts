@@ -7,7 +7,7 @@ type TDebtorsListProps = {
 
 export const DebtorsList = ({ debtors }: TDebtorsListProps) => {
   return (
-    <div className="!flex !flex-col items-center gap-2">
+    <div className="!flex !flex-col items-center gap-2 pb-3">
       {debtors.map(debtor => (
         <DebtorContainer key={debtor.name} debtor={debtor} />
       ))}
