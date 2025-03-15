@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
-import { LessonsDebtors } from "../../../widgets/lessonsDebtors/ui/lessonsDebtors";
+import { DebtorsBoard } from "../../../widgets/lessonsDebtors/ui/DebtorsBoard";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
 import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
@@ -125,7 +125,7 @@ export const LessonsPage = React.memo(() => {
               isError={isErrorLessons}
               updateData={updateLessons}
             />
-            <LessonsDebtors
+            <DebtorsBoard
               data={debtors}
               isLoading={isLoadingDebtors}
               isError={isErrorDebtors}

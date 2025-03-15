@@ -6,13 +6,16 @@ import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMess
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { sendFullPayment } from "../api/loaders";
 import { TSendFullPaymentServerAnswer } from "../model/api.types";
+import UpdateIcon from '@mui/icons-material/Update';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 
 type TDebtorBoardHeaderProps = {
-  totalDebt: number;
-  totalAmount: number;
+  totalDebt?: number;
+  totalAmount?: number;
+  updateData: () => void;
 }
 
-export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeaderProps) => {
+export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebtorBoardHeaderProps) => {
   const { updateAllData } = useLessonsPageContext();
   const { openSnackMessage } = useSnackMessageContext();
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -40,19 +43,31 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeader
         </h5>
       }
       subheader={
-        <h5>
-          Total debt: {totalDebt} BYN - {totalAmount} lessons
-        </h5>
+        <>
+          {(totalAmount && totalDebt) &&
+            <h5>Total debt: {totalDebt} BYN - {totalAmount} lessons</h5>
+          }
+        </>
       }
       action={
-        <IconButton
-          size="large"
-          className="!text-send-data-button-text disabled:bg-gray-400"
-          onClick={handlePayFullDebt}
-          disabled={isPending}
-        >
-          Pay
-        </IconButton>
+        <div className="flex">
+          <IconButton
+            size="large"
+            className="!text-send-data-button-text disabled:bg-gray-400"
+            onClick={updateData}
+            disabled={isPending}
+          >
+            <UpdateIcon fontSize="large" className="hover:text-main-turquoise" />
+          </IconButton>
+          <IconButton
+            size="large"
+            className="!text-send-data-button-text disabled:bg-gray-400"
+            onClick={handlePayFullDebt}
+            disabled={isPending}
+          >
+            <MonetizationOnOutlinedIcon fontSize="large" className="hover:text-main-turquoise" />
+          </IconButton>
+        </div>
       }
     />
   );
