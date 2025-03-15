@@ -1,4 +1,4 @@
-import { CardHeader, IconButton } from "@mui/material";
+import { CardHeader } from "@mui/material";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { sendFullPayment } from "../api/loaders";
 import { TSendFullPaymentServerAnswer } from "../model/api.types";
 import UpdateIcon from '@mui/icons-material/Update';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
 
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
@@ -51,22 +52,16 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
       }
       action={
         <div className="flex">
-          <IconButton
-            size="large"
-            className="!text-send-data-button-text disabled:bg-gray-400"
+          <BoardHeaderStyledButton
+            icon={UpdateIcon}
             onClick={updateData}
             disabled={isPending}
-          >
-            <UpdateIcon fontSize="large" className="hover:text-main-turquoise" />
-          </IconButton>
-          <IconButton
-            size="large"
-            className="!text-send-data-button-text disabled:bg-gray-400"
+          />
+          <BoardHeaderStyledButton
+            icon={MonetizationOnOutlinedIcon}
             onClick={handlePayFullDebt}
             disabled={isPending}
-          >
-            <MonetizationOnOutlinedIcon fontSize="large" className="hover:text-main-turquoise" />
-          </IconButton>
+          />
         </div>
       }
     />

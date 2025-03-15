@@ -1,10 +1,11 @@
-import { CardHeader, IconButton } from "@mui/material"
+import { CardHeader } from "@mui/material"
 import UpdateIcon from '@mui/icons-material/Update';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { useCallback } from "react";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
+import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
 
 type TLessonBoardHeaderProps = {
   updateData: () => void;
@@ -30,19 +31,8 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
       }
       action={
         <div className="flex items-center">
-          <IconButton
-            size="large"
-            className="!text-send-data-button-text disabled:bg-gray-400"
-            onClick={updateData}
-          >
-            <UpdateIcon fontSize="large" className="hover:text-main-turquoise" />
-          </IconButton>
-          <IconButton
-            className="!text-send-data-button-text"
-            onClick={handleClickAddNewLesson}
-          >
-            <PostAddIcon fontSize="large" className="hover:text-main-turquoise" />
-          </IconButton>
+          <BoardHeaderStyledButton icon={UpdateIcon} onClick={updateData} />
+          <BoardHeaderStyledButton icon={PostAddIcon} onClick={handleClickAddNewLesson} />
         </div>
       }
     />
