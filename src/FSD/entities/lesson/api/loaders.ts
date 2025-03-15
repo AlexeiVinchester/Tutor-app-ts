@@ -14,9 +14,17 @@ export const loadInitialData: TLoaderData<TInitialLessonParams> = async () => {
   return response;
 };
 
-export const loadLessons: TLoaderData<TLesson[]> = async () => {
+export type TLoadLessonsRequestData = {
+  page?: number;
+  perPage?: number;
+  name?: string;
+};
+
+export const loadLessons: TLoaderData<TLesson[], TLoadLessonsRequestData> = async (requestData = {}) => {
+  const { page = 1, perPage = 10, name = "" } = requestData;
+
   const lessons: TLesson[] = await makeApiRequest(
-    lessonsEndPoints.loadLessons,
+    `${lessonsEndPoints.loadLessons}?page=${page}&per_page=${perPage}&name=${name}`,
     HTTPMethods.GET
   )
   return lessons;

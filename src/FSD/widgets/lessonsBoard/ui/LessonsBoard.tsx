@@ -5,12 +5,13 @@ import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBo
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
 import { TPaginationParams } from "../../../shared/types/pagination";
 import { useRef, useState } from "react";
+import { TLoadLessonsRequestData } from "../../../entities/lesson/api/loaders";
 
 export type TLessonsBoardProps = {
   lessons: TLesson[] | null;
   isLoading: boolean;
   isError: boolean;
-  updateData: () => void;
+  updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>;
   paginationParams: TPaginationParams;
 };
 
@@ -32,11 +33,14 @@ export const LessonsBoard = ({
       clearTimeout(debounceSearchTimerId.current);
     }
 
-    debounceSearchTimerId.current = setTimeout(() => console.log(e.target.value), 500);
+    debounceSearchTimerId.current = setTimeout(
+      () => updateData({ name: e.target.value }),
+      500
+    );
   };
 
   const handleChangePage = (page: number) => {
-    console.log(page);
+    updateData({ page })
   };
 
   return (
@@ -51,7 +55,7 @@ export const LessonsBoard = ({
           {(!isLoading && lessons) &&
             <>
               <input
-                className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none" 
+                className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"
                 placeholder="Search by name"
                 type="text"
                 value={seacrh}

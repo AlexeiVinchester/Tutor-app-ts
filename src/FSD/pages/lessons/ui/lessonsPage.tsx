@@ -8,12 +8,19 @@ import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoar
 import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
 import { loadDebtors } from "../../../entities/debtor/api/loaders";
 import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
-import { loadLessons } from "../../../entities/lesson/api/loaders";
+import { loadLessons, TLoadLessonsRequestData } from "../../../entities/lesson/api/loaders";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
 import { TPaginationParams } from "../../../shared/types/pagination";
+
+type TLoadDataParams = {
+  updateLessons?: boolean;
+  updateDebtors?: boolean;
+  updateInfo?: boolean;
+  lessonsRequestParams?: TLoadLessonsRequestData;
+};
 
 export const LessonsPage = React.memo(() => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
@@ -30,14 +37,20 @@ export const LessonsPage = React.memo(() => {
 
   const { openSnackMessage } = useSnackMessageContext()
 
-  const loadData = useCallback(async ({ updateLessons = false, updateDebtors = false, updateInfo = false }) => {
+  const loadData = useCallback(async (params: TLoadDataParams) => {
+    const {
+      updateLessons = false,
+      updateDebtors = false,
+      updateInfo = false,
+      lessonsRequestParams = {}
+    } = params;
     if (updateLessons) {
       (async () => {
         console.log('Start loading of lessons')
         setIsLoadingLessons(true);
         setIsErrorLessons(false);
         try {
-          const response = await loadLessons();
+          const response = await loadLessons(lessonsRequestParams);
           setLessons(response);
         } catch (error) {
           openSnackMessage(createApiErrorMessage(error));
@@ -85,10 +98,31 @@ export const LessonsPage = React.memo(() => {
     }
   }, [openSnackMessage]);
 
-  const updateAllData = useCallback(() => loadData({ updateLessons: true, updateDebtors: true, updateInfo: true }), [loadData])
-  const updateLessons = useCallback(() => loadData({ updateLessons: true }), [loadData]);
-  const updateDebtors = useCallback(() => loadData({ updateDebtors: true }), [loadData]);
-  const updateInfo = useCallback(() => loadData({ updateInfo: true }), [loadData]);
+  const updateAllData = useCallback(
+    () => loadData({
+      updateLessons: true,
+      updateDebtors: true,
+      updateInfo: true
+    }),
+    [loadData]
+  );
+  const updateLessons = useCallback(
+    ({ page, perPage, name }: TLoadLessonsRequestData) =>
+      loadData({
+        updateLessons: true,
+        lessonsRequestParams: {
+          page, perPage, name
+        }
+      }),
+    [loadData]);
+  const updateDebtors = useCallback(
+    () => loadData({ updateDebtors: true }),
+    [loadData]
+  );
+  const updateInfo = useCallback(
+    () => loadData({ updateInfo: true }),
+    [loadData]
+  );
 
   console.log('new render of page lessons')
 

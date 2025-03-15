@@ -6,9 +6,10 @@ import { useLessonsPageContext } from "../../../../entities/lesson/context/Lesso
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
+import { TLoadLessonsRequestData } from "../../../../entities/lesson/api/loaders";
 
 type TLessonBoardHeaderProps = {
-  updateData: () => void;
+  updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>
 };
 
 export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
@@ -18,6 +19,8 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
   const handleClickAddNewLesson = useCallback(() => {
     open(<CreateNewLessonForm updateAllData={updateAllData} />, 'New lesson');
   }, [open, updateAllData]);
+
+  const handleClickUpdate = () => () => updateData({});
 
   return (
     <CardHeader
@@ -31,7 +34,7 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
       }
       action={
         <div className="flex items-center">
-          <BoardHeaderStyledButton icon={UpdateIcon} onClick={updateData} />
+          <BoardHeaderStyledButton icon={UpdateIcon} onClick={handleClickUpdate()} />
           <BoardHeaderStyledButton icon={PostAddIcon} onClick={handleClickAddNewLesson} />
         </div>
       }
