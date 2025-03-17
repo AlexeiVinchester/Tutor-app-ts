@@ -3,17 +3,17 @@ import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
 import { DebtorsBoard } from "../../../widgets/lessonsDebtors/ui/DebtorsBoard";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
-import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
 import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
 import { loadDebtors } from "../../../entities/debtor/api/loaders";
 import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
-import { loadLessons, TLoadLessonsRequestData } from "../../../entities/lesson/api/loaders";
+import { loadLessons } from "../../../entities/lesson/api/loaders";
 import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
-import { TPaginationParams } from "../../../shared/types/pagination";
+import { defaultPaginationParams } from "../model/defaultPaginationParams";
+import { TLoadLessonsRequestData, TLoadLessonsResponse } from "../../../entities/lesson/model/loadInitialDataServerAnswer.type";
 
 type TLoadDataParams = {
   updateLessons?: boolean;
@@ -24,7 +24,7 @@ type TLoadDataParams = {
 
 export const LessonsPage = React.memo(() => {
   const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
-  const [lessons, setLessons] = useState<TLesson[] | null>(null);
+  const [loadLessonsResponse, setLoadLessonsRespomse] = useState<TLoadLessonsResponse | null>(null);
   const [isErrorLessons, setIsErrorLessons] = useState<boolean>(false);
 
   const [isLoadingDebtors, setIsLoadingDebtors] = useState<boolean>(true);
@@ -51,7 +51,7 @@ export const LessonsPage = React.memo(() => {
         setIsErrorLessons(false);
         try {
           const response = await loadLessons(lessonsRequestParams);
-          setLessons(response);
+          setLoadLessonsRespomse(response);
         } catch (error) {
           openSnackMessage(createApiErrorMessage(error));
           setIsErrorLessons(true);
@@ -131,15 +131,6 @@ export const LessonsPage = React.memo(() => {
     updateAllData();
   }, [updateAllData]);
 
-  const paginationParams: TPaginationParams = {
-    pages: 100,
-    page: 2,
-    perPage: 10,
-    nextPage: 3,
-    prevPage: 1,
-    totalPages: 10
-  };
-
   if (isLoadingDebtors && isLoadingLessons && isLoadingLessonsInfoBoard) {
     return <Spinner />;
   }
@@ -153,8 +144,8 @@ export const LessonsPage = React.memo(() => {
         <div className="flex flex-col">
           <div className="flex gap-8">
             <LessonsBoard
-              paginationParams={paginationParams}
-              lessons={lessons}
+              paginationParams={loadLessonsResponse?.paginationParams ?? defaultPaginationParams}
+              lessons={loadLessonsResponse?.data}
               isLoading={isLoadingLessons}
               isError={isErrorLessons}
               updateData={updateLessons}

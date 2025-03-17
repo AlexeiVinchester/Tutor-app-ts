@@ -16,17 +16,17 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
   return (
     <div className="flex items-center justify-between mt-6">
       <div className="flex gap-3">
-        <PaginationButton onClick={handleClickPage(1)} value={1} />
-        {page !== 1 && <>...</>}
-        {(prevPage !== 1 && prevPage) &&
+        <PaginationButton onClick={handleClickPage(1)} value={1} disabled={page === 1} />
+        {page !== 1 && '...'}
+        {(prevPage && prevPage !== 1) &&
           <PaginationButton onClick={handleClickPage(prevPage)} value={prevPage} />
         }
-        {page !== 1 && <PaginationButton value={page} disabled />}
+        {(![1, pages].includes(page)) && <PaginationButton value={page} disabled />}
         {(nextPage && nextPage !== pages) &&
           <PaginationButton onClick={handleClickPage(nextPage)} value={nextPage} />
         }
-        ...
-        <PaginationButton onClick={handleClickPage(pages)} value={pages} />
+        {page !== pages && '...'}
+        <PaginationButton onClick={handleClickPage(pages)} value={pages} disabled={page === pages} />
       </div>
       <span className="text-sm">Page {page} of {pages} pages</span>
     </div>

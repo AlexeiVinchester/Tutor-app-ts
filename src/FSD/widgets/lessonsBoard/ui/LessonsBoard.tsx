@@ -5,10 +5,10 @@ import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBo
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
 import { TPaginationParams } from "../../../shared/types/pagination";
 import { useRef, useState } from "react";
-import { TLoadLessonsRequestData } from "../../../entities/lesson/api/loaders";
+import { TLoadLessonsRequestData } from "../../../entities/lesson/model/loadInitialDataServerAnswer.type";
 
 export type TLessonsBoardProps = {
-  lessons: TLesson[] | null;
+  lessons: TLesson[] | undefined;
   isLoading: boolean;
   isError: boolean;
   updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>;
@@ -40,7 +40,7 @@ export const LessonsBoard = ({
   };
 
   const handleChangePage = (page: number) => {
-    updateData({ page })
+    updateData({ page });
   };
 
   return (
@@ -51,16 +51,16 @@ export const LessonsBoard = ({
       >
         <LessonBoardHeader updateData={updateData} />
         <CardContent>
+          <input
+            className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"
+            placeholder="Search by name"
+            type="text"
+            value={seacrh}
+            onChange={handleChangeSearch}
+          />
           {isLoading && <div className="text-main-orange">Loading of lessons...</div>}
           {(!isLoading && lessons) &&
             <>
-              <input
-                className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"
-                placeholder="Search by name"
-                type="text"
-                value={seacrh}
-                onChange={handleChangeSearch}
-              />
               <LessonsTable
                 lessons={lessons}
                 isError={isError}

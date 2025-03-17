@@ -7,7 +7,7 @@ export type TPaginationParams = {
   totalPages: number;
 };
 
-export type PaginatedDataResponse<T> = {
+export type TPaginatedDataResponse<T> = {
   data: T[];
   totalItems: number;
   paginationParams: TPaginationParams;
