@@ -1,111 +1,56 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Container } from "@mui/material";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
-import { DebtorsBoard } from "../../../widgets/lessonsDebtors/ui/DebtorsBoard";
+import { defaultPaginationParams } from "../model/defaultPaginationParams";
+import { TLoadPageDataParams } from "../model/loadPageDataParams";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
-import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
+import { DebtorsBoard } from "../../../widgets/lessonsDebtors/ui/DebtorsBoard";
+import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
+import { TLoadLessonsRequestData } from "../../../entities/lesson/model/loadInitialDataServerAnswer.type";
 import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
 import { loadDebtors } from "../../../entities/debtor/api/loaders";
-import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
 import { loadLessons } from "../../../entities/lesson/api/loaders";
-import { createApiErrorMessage } from "../../../shared/api/createApiErrorMessage";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { useSnackMessageContext } from "../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
-import { defaultPaginationParams } from "../model/defaultPaginationParams";
-import { TLoadLessonsRequestData, TLoadLessonsResponse } from "../../../entities/lesson/model/loadInitialDataServerAnswer.type";
+import { useLoadDataFromServer } from "../../../shared/hooks/useLoadDataFromServer";
 
-type TLoadDataParams = {
-  updateLessons?: boolean;
-  updateDebtors?: boolean;
-  updateInfo?: boolean;
-  lessonsRequestParams?: TLoadLessonsRequestData;
-};
+export const LessonsPage = () => {
+  const {
+    data: loadLessonsResponse,
+    isLoading: isLoadingLessons,
+    isError: isErrorLessons,
+    loadData: asyncLoadLessons
+  } = useLoadDataFromServer(loadLessons);
 
-export const LessonsPage = React.memo(() => {
-  const [isLoadingLessons, setIsLoadingLessons] = useState<boolean>(true);
-  const [loadLessonsResponse, setLoadLessonsRespomse] = useState<TLoadLessonsResponse | null>(null);
-  const [isErrorLessons, setIsErrorLessons] = useState<boolean>(false);
+  const {
+    data: debtors,
+    isLoading: isLoadingDebtors,
+    isError: isErrorDebtors,
+    loadData: asyncLoadDebtors
+  } = useLoadDataFromServer(loadDebtors);
 
-  const [isLoadingDebtors, setIsLoadingDebtors] = useState<boolean>(true);
-  const [debtors, setDebtors] = useState<TDebtorsInfo | null>(null);
-  const [isErrorDebtors, setIsErrorDebtors] = useState<boolean>(false);
+  const {
+    data: lessonsInfoBoard,
+    isLoading: isLoadingLessonsInfoBoard,
+    isError: isErrorLessonsInfoBoard,
+    loadData: asyncLoadCurrentMonthInfo
+  } = useLoadDataFromServer(loadCurrentMonthInfo);
 
-  const [isLoadingLessonsInfoBoard, setIsLoadingLessonInfoBoard] = useState<boolean>(true)
-  const [lessonsInfoBoard, setLessonsInfoBoard] = useState<TInfoAboutLessonsCurrentMonth | null>(null)
-  const [isErrorLessonsInfoBoard, setIsErrorLessonInfoBoard] = useState<boolean>(false);
+  const loadData = useCallback(
+    async (params: TLoadPageDataParams) => {
+      const {
+        updateLessons = false,
+        updateDebtors = false,
+        updateInfo = false,
+        lessonsRequestParams = {}
+      } = params;
 
-  const { openSnackMessage } = useSnackMessageContext()
-
-  const loadData = useCallback(async (params: TLoadDataParams) => {
-    const {
-      updateLessons = false,
-      updateDebtors = false,
-      updateInfo = false,
-      lessonsRequestParams = {}
-    } = params;
-    if (updateLessons) {
-      (async () => {
-        console.log('Start loading of lessons')
-        setIsLoadingLessons(true);
-        setIsErrorLessons(false);
-        try {
-          const response = await loadLessons(lessonsRequestParams);
-          setLoadLessonsRespomse(response);
-        } catch (error) {
-          openSnackMessage(createApiErrorMessage(error));
-          setIsErrorLessons(true);
-        } finally {
-          setIsLoadingLessons(false);
-        }
-      })();
-    }
-
-    if (updateDebtors) {
-      (async () => {
-        console.log('Start loading of debtors');
-
-        setIsLoadingDebtors(true);
-        setIsErrorDebtors(false);
-        try {
-          const response = await loadDebtors();
-          setDebtors(response);
-        } catch (error) {
-          openSnackMessage(createApiErrorMessage(error))
-          setIsErrorDebtors(true);
-        } finally {
-          setIsLoadingDebtors(false);
-        }
-      })();
-    }
-
-    if (updateInfo) {
-      (async () => {
-        console.log('Start loading of info')
-
-        setIsLoadingLessonInfoBoard(true);
-        setIsErrorLessonInfoBoard(false);
-        try {
-          const response = await loadCurrentMonthInfo();
-          setLessonsInfoBoard(response);
-        } catch (error) {
-          openSnackMessage(createApiErrorMessage(error));
-          setIsErrorLessonInfoBoard(true);
-        } finally {
-          setIsLoadingLessonInfoBoard(false);
-        }
-      })();
-    }
-  }, [openSnackMessage]);
-
-  const updateAllData = useCallback(
-    () => loadData({
-      updateLessons: true,
-      updateDebtors: true,
-      updateInfo: true
-    }),
-    [loadData]
+      if (updateLessons) asyncLoadLessons(lessonsRequestParams);
+      if (updateDebtors) asyncLoadDebtors();
+      if (updateInfo) asyncLoadCurrentMonthInfo();
+    },
+    [asyncLoadCurrentMonthInfo, asyncLoadDebtors, asyncLoadLessons]
   );
+
   const updateLessons = useCallback(
     ({ page, perPage, name }: TLoadLessonsRequestData) =>
       loadData({
@@ -115,21 +60,21 @@ export const LessonsPage = React.memo(() => {
         }
       }),
     [loadData]);
+
   const updateDebtors = useCallback(
     () => loadData({ updateDebtors: true }),
     [loadData]
   );
+
   const updateInfo = useCallback(
     () => loadData({ updateInfo: true }),
     [loadData]
   );
 
-  console.log('new render of page lessons')
-
-  useEffect(() => {
-    console.log('start effect')
-    updateAllData();
-  }, [updateAllData]);
+  const updateAllData = useCallback(
+    () => loadData({ updateLessons: true, updateDebtors: true, updateInfo: true }),
+    [loadData]
+  );
 
   if (isLoadingDebtors && isLoadingLessons && isLoadingLessonsInfoBoard) {
     return <Spinner />;
@@ -167,4 +112,4 @@ export const LessonsPage = React.memo(() => {
       </Container>
     </LessonsPageContextProvider>
   );
-});
+};

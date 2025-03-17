@@ -1,16 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createApiErrorMessage } from "../api/createApiErrorMessage";
 import { useSnackMessageContext } from "../context/snackMessageContext/lib/useSnackMessageContext";
 import { TLoaderData } from "../types/loaderData.type";
 
-export const useLoadDataFromServer = <T, P = void>(loader: TLoaderData<T, P>, params?: P) => {
+export const useLoadDataFromServer = <T, P = void>(
+  loader: TLoaderData<T, P>,
+  params?: P
+) => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
 
   const { openSnackMessage } = useSnackMessageContext();
 
-  useEffect(() => {
+  const loadData = useCallback((params: P | undefined) => {
     (async () => {
       setIsLoading(true);
       setIsError(false);
@@ -23,8 +26,14 @@ export const useLoadDataFromServer = <T, P = void>(loader: TLoaderData<T, P>, pa
       } finally {
         setIsLoading(false);
       }
-    })();
-  }, [loader, openSnackMessage, params]);
+    })()
+  },
+    [loader, openSnackMessage]
+  );
+
+  useEffect(() => {
+    loadData(params);
+  }, [loadData, params]);
 
   return {
     data,
@@ -33,6 +42,7 @@ export const useLoadDataFromServer = <T, P = void>(loader: TLoaderData<T, P>, pa
     setIsLoading,
     isError,
     setIsError,
-    openSnackMessage
+    openSnackMessage,
+    loadData
   };
 }

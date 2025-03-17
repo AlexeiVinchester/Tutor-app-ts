@@ -11,9 +11,9 @@ import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TCreateNewLessonFormProps = {
   updateAllData: () => Promise<void>;
-}
+};
 
-export const CreateNewLessonForm = ({updateAllData}: TCreateNewLessonFormProps) => {
+export const CreateNewLessonForm = ({ updateAllData }: TCreateNewLessonFormProps) => {
   const {
     data: newLessonParams,
     setData: setNewLessonParams,
