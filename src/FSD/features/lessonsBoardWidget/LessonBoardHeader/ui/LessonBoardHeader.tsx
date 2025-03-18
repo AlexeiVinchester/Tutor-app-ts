@@ -6,7 +6,7 @@ import { useLessonsPageContext } from "../../../../entities/lesson/context/Lesso
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
-import { TLoadLessonsRequestData } from "../../../../entities/lesson/api/loaders";
+import { TLoadLessonsRequestData } from "../../../../entities/lesson/model/loadInitialDataServerAnswer.type";
 
 type TLessonBoardHeaderProps = {
   updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>
@@ -34,8 +34,16 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
       }
       action={
         <div className="flex items-center">
-          <BoardHeaderStyledButton icon={UpdateIcon} onClick={handleClickUpdate()} />
-          <BoardHeaderStyledButton icon={PostAddIcon} onClick={handleClickAddNewLesson} />
+          <BoardHeaderStyledButton 
+            icon={UpdateIcon} 
+            onClick={handleClickUpdate()} 
+            toolTipTitle="Update lessons"
+            />
+          <BoardHeaderStyledButton 
+            icon={PostAddIcon} 
+            onClick={handleClickAddNewLesson} 
+            toolTipTitle="Add new lesson"
+            />
         </div>
       }
     />

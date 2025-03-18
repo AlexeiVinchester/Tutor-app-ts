@@ -56,11 +56,13 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
             icon={UpdateIcon}
             onClick={updateData}
             disabled={isPending}
+            toolTipTitle="Update debtors"
           />
           <BoardHeaderStyledButton
             icon={MonetizationOnOutlinedIcon}
             onClick={handlePayFullDebt}
             disabled={isPending}
+            toolTipTitle="Pay total debt"
           />
         </div>
       }
