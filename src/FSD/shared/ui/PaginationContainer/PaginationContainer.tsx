@@ -1,6 +1,8 @@
+import { Button } from "@mui/material";
 import { TPaginationParams } from "../../types/pagination";
-import { PaginationButton } from "../PaginationButton/PaginationButton";
-
+import { PaginationCircleButton } from "../PaginationCircleButton/PaginationCircleButton";
+import EastIcon from '@mui/icons-material/East';
+import WestIcon from '@mui/icons-material/West';
 type TPaginationContainerProps = {
   paginationParams: TPaginationParams;
   handleChangePage: (page: number) => void;
@@ -16,19 +18,25 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
   return (
     <div className="flex items-center justify-between mt-6">
       <div className="flex gap-3">
-        <PaginationButton onClick={handleClickPage(1)} value={1} disabled={page === 1} />
+        {(prevPage && page !== 1) &&
+          <Button className="!text-main-orange hover:!text-main-turquoise" onClick={handleClickPage(prevPage)}><WestIcon /> Back</Button>
+        }
+        <PaginationCircleButton onClick={handleClickPage(1)} value={1} disabled={page === 1} />
         {page !== 1 && '...'}
         {(prevPage && prevPage !== 1) &&
-          <PaginationButton onClick={handleClickPage(prevPage)} value={prevPage} />
+          <PaginationCircleButton onClick={handleClickPage(prevPage)} value={prevPage} />
         }
-        {(![1, pages].includes(page)) && <PaginationButton value={page} disabled />}
+        {(![1, pages].includes(page)) && <PaginationCircleButton value={page} disabled />}
         {(nextPage && nextPage !== pages) &&
-          <PaginationButton onClick={handleClickPage(nextPage)} value={nextPage} />
+          <PaginationCircleButton onClick={handleClickPage(nextPage)} value={nextPage} />
         }
         {page !== pages && '...'}
-        <PaginationButton onClick={handleClickPage(pages)} value={pages} disabled={page === pages} />
+        <PaginationCircleButton onClick={handleClickPage(pages)} value={pages} disabled={page === pages} />
+        {nextPage &&
+          <Button className="!text-main-orange hover:!text-main-turquoise" onClick={handleClickPage(nextPage)}>Next<EastIcon /></Button>
+        }
       </div>
-      <span className="text-sm">Page {page} of {pages} pages</span>
+      <span className="text-sm">{page} from {pages}</span>
     </div>
   );
 };
