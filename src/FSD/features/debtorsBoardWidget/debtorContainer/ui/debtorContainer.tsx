@@ -61,7 +61,7 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
             onClick={handleClickPayDebt}
             disabled={isPending}
             size="large"
-            className="!text-send-data-button-text"
+            className="!text-send-data-button-text hover:!text-main-turquoise"
           >
             {isPending ? <HourglassEmptyIcon /> : <PaymentIcon />}
           </IconButton>
