@@ -38,6 +38,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
 
   return (
     <CardHeader
+      className="!pb-0"
       title={
         <h5 className="text-m font-bold flex items-center gap-2">
           Debtors board

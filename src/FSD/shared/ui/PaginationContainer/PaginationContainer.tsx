@@ -16,7 +16,7 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
   };
 
   return (
-    <div className="flex items-center justify-between mt-6">
+    <div className="flex items-center justify-between mt-8">
       <div className="flex gap-3">
         {(prevPage && page !== 1) &&
           <Button className="!text-main-orange hover:!text-main-turquoise" onClick={handleClickPage(prevPage)}><WestIcon /> Back</Button>

@@ -86,7 +86,7 @@ export const LessonsPage = () => {
         sx={{ paddingTop: '15px', paddingBottom: '50px' }}
         maxWidth="lg"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <div className="flex gap-8">
             <LessonsBoard
               paginationParams={loadLessonsResponse?.paginationParams ?? defaultPaginationParams}

@@ -2,7 +2,7 @@ import React from "react";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type";
 import { LessonsTableRow } from "./lessonsTableRow";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
-import { TLoadLessonsRequestData } from "../../../../entities/lesson/api/loaders";
+import { TLoadLessonsRequestData } from "../../../../entities/lesson/model/loadInitialDataServerAnswer.type";
 
 type TLessonsTableProps = {
   lessons: TLesson[];
@@ -24,7 +24,7 @@ export const LessonsTable = React.memo(({ lessons, isError, updateData }: TLesso
   }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 400, minWidth: 650, border:  "1px solid #d1d5db", borderRadius: '12px' }} >
+    <TableContainer component={Paper} sx={{ maxHeight: 423, minWidth: 650, border:  "1px solid #d1d5db", borderRadius: '12px' }} >
       <Table sx={{ minWidth: 650}} stickyHeader>
         <TableHead>
           <TableRow>

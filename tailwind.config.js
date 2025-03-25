@@ -12,7 +12,7 @@ export default {
         'hover-blue': 'rgb(0, 95, 163)',
         'back-side-statistics': 'rgb(25, 39, 51)',
         'statistics-back': 'rgb(246, 249, 252)',
-        'send-data-button-text': 'rgb(255, 69, 0)'
+        'send-data-button-text': 'rgb(255, 92, 53)'
       },
     },
     fontFamily: {

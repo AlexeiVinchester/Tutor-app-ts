@@ -14,19 +14,18 @@ export const DebtorsBoard = ({ data, isLoading, isError, updateDebtors }: TLesso
   return (
     <Card
       variant="outlined"
-      className="!min-w-[420px] max-h-[670px] !min-h-[670px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
+      className="!min-w-[420px] max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
     >
       <DebtorBoardHeader
         updateData={updateDebtors}
         totalAmount={data?.totalAmount}
         totalDebt={data?.totalDebt}
       />
-      <CardContent className="!px-2">
-        <div className="max-h-[560px] overflow-y-auto">
+      <CardContent className="!px-2 !pb-0">
+        <div className="max-h-[574px] overflow-y-auto">
           <DebtorsBoardBody isLoading={isLoading} isError={isError} debtors={data?.debtors} />
         </div>
       </CardContent>
-
     </Card>
   );
 };

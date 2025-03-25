@@ -47,10 +47,10 @@ export const LessonsBoard = ({
     <>
       <Card
         variant="outlined"
-        className="!pb-3 !min-w-[720px] !max-h-[670px] !min-h-[670px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
+        className="!min-w-[720px] !max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
       >
         <LessonBoardHeader updateData={updateData} />
-        <CardContent>
+        <CardContent className="!pt-0">
           <input
             className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"
             placeholder="Search by name"

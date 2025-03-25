@@ -25,7 +25,7 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
   return (
     <CardHeader
       title={
-        <h5 className="text-m font-bold flex items-center gap-2">
+        <h5 className="font-bold flex items-center">
           Lessons board
         </h5>
       }
@@ -34,16 +34,16 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
       }
       action={
         <div className="flex items-center">
-          <BoardHeaderStyledButton 
-            icon={UpdateIcon} 
-            onClick={handleClickUpdate()} 
+          <BoardHeaderStyledButton
+            icon={UpdateIcon}
+            onClick={handleClickUpdate()}
             toolTipTitle="Update lessons"
-            />
-          <BoardHeaderStyledButton 
-            icon={PostAddIcon} 
-            onClick={handleClickAddNewLesson} 
+          />
+          <BoardHeaderStyledButton
+            icon={PostAddIcon}
+            onClick={handleClickAddNewLesson}
             toolTipTitle="Add new lesson"
-            />
+          />
         </div>
       }
     />
