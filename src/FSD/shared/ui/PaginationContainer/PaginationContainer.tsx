@@ -19,10 +19,10 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
     <div className="flex items-center justify-between mt-8">
       <div className="flex gap-3">
         {(prevPage && page !== 1) &&
-          <Button className="!text-main-orange hover:!text-main-turquoise" onClick={handleClickPage(prevPage)}><WestIcon /> Back</Button>
+          <Button className="!text-gray-400 hover:!text-main-turquoise" onClick={handleClickPage(prevPage)}><WestIcon /> Back</Button>
         }
         <PaginationCircleButton onClick={handleClickPage(1)} value={1} disabled={page === 1} />
-        {page !== 1 && '...'}
+        {![1, 2, 3].includes(page) && <div className="self-end">...</div>}
         {(prevPage && prevPage !== 1) &&
           <PaginationCircleButton onClick={handleClickPage(prevPage)} value={prevPage} />
         }
@@ -30,10 +30,10 @@ export const PaginationContainer = ({ paginationParams, handleChangePage }: TPag
         {(nextPage && nextPage !== pages) &&
           <PaginationCircleButton onClick={handleClickPage(nextPage)} value={nextPage} />
         }
-        {page !== pages && '...'}
+        {![pages, pages - 1, pages - 2].includes(page) && <div className="self-end">...</div>}
         <PaginationCircleButton onClick={handleClickPage(pages)} value={pages} disabled={page === pages} />
         {nextPage &&
-          <Button className="!text-main-orange hover:!text-main-turquoise" onClick={handleClickPage(nextPage)}>Next<EastIcon /></Button>
+          <Button className="!text-gray-400 hover:!text-main-turquoise" onClick={handleClickPage(nextPage)}>Next<EastIcon /></Button>
         }
       </div>
       <span className="text-sm">{page} from {pages}</span>
