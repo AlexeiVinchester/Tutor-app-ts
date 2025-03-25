@@ -1,8 +1,8 @@
 export type TInfoAboutLessonsCurrentMonth = {
-  currentAmount: number;
+  currentFullAmount: number;
   currentFullIncome: number;
   currentPaidIncome: number;
-  cashIncome: number;
-  cardIncome: number;
   currentTax: number;
+  currentWeekAmount: number;
+  currentWeekIncome: number;
 };

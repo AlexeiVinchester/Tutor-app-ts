@@ -83,7 +83,7 @@ export const LessonsPage = () => {
   return (
     <LessonsPageContextProvider updateAllData={updateAllData}>
       <Container
-        sx={{ paddingTop: '50px', paddingBottom: '50px' }}
+        sx={{ paddingTop: '15px', paddingBottom: '50px' }}
         maxWidth="lg"
       >
         <div className="flex flex-col">

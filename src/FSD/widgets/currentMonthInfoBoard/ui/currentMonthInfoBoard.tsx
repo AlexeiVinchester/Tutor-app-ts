@@ -26,12 +26,12 @@ export const CurrentMonthInfoBoard = ({ data, isLoading, isError, updateData }: 
 
   return (
     <div className="bg-red-300">
-      <p>Current amount: {data.currentAmount}</p>
+      <p>Current amount: {data.currentFullAmount}</p>
       <p>Current full income: {data.currentFullIncome}</p>
       <p>Current paid income: {data.currentPaidIncome}</p>
-      <p>Current cash income: {data.cashIncome}</p>
-      <p>Current card income: {data.cardIncome}</p>
       <p>Current tax: {data.currentTax}</p>
+      <p>Week amount: {data.currentWeekAmount}</p>
+      <p>Week income: {data.currentWeekIncome}</p>
     </div>
   )
 }
