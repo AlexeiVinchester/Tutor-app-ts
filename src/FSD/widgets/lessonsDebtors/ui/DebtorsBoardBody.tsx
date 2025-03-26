@@ -14,7 +14,6 @@ export const DebtorsBoardBody = ({ isLoading, debtors, isError }: TDebtorsBoardB
 
   if (isError || !debtors) {
     return <div className="text-main-orange">Something went wrong! try again!</div>
-
   }
 
   return (

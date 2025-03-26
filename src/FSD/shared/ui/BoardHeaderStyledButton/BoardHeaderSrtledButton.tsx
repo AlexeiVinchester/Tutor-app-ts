@@ -17,6 +17,5 @@ export const BoardHeaderStyledButton = ({ icon: Icon, toolTipTitle, ...props }: 
         <Icon fontSize="large" className="hover:text-main-turquoise" />
       </IconButton>
     </ButtonToltipWrapper>
-
   );
 };
