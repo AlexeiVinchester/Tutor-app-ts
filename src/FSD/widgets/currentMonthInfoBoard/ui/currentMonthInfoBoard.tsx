@@ -8,7 +8,7 @@ import { CurrentMonthInfoBoardHeader } from "../../../features/currentMonthInfoB
 
 
 export const CurrentMonthInfoBoard = () => {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, isFetching } = useQuery({
     queryKey: ['currentMonthInfo'],
     queryFn: () => loadCurrentMonthInfo()
   });
@@ -18,7 +18,7 @@ export const CurrentMonthInfoBoard = () => {
       variant="outlined"
       className="!min-w-[1175px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
     >
-      <CurrentMonthInfoBoardHeader />
+      <CurrentMonthInfoBoardHeader isPending={isLoading || isFetching} />
       <CardContent className="!px-2">
         {isError && <p>Yooops, something goes wrong!</p>}
         {isLoading && <div className="text-main-orange">Loading of info...</div>}

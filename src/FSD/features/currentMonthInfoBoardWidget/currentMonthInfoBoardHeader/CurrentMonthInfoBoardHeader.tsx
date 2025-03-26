@@ -3,7 +3,11 @@ import { CardHeader } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { BoardHeaderStyledButton } from '../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton';
 
-export const CurrentMonthInfoBoardHeader = () => {
+type TCurrentMonthInfoBoardHeader = {
+  isPending: boolean;
+};
+
+export const CurrentMonthInfoBoardHeader = ({ isPending }: TCurrentMonthInfoBoardHeader) => {
   const client = useQueryClient();
 
   const handleClickUpdate = () =>
@@ -20,6 +24,7 @@ export const CurrentMonthInfoBoardHeader = () => {
       action={
         <div className="flex items-center">
           <BoardHeaderStyledButton
+            disabled={isPending}
             icon={UpdateIcon}
             onClick={handleClickUpdate}
             toolTipTitle="Update info"

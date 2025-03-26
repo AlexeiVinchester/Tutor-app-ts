@@ -10,7 +10,7 @@ export const LessonsBoard = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
 
-  const { data: lessons, isError, isLoading } = useQuery({
+  const { data: lessons, isError, isLoading, isFetching } = useQuery({
     queryKey: ['lessons', { page, search }],
     queryFn: () => loadLessons({ page, name: search })
   });
@@ -39,7 +39,7 @@ export const LessonsBoard = () => {
         variant="outlined"
         className="!min-w-[720px] !max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
       >
-        <LessonBoardHeader />
+        <LessonBoardHeader isPending={isLoading || isFetching} />
         <CardContent className="!pt-0">
           <input
             className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"

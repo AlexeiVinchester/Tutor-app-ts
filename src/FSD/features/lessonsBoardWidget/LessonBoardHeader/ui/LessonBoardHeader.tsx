@@ -8,8 +8,11 @@ import { useModalWindowContext } from "../../../../shared/context/modalWindowCon
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
 import { useQueryClient } from "@tanstack/react-query";
 
+type TLessonBoardHeader = {
+  isPending: boolean;
+};
 
-export const LessonBoardHeader = () => {
+export const LessonBoardHeader = ({ isPending }: TLessonBoardHeader) => {
   const { updateAllData } = useLessonsPageContext();
   const { open } = useModalWindowContext();
 
@@ -35,11 +38,13 @@ export const LessonBoardHeader = () => {
       action={
         <div className="flex items-center">
           <BoardHeaderStyledButton
+            disabled={isPending}
             icon={UpdateIcon}
             onClick={handleClickUpdate}
             toolTipTitle="Update lessons"
           />
           <BoardHeaderStyledButton
+            disabled={isPending}
             icon={PostAddIcon}
             onClick={handleClickAddNewLesson}
             toolTipTitle="Add new lesson"

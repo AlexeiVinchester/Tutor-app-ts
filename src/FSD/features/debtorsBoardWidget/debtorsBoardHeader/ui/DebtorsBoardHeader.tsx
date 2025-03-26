@@ -14,16 +14,17 @@ import { useQueryClient } from "@tanstack/react-query";
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
   totalAmount?: number;
-}
+  isPending: boolean;
+};
 
-export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeaderProps) => {
+export const DebtorBoardHeader = ({ totalAmount, totalDebt, isPending }: TDebtorBoardHeaderProps) => {
   const { updateAllData } = useLessonsPageContext();
   const { openSnackMessage } = useSnackMessageContext();
-  const [isPending, setIsPending] = useState<boolean>(false);
+  const [isPendingPayment, setIsPendingPayment] = useState<boolean>(false);
 
   const handlePayFullDebt = async () => {
     try {
-      setIsPending(true);
+      setIsPendingPayment(true);
       const response: TSendFullPaymentServerAnswer = await sendFullPayment();
       if (response.paymentStatus) {
         updateAllData();
@@ -32,7 +33,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeader
     } catch (error) {
       openSnackMessage(createApiErrorMessage(error))
     } finally {
-      setIsPending(false)
+      setIsPendingPayment(false)
     }
   };
 
@@ -66,7 +67,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeader
           <BoardHeaderStyledButton
             icon={MonetizationOnOutlinedIcon}
             onClick={handlePayFullDebt}
-            disabled={isPending}
+            disabled={isPending || isPendingPayment}
             toolTipTitle="Pay total debt"
           />
         </div>

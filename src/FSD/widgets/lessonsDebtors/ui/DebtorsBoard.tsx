@@ -6,7 +6,7 @@ import { loadDebtors } from "../../../entities/debtor/api/loaders";
 
 export const DebtorsBoard = () => {
   
-  const {data, isError, isLoading} = useQuery({
+  const {data, isError, isLoading, isFetching} = useQuery({
     queryKey: ['debtors'],
     queryFn: () => loadDebtors()
   })
@@ -17,6 +17,7 @@ export const DebtorsBoard = () => {
       className="!min-w-[420px] max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
     >
       <DebtorBoardHeader
+        isPending={isLoading || isFetching}
         totalAmount={data?.totalAmount}
         totalDebt={data?.totalDebt}
       />
