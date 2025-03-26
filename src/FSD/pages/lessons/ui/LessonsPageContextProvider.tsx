@@ -3,7 +3,7 @@ import { LessonsPageContext } from "../../../entities/lesson/context/LessonPageC
 
 export type TLessonsPageContextProvider = {
   children: ReactNode;
-  updateAllData: () => Promise<void>;
+  updateAllData: () => void;
 }
 
 export const LessonsPageContextProvider = ({ children, updateAllData }: TLessonsPageContextProvider) => {

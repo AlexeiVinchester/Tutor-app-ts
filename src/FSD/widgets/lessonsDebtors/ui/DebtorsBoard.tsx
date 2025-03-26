@@ -1,23 +1,22 @@
 import { Card, CardContent } from "@mui/material";
-import { TDebtorsInfo } from "../../../entities/debtor/model/debtor.type";
 import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader/ui/DebtorsBoardHeader";
 import { DebtorsBoardBody } from "./DebtorsBoardBody";
+import { useQuery } from "@tanstack/react-query";
+import { loadDebtors } from "../../../entities/debtor/api/loaders";
 
-export type TLessonsDebtorsProps = {
-  data: TDebtorsInfo | null;
-  isLoading: boolean;
-  isError: boolean;
-  updateDebtors: () => void;
-}
-
-export const DebtorsBoard = ({ data, isLoading, isError, updateDebtors }: TLessonsDebtorsProps) => {
+export const DebtorsBoard = () => {
+  
+  const {data, isError, isLoading} = useQuery({
+    queryKey: ['debtors'],
+    queryFn: () => loadDebtors()
+  })
+  
   return (
     <Card
       variant="outlined"
       className="!min-w-[420px] max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px]"
     >
       <DebtorBoardHeader
-        updateData={updateDebtors}
         totalAmount={data?.totalAmount}
         totalDebt={data?.totalDebt}
       />

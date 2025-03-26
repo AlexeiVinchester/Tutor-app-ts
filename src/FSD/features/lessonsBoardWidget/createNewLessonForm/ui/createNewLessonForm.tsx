@@ -10,7 +10,7 @@ import { useLoadDataFromServer } from "../../../../shared/hooks/useLoadDataFromS
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TCreateNewLessonFormProps = {
-  updateAllData: () => Promise<void>;
+  updateAllData: () => void;
 };
 
 export const CreateNewLessonForm = ({ updateAllData }: TCreateNewLessonFormProps) => {

@@ -9,14 +9,14 @@ import { TSendFullPaymentServerAnswer } from "../model/api.types";
 import UpdateIcon from '@mui/icons-material/Update';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
   totalAmount?: number;
-  updateData: () => void;
 }
 
-export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebtorBoardHeaderProps) => {
+export const DebtorBoardHeader = ({ totalAmount, totalDebt }: TDebtorBoardHeaderProps) => {
   const { updateAllData } = useLessonsPageContext();
   const { openSnackMessage } = useSnackMessageContext();
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -34,7 +34,11 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
     } finally {
       setIsPending(false)
     }
-  }
+  };
+
+  const client = useQueryClient();
+  const handleClickUpdateData = () =>
+    client.invalidateQueries({ queryKey: ['debtors'] })
 
   return (
     <CardHeader
@@ -55,7 +59,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
         <div className="flex">
           <BoardHeaderStyledButton
             icon={UpdateIcon}
-            onClick={updateData}
+            onClick={handleClickUpdateData}
             disabled={isPending}
             toolTipTitle="Update debtors"
           />
@@ -69,4 +73,4 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, updateData }: TDebto
       }
     />
   );
-}
+};

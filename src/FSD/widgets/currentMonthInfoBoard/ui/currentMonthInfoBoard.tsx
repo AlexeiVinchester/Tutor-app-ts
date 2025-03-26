@@ -1,17 +1,21 @@
 
 import { Card, CardContent, CardHeader, IconButton } from "@mui/material";
 import { Spinner } from "../../../shared/ui/Spinner/Spinner";
-import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
 import { InfoContainer } from "./InfoContainer";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { loadCurrentMonthInfo } from "../../../entities/lessonsInfoBoard/api/loader";
 
-type TCurrentMonthInfoBoardProps = {
-  data: TInfoAboutLessonsCurrentMonth | null;
-  isLoading: boolean;
-  isError: boolean;
-  updateData: () => void;
-}
+export const CurrentMonthInfoBoard = () => {
+  const {data, isError, isLoading} = useQuery({
+    queryKey: ['lessonsInfo'],
+    queryFn: () => loadCurrentMonthInfo()
+  });
 
-export const CurrentMonthInfoBoard = ({ data, isLoading, isError, updateData }: TCurrentMonthInfoBoardProps) => {
+  const client = useQueryClient();
+
+  const handleClickUpdateData = () => 
+    client.invalidateQueries({queryKey: ['lessonsInfo']})
+  
   if (isLoading) {
     return <Spinner />
   }
@@ -20,7 +24,7 @@ export const CurrentMonthInfoBoard = ({ data, isLoading, isError, updateData }: 
     return (
       <>
         <p>Yooops, something goes wrong!</p>
-        <IconButton onClick={updateData}>Update lessons</IconButton>
+        <IconButton onClick={handleClickUpdateData}>Update lessons</IconButton>
       </>
     )
   }

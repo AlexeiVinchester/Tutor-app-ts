@@ -2,17 +2,17 @@ import React from "react";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type";
 import { LessonsTableRow } from "./lessonsTableRow";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
-import { TLoadLessonsRequestData } from "../../../../entities/lesson/model/loadInitialDataServerAnswer.type";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TLessonsTableProps = {
   lessons: TLesson[];
   isError: boolean;
-  updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>;
 }
 
-export const LessonsTable = React.memo(({ lessons, isError, updateData }: TLessonsTableProps) => {
-
-  const handleClickUpdate = () => () => updateData({});
+export const LessonsTable = React.memo(({ lessons, isError }: TLessonsTableProps) => {
+  const client = useQueryClient();
+  const handleClickUpdate = () =>
+    client.invalidateQueries({ queryKey: ['lessons'] });
 
   if (isError) {
     return (
@@ -24,8 +24,8 @@ export const LessonsTable = React.memo(({ lessons, isError, updateData }: TLesso
   }
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 423, minWidth: 650, border:  "1px solid #d1d5db", borderRadius: '12px' }} >
-      <Table sx={{ minWidth: 650}} stickyHeader>
+    <TableContainer component={Paper} sx={{ maxHeight: 423, minWidth: 650, border: "1px solid #d1d5db", borderRadius: '12px' }} >
+      <Table sx={{ minWidth: 650 }} stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>

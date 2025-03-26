@@ -6,13 +6,10 @@ import { useLessonsPageContext } from "../../../../entities/lesson/context/Lesso
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
-import { TLoadLessonsRequestData } from "../../../../entities/lesson/model/loadInitialDataServerAnswer.type";
+import { useQueryClient } from "@tanstack/react-query";
 
-type TLessonBoardHeaderProps = {
-  updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>
-};
 
-export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
+export const LessonBoardHeader = () => {
   const { updateAllData } = useLessonsPageContext();
   const { open } = useModalWindowContext();
 
@@ -20,7 +17,10 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
     open(<CreateNewLessonForm updateAllData={updateAllData} />, 'New lesson');
   }, [open, updateAllData]);
 
-  const handleClickUpdate = () => () => updateData({});
+  const client = useQueryClient();
+
+  const handleClickUpdate = () =>
+    client.invalidateQueries({ queryKey: ['lessons'] });
 
   return (
     <CardHeader
@@ -36,7 +36,7 @@ export const LessonBoardHeader = ({ updateData }: TLessonBoardHeaderProps) => {
         <div className="flex items-center">
           <BoardHeaderStyledButton
             icon={UpdateIcon}
-            onClick={handleClickUpdate()}
+            onClick={handleClickUpdate}
             toolTipTitle="Update lessons"
           />
           <BoardHeaderStyledButton

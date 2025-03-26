@@ -1,29 +1,19 @@
 import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
-import { TLesson } from "../../../entities/lesson/model/lesson.type";
 import { Card, CardContent } from "@mui/material";
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
-import { TPaginationParams } from "../../../shared/types/pagination";
 import { useRef, useState } from "react";
-import { TLoadLessonsRequestData } from "../../../entities/lesson/model/loadInitialDataServerAnswer.type";
+import { useQuery } from "@tanstack/react-query";
+import { loadLessons } from "../../../entities/lesson/api/loaders";
 
-export type TLessonsBoardProps = {
-  lessons: TLesson[] | undefined;
-  isLoading: boolean;
-  isError: boolean;
-  updateData: ({ page, perPage, name }: TLoadLessonsRequestData) => Promise<void>;
-  paginationParams: TPaginationParams;
-};
+export const LessonsBoard = () => {
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
 
-export const LessonsBoard = ({
-  lessons,
-  isLoading,
-  isError,
-  updateData,
-  paginationParams
-}: TLessonsBoardProps) => {
-
-  const [seacrh, setSearch] = useState('');
+  const { data: lessons, isError, isLoading } = useQuery({
+    queryKey: ['lessons', { page, search }],
+    queryFn: () => loadLessons({ page, name: search })
+  });
 
   const debounceSearchTimerId = useRef<number>(0);
 
@@ -34,13 +24,13 @@ export const LessonsBoard = ({
     }
 
     debounceSearchTimerId.current = setTimeout(
-      () => updateData({ name: e.target.value }),
+      () => setSearch(e.target.value),
       500
     );
   };
 
   const handleChangePage = (page: number) => {
-    updateData({ page });
+    setPage(page)
   };
 
   return (
@@ -49,25 +39,24 @@ export const LessonsBoard = ({
         variant="outlined"
         className="!min-w-[720px] !max-h-[690px] !min-h-[690px] !shadow-[0_5px_20px_#ABB2B9] !rounded-[22px] "
       >
-        <LessonBoardHeader updateData={updateData} />
+        <LessonBoardHeader />
         <CardContent className="!pt-0">
           <input
             className="w-[400px] rounded-[22px] p-3 border-2 border-gray-300 mb-6 hover:border-main-turquoise focus:outline-none"
             placeholder="Search by name"
             type="text"
-            value={seacrh}
+            value={search}
             onChange={handleChangeSearch}
           />
           {isLoading && <div className="text-main-orange">Loading of lessons...</div>}
           {(!isLoading && lessons) &&
             <>
               <LessonsTable
-                lessons={lessons}
+                lessons={lessons.data}
                 isError={isError}
-                updateData={updateData}
               />
               <PaginationContainer
-                paginationParams={paginationParams}
+                paginationParams={lessons.paginationParams}
                 handleChangePage={handleChangePage}
               />
             </>}
@@ -75,4 +64,4 @@ export const LessonsBoard = ({
       </Card>
     </>
   );
-}
+};
