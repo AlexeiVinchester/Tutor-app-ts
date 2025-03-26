@@ -53,11 +53,12 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
       <TableCell align="center">{lesson.date}</TableCell>
       <TableCell align="center">
         <IconButton onClick={handleClickPaidStatus}>
-          {isLoading ? <HourglassTopIcon color="warning" /> : lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon color="warning" />}
+          {isLoading ? <HourglassTopIcon color="warning" /> : lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon className="!text-send-data-button-text"/>}
         </IconButton>
       </TableCell>
       <TableCell align="center">
-        <IconButton onClick={handleClickEdit}>
+        <IconButton onClick={handleClickEdit} className="!text-send-data-button-text hover:!text-main-turquoise"
+        >
           <EditIcon />
         </IconButton>
       </TableCell>
