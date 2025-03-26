@@ -11,6 +11,7 @@ import { useSnackMessageContext } from "../../../../shared/context/snackMessageC
 import { useCallback, useState } from "react";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
+import { ButtonToltipWrapper } from "../../../../shared/ui/ButtonTooltipWrapper/ButtonTooltipWrapper";
 
 type TLessonsTableRowProps = {
   lesson: TLesson;
@@ -52,15 +53,21 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
       <TableCell align="center">{lesson.price}</TableCell>
       <TableCell align="center">{lesson.date}</TableCell>
       <TableCell align="center">
-        <IconButton onClick={handleClickPaidStatus}>
-          {isLoading ? <HourglassTopIcon color="warning" /> : lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon className="!text-send-data-button-text"/>}
-        </IconButton>
+        <ButtonToltipWrapper title={lesson.paidStatus ? 'Cancel payment' : 'Pay'}>
+          <IconButton onClick={handleClickPaidStatus}>
+            {isLoading ? <HourglassTopIcon color="warning" /> : lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon className="!text-send-data-button-text" />}
+          </IconButton>
+        </ButtonToltipWrapper>
+
       </TableCell>
       <TableCell align="center">
-        <IconButton onClick={handleClickEdit} className="!text-send-data-button-text hover:!text-main-turquoise"
-        >
-          <EditIcon />
-        </IconButton>
+        <ButtonToltipWrapper title="Edit">
+          <IconButton onClick={handleClickEdit} className="!text-send-data-button-text hover:!text-main-turquoise"
+          >
+            <EditIcon />
+          </IconButton>
+        </ButtonToltipWrapper>
+
       </TableCell>
     </TableRow>
   );

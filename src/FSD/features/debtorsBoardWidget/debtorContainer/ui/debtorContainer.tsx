@@ -9,6 +9,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
 import { sendDebtorPayment } from "../api/loaders";
 import { TSendDebtorPaymentServerAnswer } from "../model/api.types";
+import { ButtonToltipWrapper } from "../../../../shared/ui/ButtonTooltipWrapper/ButtonTooltipWrapper";
 
 type TDebtorContainerProps = {
   debtor: TDebtor;
@@ -57,14 +58,17 @@ export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
           </h5>
         }
         action={
-          <IconButton
-            onClick={handleClickPayDebt}
-            disabled={isPending}
-            size="large"
-            className="!text-send-data-button-text hover:!text-main-turquoise"
-          >
-            {isPending ? <HourglassEmptyIcon /> : <PaymentIcon />}
-          </IconButton>
+          <ButtonToltipWrapper title="Pay debt" placement="left">
+            <IconButton
+              onClick={handleClickPayDebt}
+              disabled={isPending}
+              size="large"
+              className="!text-send-data-button-text hover:!text-main-turquoise"
+            >
+              {isPending ? <HourglassEmptyIcon /> : <PaymentIcon />}
+            </IconButton>
+          </ButtonToltipWrapper>
+
         }
       />
     </Card>

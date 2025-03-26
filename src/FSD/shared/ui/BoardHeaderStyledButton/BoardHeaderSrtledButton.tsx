@@ -1,33 +1,14 @@
-import { IconButton, IconButtonProps, Tooltip } from "@mui/material";
-import { ReactNode } from "react";
+import { IconButton, IconButtonProps } from "@mui/material";
+import { ButtonToltipWrapper } from "../ButtonTooltipWrapper/ButtonTooltipWrapper";
 
 type TBoardHeaderStyledButtonProps = {
   icon: React.ElementType;
-  toolTipTitle?: ReactNode;
+  toolTipTitle?: string;
 } & IconButtonProps;
 
 export const BoardHeaderStyledButton = ({ icon: Icon, toolTipTitle, ...props }: TBoardHeaderStyledButtonProps) => {
   return (
-    <Tooltip
-      disableFocusListener
-      disableTouchListener
-      title={toolTipTitle}
-      slotProps={{
-        popper: {
-          modifiers: [
-            {
-              name: 'offset',
-              options: {
-                offset: [0, -14],
-              },
-            },
-          ],
-        },
-        tooltip: {
-          className: "!bg-white transition !text-main-turquoise !rounded-lg !p-2 shadow-md"
-        }
-      }}
-    >
+    <ButtonToltipWrapper title={toolTipTitle || ''}>
       <IconButton
         size="large"
         className="!text-send-data-button-text disabled:bg-gray-400"
@@ -35,6 +16,7 @@ export const BoardHeaderStyledButton = ({ icon: Icon, toolTipTitle, ...props }: 
       >
         <Icon fontSize="large" className="hover:text-main-turquoise" />
       </IconButton>
-    </Tooltip>
+    </ButtonToltipWrapper>
+
   );
 };
