@@ -21,16 +21,14 @@ export const LessonsPage = () => {
   return (
     <LessonsPageContextProvider updateAllData={updateAllData}>
       <Container
-        sx={{ paddingTop: '15px', paddingBottom: '50px' }}
+        className="pb-[50px] pt-[15px] !flex !flex-col !gap-4"
         maxWidth="lg"
       >
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-8">
-            <LessonsBoard />
-            <DebtorsBoard />
-          </div>
-          <CurrentMonthInfoBoard />
+        <div className="flex gap-8">
+          <LessonsBoard />
+          <DebtorsBoard />
         </div>
+        <CurrentMonthInfoBoard />
       </Container>
     </LessonsPageContextProvider>
   );

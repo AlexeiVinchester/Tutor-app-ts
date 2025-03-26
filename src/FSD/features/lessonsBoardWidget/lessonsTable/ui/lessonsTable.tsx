@@ -1,31 +1,27 @@
 import React from "react";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type";
 import { LessonsTableRow } from "./lessonsTableRow";
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
-import { useQueryClient } from "@tanstack/react-query";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 
 type TLessonsTableProps = {
   lessons: TLesson[];
   isError: boolean;
-}
+};
 
 export const LessonsTable = React.memo(({ lessons, isError }: TLessonsTableProps) => {
-  const client = useQueryClient();
-  const handleClickUpdate = () =>
-    client.invalidateQueries({ queryKey: ['lessons'] });
-
   if (isError) {
-    return (
-      <div>
-        <p>Something goes wrong!</p>
-        <IconButton onClick={handleClickUpdate}>Update lessons</IconButton>
-      </div>
-    )
-  }
+    return <p>Something goes wrong! Try again!</p>;
+  };
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 423, minWidth: 650, border: "1px solid #d1d5db", borderRadius: '12px' }} >
-      <Table sx={{ minWidth: 650 }} stickyHeader>
+    <TableContainer
+      component={Paper}
+      className="!max-h-[423px] !min-w-[650px] !border !border-gray-300 !rounded-[12px]"
+    >
+      <Table
+        className="!min-w-[650px]"
+        stickyHeader
+      >
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>

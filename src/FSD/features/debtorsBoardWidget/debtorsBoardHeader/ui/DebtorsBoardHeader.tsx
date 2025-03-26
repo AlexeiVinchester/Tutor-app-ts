@@ -38,8 +38,10 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, isPending }: TDebtor
   };
 
   const client = useQueryClient();
-  const handleClickUpdateData = () =>
+
+  const handleClickUpdateData = () => {
     client.invalidateQueries({ queryKey: ['debtors'] })
+  }
 
   return (
     <CardHeader

@@ -6,6 +6,10 @@ type TDebtorsListProps = {
 }
 
 export const DebtorsList = ({ debtors }: TDebtorsListProps) => {
+  if (debtors.length === 0) {
+    return <p className="text-red-400">There are no debtors</p>
+  };
+
   return (
     <div className="!flex !flex-col items-center gap-2 pb-2">
       {debtors.map(debtor => (

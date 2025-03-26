@@ -48,7 +48,9 @@ export const LessonsBoard = () => {
             value={search}
             onChange={handleChangeSearch}
           />
-          {isLoading && <div className="text-main-orange">Loading of lessons...</div>}
+          {isLoading &&
+            <div className="text-main-orange">Loading of lessons...</div>
+          }
           {(!isLoading && lessons) &&
             <>
               <LessonsTable
@@ -59,7 +61,8 @@ export const LessonsBoard = () => {
                 paginationParams={lessons.paginationParams}
                 handleChangePage={handleChangePage}
               />
-            </>}
+            </>
+          }
         </CardContent>
       </Card>
     </>

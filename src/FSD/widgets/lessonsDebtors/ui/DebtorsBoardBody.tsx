@@ -9,7 +9,7 @@ type TDebtorsBoardBodyProps = {
 
 export const DebtorsBoardBody = ({ isLoading, debtors, isError }: TDebtorsBoardBodyProps) => {
   if (isLoading) {
-    return <p>Loading od debtors...</p>
+    return <p>Loading of debtors...</p>
   }
 
   if (isError || !debtors) {

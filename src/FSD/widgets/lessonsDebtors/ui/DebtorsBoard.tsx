@@ -23,7 +23,7 @@ export const DebtorsBoard = () => {
       />
       <CardContent className="!px-2 !pb-0">
         <div className="max-h-[574px] overflow-y-auto">
-          <DebtorsBoardBody isLoading={isLoading} isError={isError} debtors={data?.debtors} />
+          <DebtorsBoardBody isLoading={isLoading || isFetching} isError={isError} debtors={data?.debtors} />
         </div>
       </CardContent>
     </Card>

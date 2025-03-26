@@ -12,7 +12,7 @@ import { useModalWindowContext } from "../../../../shared/context/modalWindowCon
 
 type TEditLessonFormProps = {
   lesson: TLesson;
-  updateAllData: () => Promise<void>;
+  updateAllData: () => void;
 };
 
 export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) => {
@@ -64,4 +64,4 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
       buttonName="Edit lesson"
     />
   );
-}
+};
