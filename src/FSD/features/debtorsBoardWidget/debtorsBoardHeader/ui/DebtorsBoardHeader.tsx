@@ -1,15 +1,13 @@
 import { CardHeader } from "@mui/material";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { useState } from "react";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { sendFullPayment } from "../api/loaders";
-import { TSendFullPaymentServerAnswer } from "../model/api.types";
 import UpdateIcon from '@mui/icons-material/Update';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
@@ -20,28 +18,28 @@ type TDebtorBoardHeaderProps = {
 export const DebtorBoardHeader = ({ totalAmount, totalDebt, isPending }: TDebtorBoardHeaderProps) => {
   const { updateAllData } = useLessonsPageContext();
   const { openSnackMessage } = useSnackMessageContext();
-  const [isPendingPayment, setIsPendingPayment] = useState<boolean>(false);
-
-  const handlePayFullDebt = async () => {
-    try {
-      setIsPendingPayment(true);
-      const response: TSendFullPaymentServerAnswer = await sendFullPayment();
-      if (response.paymentStatus) {
-        updateAllData();
-        openSnackMessage(showSuccessMessage(`Debt in ${totalDebt} was paid successfully!`))
-      }
-    } catch (error) {
-      openSnackMessage(createApiErrorMessage(error))
-    } finally {
-      setIsPendingPayment(false)
-    }
-  };
 
   const client = useQueryClient();
 
+  const { mutate: payFullDebt, isPending: isPendingDebt } = useMutation({
+    mutationKey: ['payFullDebt'],
+    mutationFn: sendFullPayment,
+    onSuccess: () => {
+      openSnackMessage(showSuccessMessage(`Debt in ${totalDebt} was paid successfully!`));
+      updateAllData();
+    },
+    onError: (error) => {
+      openSnackMessage(createApiErrorMessage(error));
+    }
+  });
+
+  const handlePayFullDebt = async () => {
+    payFullDebt();
+  };
+
   const handleClickUpdateData = () => {
-    client.invalidateQueries({ queryKey: ['debtors'] })
-  }
+    client.invalidateQueries({ queryKey: ['debtors'] });
+  };
 
   return (
     <CardHeader
@@ -69,7 +67,7 @@ export const DebtorBoardHeader = ({ totalAmount, totalDebt, isPending }: TDebtor
           <BoardHeaderStyledButton
             icon={MonetizationOnOutlinedIcon}
             onClick={handlePayFullDebt}
-            disabled={isPending || isPendingPayment}
+            disabled={isPending || isPendingDebt}
             toolTipTitle="Pay total debt"
           />
         </div>
