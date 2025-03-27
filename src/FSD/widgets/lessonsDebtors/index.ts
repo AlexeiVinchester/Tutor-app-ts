@@ -1,0 +1,1 @@
+export { DebtorsBoard } from './ui/DebtorsBoard';

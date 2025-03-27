@@ -1,9 +1,9 @@
-import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
+import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer";
 import { TDebtor } from "../../../entities/debtor/model/debtor.type"
 
 type TDebtorsListProps = {
   debtors: TDebtor[];
-}
+};
 
 export const DebtorsList = ({ debtors }: TDebtorsListProps) => {
   if (debtors.length === 0) {
@@ -17,4 +17,4 @@ export const DebtorsList = ({ debtors }: TDebtorsListProps) => {
       ))}
     </div>
   );
-}
+};

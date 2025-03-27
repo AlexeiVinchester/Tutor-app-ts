@@ -1,0 +1,1 @@
+export { CurrentMonthInfoBoard } from './ui/currentMonthInfoBoard'

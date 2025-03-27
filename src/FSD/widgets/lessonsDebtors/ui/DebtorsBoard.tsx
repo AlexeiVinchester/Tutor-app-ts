@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@mui/material";
 import { DebtorsBoardBody } from "./DebtorsBoardBody";
-import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader/ui/DebtorsBoardHeader";
+import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader";
 import { loadDebtors } from "../../../entities/debtor/api/loaders";
 
 export const DebtorsBoard = () => {

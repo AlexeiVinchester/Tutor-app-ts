@@ -9,9 +9,7 @@ type TCurrentMonthInfoBoardHeader = {
 
 export const CurrentMonthInfoBoardHeader = ({ isPending }: TCurrentMonthInfoBoardHeader) => {
   const client = useQueryClient();
-
-  const handleClickUpdate = () =>
-    client.invalidateQueries({ queryKey: ['currentMonthInfo'] });
+  const handleClickUpdate = () => client.invalidateQueries({ queryKey: ['currentMonthInfo'] });
 
   return (
     <CardHeader

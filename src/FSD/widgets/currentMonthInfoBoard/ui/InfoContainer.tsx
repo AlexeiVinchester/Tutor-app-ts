@@ -3,10 +3,9 @@ import { Card } from "@mui/material";
 type TInfoContainerProps = {
   value: number;
   title: string;
-  currency?: string;
 };
 
-export const InfoContainer = ({ value, title, currency }: TInfoContainerProps) => {
+export const InfoContainer = ({ value, title }: TInfoContainerProps) => {
   return (
     <Card
       variant="outlined"
@@ -14,9 +13,8 @@ export const InfoContainer = ({ value, title, currency }: TInfoContainerProps) =
     >
       <div className="flex flex-col items-center">
         <p className="text-m">{title}</p>
-        <span className="text-main-orange text-[22px]">{value} {currency && currency}</span>
+        <span className="text-main-orange text-[22px]">{value}</span>
       </div>
     </Card>
-
   );
-}
+};
