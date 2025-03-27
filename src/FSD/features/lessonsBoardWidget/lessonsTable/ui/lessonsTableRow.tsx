@@ -67,7 +67,6 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
             <EditIcon />
           </IconButton>
         </ButtonToltipWrapper>
-
       </TableCell>
     </TableRow>
   );
