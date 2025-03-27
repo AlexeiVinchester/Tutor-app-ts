@@ -1,12 +1,18 @@
-import { IconButton, IconButtonProps } from "@mui/material";
+import { IconButton, IconButtonProps, IconProps } from "@mui/material";
 import { ButtonToltipWrapper } from "../ButtonTooltipWrapper/ButtonTooltipWrapper";
 
 type TBoardHeaderStyledButtonProps = {
   icon: React.ElementType;
   toolTipTitle?: string;
+  iconSize?: IconProps['fontSize'];
 } & IconButtonProps;
 
-export const BoardHeaderStyledButton = ({ icon: Icon, toolTipTitle, ...props }: TBoardHeaderStyledButtonProps) => {
+export const BoardStyledButton = ({
+  icon: Icon,
+  toolTipTitle,
+  iconSize = 'large',
+  ...props
+}: TBoardHeaderStyledButtonProps) => {
   return (
     <ButtonToltipWrapper title={toolTipTitle || ''}>
       <IconButton
@@ -14,7 +20,7 @@ export const BoardHeaderStyledButton = ({ icon: Icon, toolTipTitle, ...props }: 
         className="!text-send-data-button-text disabled:!text-gray-400"
         {...props}
       >
-        <Icon fontSize="large" className="hover:text-main-turquoise" />
+        <Icon fontSize={iconSize} className="hover:text-main-turquoise" />
       </IconButton>
     </ButtonToltipWrapper>
   );

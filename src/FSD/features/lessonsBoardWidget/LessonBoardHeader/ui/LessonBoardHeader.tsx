@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
-import { BoardHeaderStyledButton } from "../../../../shared/ui/BoardHeaderStyledButton/BoardHeaderSrtledButton";
+import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import { useQueryClient } from "@tanstack/react-query";
 
 type TLessonBoardHeader = {
@@ -37,13 +37,13 @@ export const LessonBoardHeader = ({ isPending }: TLessonBoardHeader) => {
       }
       action={
         <div className="flex items-center">
-          <BoardHeaderStyledButton
+          <BoardStyledButton
             disabled={isPending}
             icon={UpdateIcon}
             onClick={handleClickUpdate}
             toolTipTitle="Update lessons"
           />
-          <BoardHeaderStyledButton
+          <BoardStyledButton
             disabled={isPending}
             icon={PostAddIcon}
             onClick={handleClickAddNewLesson}

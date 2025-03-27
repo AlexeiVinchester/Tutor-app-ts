@@ -25,11 +25,11 @@ export const CurrentMonthInfoBoard = () => {
         {(!isLoading && data) &&
           <div className="flex flex-row gap-2 justify-between px-6">
             <InfoContainer title="Amount of lessons" value={data.currentFullAmount} />
-            <InfoContainer title="Full income" value={data.currentFullIncome} />
-            <InfoContainer title="Paid income" value={data.currentPaidIncome} />
-            <InfoContainer title="Tax" value={data.currentTax} />
+            <InfoContainer title="Full income (BYN)" value={data.currentFullIncome} />
+            <InfoContainer title="Paid income (BYN)" value={data.currentPaidIncome} />
+            <InfoContainer title="Tax (BYN)" value={data.currentTax} />
             <InfoContainer title="Week amount" value={data.currentWeekAmount} />
-            <InfoContainer title="Week income" value={data.currentWeekIncome} />
+            <InfoContainer title="Week income (BYN)" value={data.currentWeekIncome} />
           </div>
         }
       </CardContent>

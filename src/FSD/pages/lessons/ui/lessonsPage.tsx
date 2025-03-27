@@ -13,7 +13,7 @@ export const LessonsPage = () => {
     () => {
       client.invalidateQueries({ queryKey: ['lessons'] });
       client.invalidateQueries({ queryKey: ['debtors'] });
-      client.invalidateQueries({ queryKey: ['lessonsInfo'] });
+      client.invalidateQueries({ queryKey: ['currentMonthInfo'] });
     },
     [client]
   );
