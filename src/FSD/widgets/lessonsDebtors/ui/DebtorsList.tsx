@@ -1,5 +1,5 @@
-import { TDebtor } from "../../../entities/debtor/model/debtor.type"
 import { DebtorContainer } from "../../../features/debtorsBoardWidget/debtorContainer/ui/debtorContainer";
+import { TDebtor } from "../../../entities/debtor/model/debtor.type"
 
 type TDebtorsListProps = {
   debtors: TDebtor[];

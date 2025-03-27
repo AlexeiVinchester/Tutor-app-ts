@@ -1,5 +1,5 @@
-import { TDebtor } from "../../../entities/debtor/model/debtor.type";
 import { DebtorsList } from "./DebtorsList";
+import { TDebtor } from "../../../entities/debtor/model/debtor.type";
 
 type TDebtorsBoardBodyProps = {
   isPendingUpdate: boolean;

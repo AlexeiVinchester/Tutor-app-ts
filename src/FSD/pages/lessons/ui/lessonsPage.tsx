@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { Container } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import { LessonsPageContextProvider } from "./LessonsPageContextProvider";
 import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard/ui/currentMonthInfoBoard";
 import { DebtorsBoard } from "../../../widgets/lessonsDebtors/ui/DebtorsBoard";
 import { LessonsBoard } from "../../../widgets/lessonsBoard/ui/LessonsBoard";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const LessonsPage = () => {
   const client = useQueryClient();

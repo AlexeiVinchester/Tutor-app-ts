@@ -1,13 +1,13 @@
 import { Avatar, Card, CardHeader } from "@mui/material";
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import PaymentIcon from '@mui/icons-material/Payment';
+import { useMutation } from "@tanstack/react-query";
+import { sendDebtorPayment } from "../api/loaders";
+import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import PaymentIcon from '@mui/icons-material/Payment';
-import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
-import { sendDebtorPayment } from "../api/loaders";
-import { useMutation } from "@tanstack/react-query";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 
 type TDebtorContainerProps = {
