@@ -30,7 +30,7 @@ export const ButtonToltipWrapper = ({ title, children, placement }: TButtonTolti
         }
       }}
     >
-      <span>{children}</span>
+      <>{children}</>
     </Tooltip>
   );
 };

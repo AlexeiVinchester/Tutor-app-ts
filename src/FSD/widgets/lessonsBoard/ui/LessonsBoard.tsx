@@ -1,11 +1,10 @@
-import { startTransition, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
 import { loadLessons } from "../../../entities/lesson/api/loaders";
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
-import { useDebounce } from "../../../shared/hooks/useDebounce";
 
 export const LessonsBoard = () => {
   const [page, setPage] = useState(1);
@@ -17,20 +16,31 @@ export const LessonsBoard = () => {
     queryFn: () => loadLessons({ page, name: search })
   });
 
-  useDebounce(inputValue, 500, (value) => {
-    startTransition(() => {
-      setSearch(value);
-      setPage(1);
-    });
-  });
+  const debounceTimerRef = useRef<number>(0)
 
   const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const newInputValue = e.target.value;
+    setInputValue(newInputValue);
+
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      startTransition(() => {
+        setSearch(newInputValue);
+        setPage(1);
+      })
+    }, 500)
   };
 
   const handleChangePage = (page: number) => {
     setPage(page);
   };
+
+  useEffect(() => {
+    return () => clearTimeout(debounceTimerRef.current)
+  }, []);
 
   return (
     <>
