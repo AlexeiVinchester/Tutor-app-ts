@@ -37,15 +37,18 @@ export const LessonForm = (
     defaultValues,
     mode: 'onChange',
     resolver: zodResolver(lessonFormSchema)
-  })
-  const studentNamesOptions = initialLessonsParams ? createLessonsNameSelectOptions(initialLessonsParams.studentsParams) : optionsDefaultValues;
+  });
+  const studentNamesOptions =
+    initialLessonsParams ?
+      createLessonsNameSelectOptions(initialLessonsParams.studentsParams) :
+      optionsDefaultValues;
 
   const handleSUbmitForm = async (data: TLessonFromSchema) => {
     onSubmit(data);
     if (shouldResetFields) {
       methods.reset();
     }
-  }
+  };
 
   if (isLoading) {
     return <Spinner />;

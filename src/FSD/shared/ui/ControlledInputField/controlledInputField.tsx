@@ -19,13 +19,13 @@ export const ControlledInputField = ({
     <Controller
       name={name}
       control={control}
-      render={({ field: {onChange, ...restField}, fieldState }) => {
+      render={({ field: { onChange, ...restField }, fieldState }) => {
         const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
           onChange(event);
-          if(customHandler){
+          if (customHandler) {
             customHandler(event);
           }
-        }
+        };
 
         return (
           <StyledInput
