@@ -17,10 +17,10 @@ export const BoardStyledButton = ({
     <ButtonToltipWrapper title={toolTipTitle || ''}>
       <IconButton
         size="large"
-        className="!text-send-data-button-text disabled:!text-gray-400"
+        className="hover:!text-main-turquoise !text-send-data-button-text disabled:!text-gray-400"
         {...props}
       >
-        <Icon fontSize={iconSize} className="hover:text-main-turquoise" />
+        <Icon fontSize={iconSize} />
       </IconButton>
     </ButtonToltipWrapper>
   );

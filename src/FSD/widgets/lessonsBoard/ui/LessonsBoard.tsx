@@ -35,10 +35,10 @@ export const LessonsBoard = () => {
             value={inputValue}
             onChange={handleChangeSearch}
           />
-          {isLoading &&
+          {(isLoading || isFetching) &&
             <div className="text-main-orange">Loading of lessons...</div>
           }
-          {(!isLoading && lessons) &&
+          {(!isLoading && !isFetching && lessons) &&
             <>
               <LessonsTable
                 lessons={lessons.data}

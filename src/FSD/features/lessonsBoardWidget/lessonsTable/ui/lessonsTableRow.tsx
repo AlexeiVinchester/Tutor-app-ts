@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { TableRow, TableCell, IconButton } from "@mui/material";
+import { TableRow, TableCell } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,7 +11,7 @@ import { useLessonsPageContext } from "../../../../entities/lesson/context/Lesso
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
-import { ButtonToltipWrapper } from "../../../../shared/ui/ButtonTooltipWrapper/ButtonTooltipWrapper";
+import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 
 type TLessonsTableRowProps = {
   lesson: TLesson;
@@ -33,10 +33,13 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
   });
 
   const handleClickEdit = useCallback(() => {
-    open(<EditLessonForm lesson={lesson} updateAllData={updateAllData} />, 'Edit lesson');
+    open(
+      <EditLessonForm lesson={lesson} updateAllData={updateAllData} />,
+      'Edit lesson'
+    );
   }, [lesson, open, updateAllData]);
 
-  const handleClickPaidStatus = useCallback(async () => {
+  const handleClickPaidStatus = useCallback(() => {
     changePaidStatus()
   }, [changePaidStatus]);
 
@@ -47,27 +50,24 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
       <TableCell align="center">{lesson.price}</TableCell>
       <TableCell align="center">{lesson.date}</TableCell>
       <TableCell align="center">
-        <ButtonToltipWrapper title={lesson.paidStatus ? 'Cancel payment' : 'Pay'}>
-          <IconButton 
-            onClick={handleClickPaidStatus} 
-            disabled={isPending}
-            className="disabled:!text-gray-400"
-            >
-            {lesson.paidStatus ? <DoneIcon color="success" /> : <CloseIcon className="!text-send-data-button-text" />}
-          </IconButton>
-        </ButtonToltipWrapper>
-
+        <BoardStyledButton
+          icon={lesson.paidStatus ? DoneIcon : CloseIcon}
+          toolTipTitle={lesson.paidStatus ? 'Cancel payment' : 'Pay'}
+          onClick={handleClickPaidStatus}
+          disabled={isPending}
+          iconSize="medium"
+          className={`${lesson.paidStatus ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
+        />
       </TableCell>
       <TableCell align="center">
-        <ButtonToltipWrapper title="Edit">
-          <IconButton
-            onClick={handleClickEdit}
-            className="!text-send-data-button-text hover:!text-main-turquoise"
-          >
-            <EditIcon />
-          </IconButton>
-        </ButtonToltipWrapper>
+        <BoardStyledButton
+          icon={EditIcon}
+          disabled={isPending}
+          onClick={handleClickEdit}
+          toolTipTitle="Edit"
+          iconSize="medium"
+        />
       </TableCell>
     </TableRow>
   );
-} 
+};

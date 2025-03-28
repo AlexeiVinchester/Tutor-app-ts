@@ -1,7 +1,7 @@
 import React from "react";
-import { TLesson } from "../../../../entities/lesson/model/lesson.type";
-import { LessonsTableRow } from "./lessonsTableRow";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { LessonsTableRow } from "./lessonsTableRow";
+import { TLesson } from "../../../../entities/lesson/model/lesson.type";
 
 type TLessonsTableProps = {
   lessons: TLesson[];
@@ -18,10 +18,7 @@ export const LessonsTable = React.memo(({ lessons, isError }: TLessonsTableProps
       component={Paper}
       className="!max-h-[423px] !min-w-[650px] !border !border-gray-300 !rounded-[12px]"
     >
-      <Table
-        className="!min-w-[650px]"
-        stickyHeader
-      >
+      <Table className="!min-w-[650px]" stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
@@ -29,15 +26,13 @@ export const LessonsTable = React.memo(({ lessons, isError }: TLessonsTableProps
             <TableCell align="center">Price</TableCell>
             <TableCell align="center">Date</TableCell>
             <TableCell align="center">Paymant</TableCell>
-            <TableCell align="center">Action</TableCell>
+            <TableCell align="center">Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-            lessons.map((lesson) => (
-              <LessonsTableRow key={lesson.id} lesson={lesson} />
-            ))
-          }
+          {lessons.map((lesson) => (
+            <LessonsTableRow key={lesson.id} lesson={lesson} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
