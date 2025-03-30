@@ -1,13 +1,9 @@
 import { CardHeader } from "@mui/material";
 import UpdateIcon from '@mui/icons-material/Update';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { sendFullPayment } from "../api/loaders";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
-import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
-import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
+import { useQueryClient } from "@tanstack/react-query";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
+import { usePayTotalDebt } from "../lib/usePayFullDebt";
 
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
@@ -20,23 +16,12 @@ export const DebtorBoardHeader = ({
   totalDebt,
   isPendingUpdate
 }: TDebtorBoardHeaderProps) => {
-  const { updateAllData } = useLessonsPageContext();
-  const { openSnackMessage } = useSnackMessageContext();
+  const { isPendingPayingTotalDebt, handlePayTotalDebt } = usePayTotalDebt();
+
   const client = useQueryClient();
-
-  const { mutate: payFullDebt, isPending: isPendingDebt } = useMutation({
-    mutationKey: ['payFullDebt'],
-    mutationFn: sendFullPayment,
-    onSuccess: () => {
-      updateAllData();
-      openSnackMessage(showSuccessMessage(`Debt in ${totalDebt} was paid successfully!`));
-    },
-    onError: (error) => openSnackMessage(createApiErrorMessage(error))
-  });
-
-  const handlePayFullDebt = () => payFullDebt();
-
-  const handleClickUpdateData = () => client.invalidateQueries({ queryKey: ['debtors'] });
+  const handleClickUpdateData = () => {
+    client.invalidateQueries({ queryKey: ['debtors'] });
+  };
 
   return (
     <CardHeader
@@ -59,8 +44,8 @@ export const DebtorBoardHeader = ({
           />
           <BoardStyledButton
             icon={MonetizationOnOutlinedIcon}
-            onClick={handlePayFullDebt}
-            disabled={isPendingUpdate || isPendingDebt}
+            onClick={handlePayTotalDebt}
+            disabled={isPendingUpdate || isPendingPayingTotalDebt}
             toolTipTitle="Pay total debt"
           />
         </div>
