@@ -1,14 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@mui/material";
 import { DebtorsBoardBody } from "./DebtorsBoardBody";
 import { DebtorBoardHeader } from "../../../features/debtorsBoardWidget/debtorsBoardHeader";
-import { loadDebtors } from "../../../entities/debtor/api/loaders";
+import { useDebtors } from "../lib/useDebtors";
 
 export const DebtorsBoard = () => {
-  const { data, isError, isLoading, isFetching } = useQuery({
-    queryKey: ['debtors'],
-    queryFn: () => loadDebtors()
-  });
+  const { data, isError, isLoading, isFetching } = useDebtors();
 
   return (
     <Card
