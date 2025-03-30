@@ -6,6 +6,7 @@ import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
 import { loadLessons } from "../../../entities/lesson/api/loaders";
 import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
+import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 
 export const LessonsBoard = () => {
   const [page, setPage] = useState(1);
@@ -35,10 +36,8 @@ export const LessonsBoard = () => {
             value={inputValue}
             onChange={handleChangeSearch}
           />
-          {(isLoading || isFetching) &&
-            <div className="text-main-orange">Loading of lessons...</div>
-          }
-          {(!isLoading && !isFetching && lessons) &&
+          {(isLoading) && <Spinner />}
+          {(!isLoading && lessons) &&
             <>
               <LessonsTable
                 lessons={lessons.data}

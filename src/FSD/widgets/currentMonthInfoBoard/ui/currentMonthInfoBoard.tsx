@@ -18,7 +18,7 @@ export const CurrentMonthInfoBoard = () => {
       <CurrentMonthInfoBoardHeader isPending={isLoading || isFetching} />
       <CardContent className="!px-2">
         <CurrentMonthInfoBoardBody
-          isPendingUpdate={isLoading || isFetching}
+          isPendingUpdate={isLoading}
           isError={isError}
           data={data}
         />

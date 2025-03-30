@@ -1,5 +1,6 @@
 import { DebtorsList } from "./DebtorsList";
 import { TDebtor } from "../../../entities/debtor/model/debtor.type";
+import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 
 type TDebtorsBoardBodyProps = {
   isPendingUpdate: boolean;
@@ -9,7 +10,7 @@ type TDebtorsBoardBodyProps = {
 
 export const DebtorsBoardBody = ({ isPendingUpdate, debtors, isError }: TDebtorsBoardBodyProps) => {
   if (isPendingUpdate) {
-    return <p>Loading of debtors...</p>;
+    return <Spinner />;
   }
 
   if (isError || !debtors) {

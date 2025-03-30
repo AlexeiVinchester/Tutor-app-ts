@@ -1,5 +1,6 @@
 import { InfoContainer } from "./InfoContainer";
 import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
+import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 
 type TCurrentMonthInfoBoardBody = {
   isPendingUpdate: boolean;
@@ -12,8 +13,12 @@ export const CurrentMonthInfoBoardBody = ({
   isError,
   data
 }: TCurrentMonthInfoBoardBody) => {
-  if (isError || !data) return <p>Yooops, something goes wrong!</p>;
-  if (isPendingUpdate) return <div className="text-main-orange">Loading of info...</div>;
+  if (isPendingUpdate) {
+    return <Spinner />;
+  }
+  if (isError || !data) {
+    return <p>Yooops, something goes wrong!</p>;
+  }
 
   return (
     <div className="flex flex-row gap-2 justify-between px-6">
