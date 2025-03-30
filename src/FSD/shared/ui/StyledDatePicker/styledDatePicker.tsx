@@ -29,7 +29,6 @@ export const StyledDatePicker = forwardRef<
   HTMLDivElement,
   TStyledDatePickerProps
 >(({ fieldState, handleChangeDate, size, ...props }, ref) => {
-  console.log('Date value type: ', props.value)
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

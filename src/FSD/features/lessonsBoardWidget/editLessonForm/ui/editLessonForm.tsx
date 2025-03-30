@@ -32,8 +32,6 @@ export const EditLessonForm = ({ lesson, updateAllData }: TEditLessonFormProps) 
     <LessonForm
       defaultValues={{ ...lesson, price: lesson.price.toString() }}
       onSubmit={handleSubmitForm}
-      isLoading={isPendingInitialData}
-      isError={isErrorInitialData}
       initialLessonsParams={initialLessonData}
       buttonName="Edit lesson"
     />

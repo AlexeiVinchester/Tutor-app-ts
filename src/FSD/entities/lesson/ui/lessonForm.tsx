@@ -4,7 +4,6 @@ import { lessonFormSchema, TLessonFromSchema } from "../model/lessonFormSchema"
 import { TInitialLessonParams } from "../model/loadInitialDataServerAnswer.type";
 import { optionsDefaultValues } from "../model/defaultValues";
 import { createLessonsNameSelectOptions } from "../lib/createSelectOption";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
 import { ControlledCheckboxField } from "../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField";
 import { ControlledDatePicker } from "../../../shared/ui/ControlledDatePicker/controlledDatePicker";
 import { ControlledInputField } from "../../../shared/ui/ControlledInputField/controlledInputField";
@@ -14,8 +13,6 @@ import { StyledButton } from "../../../shared/ui/StyledButton/StyledButton";
 
 type TLessonFormProps = {
   defaultValues: TLessonFromSchema;
-  isLoading: boolean;
-  isError: boolean;
   initialLessonsParams: TInitialLessonParams;
   shouldResetFields?: boolean;
   buttonName: string;
@@ -26,8 +23,6 @@ export const LessonForm = (
   {
     onSubmit,
     defaultValues,
-    isError,
-    isLoading,
     initialLessonsParams,
     shouldResetFields,
     buttonName
@@ -50,13 +45,13 @@ export const LessonForm = (
     }
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
 
-  if (isError) {
-    return <p>Yooops, something goes wrong!</p>
-  }
+  // if (isError) {
+  //   return <p>Yooops, something goes wrong!</p>
+  // }
 
   return (
     <FormWrapper
