@@ -1,16 +1,10 @@
-import { useCallback } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { TableRow, TableCell } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import { sendNewPaidStatus } from "../api/loaders";
-import { EditLessonForm } from "../../editLessonForm/ui/editLessonForm";
+import { useChangePaidStatus } from "../lib/useChangePaidStatus";
+import { useOpenEditLessonForm } from "../lib/useOpenEditLessonForm";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type"
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
-import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
-import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 
 type TLessonsTableRowProps = {
@@ -18,30 +12,13 @@ type TLessonsTableRowProps = {
 };
 
 export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
-  const { openSnackMessage } = useSnackMessageContext();
-  const { open } = useModalWindowContext();
-  const { updateAllData } = useLessonsPageContext();
 
-  const { mutate: changePaidStatus, isPending } = useMutation({
-    mutationKey: ['newPaidStatus', { _id: lesson._id, newPaidStatus: !lesson.paidStatus }],
-    mutationFn: () => sendNewPaidStatus({
-      newPaidStatus: !lesson.paidStatus,
-      _id: lesson._id
-    }),
-    onSuccess: () => updateAllData(),
-    onError: (error) => openSnackMessage(createApiErrorMessage(error))
-  });
+  const {
+    isChangingPaidStatus,
+    handleClickPaidStatus
+  } = useChangePaidStatus(lesson);
 
-  const handleClickEdit = useCallback(() => {
-    open(
-      <EditLessonForm lesson={lesson} updateAllData={updateAllData} />,
-      'Edit lesson'
-    );
-  }, [lesson, open, updateAllData]);
-
-  const handleClickPaidStatus = useCallback(() => {
-    changePaidStatus()
-  }, [changePaidStatus]);
+  const handleClickEdit = useOpenEditLessonForm(lesson);
 
   return (
     <TableRow>
@@ -54,7 +31,7 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
           icon={lesson.paidStatus ? DoneIcon : CloseIcon}
           toolTipTitle={lesson.paidStatus ? 'Cancel payment' : 'Pay'}
           onClick={handleClickPaidStatus}
-          disabled={isPending}
+          disabled={isChangingPaidStatus}
           iconSize="medium"
           className={`${lesson.paidStatus ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
         />
@@ -62,7 +39,7 @@ export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
       <TableCell align="center">
         <BoardStyledButton
           icon={EditIcon}
-          disabled={isPending}
+          disabled={isChangingPaidStatus}
           onClick={handleClickEdit}
           toolTipTitle="Edit"
           iconSize="medium"

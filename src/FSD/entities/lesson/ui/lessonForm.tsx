@@ -45,14 +45,6 @@ export const LessonForm = (
     }
   };
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-
-  // if (isError) {
-  //   return <p>Yooops, something goes wrong!</p>
-  // }
-
   return (
     <FormWrapper
       methods={methods}
@@ -77,4 +69,4 @@ export const LessonForm = (
       <StyledButton type="submit">{buttonName}</StyledButton>
     </FormWrapper>
   );
-}
+};

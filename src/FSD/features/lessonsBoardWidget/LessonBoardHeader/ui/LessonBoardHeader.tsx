@@ -17,12 +17,16 @@ export const LessonBoardHeader = ({ isPendingUpdate }: TLessonBoardHeader) => {
   const { open } = useModalWindowContext();
   const client = useQueryClient();
 
-  const handleClickUpdate = () => client.invalidateQueries({ queryKey: ['lessons'] });
-  
-  const handleClickAddNewLesson = useCallback(() => {
-    open(<CreateNewLessonForm updateAllData={updateAllData} />, 'New lesson');
-  }, [open, updateAllData]);
+  const handleClickUpdateLessons = () => {
+    client.invalidateQueries({ queryKey: ['lessons'] });
+  };
 
+  const handleClickAddNewLesson = useCallback(() => {
+    open(
+      <CreateNewLessonForm updateAllData={updateAllData} />,
+      'New lesson'
+    );
+  }, [open, updateAllData]);
 
   return (
     <CardHeader
@@ -33,7 +37,7 @@ export const LessonBoardHeader = ({ isPendingUpdate }: TLessonBoardHeader) => {
           <BoardStyledButton
             disabled={isPendingUpdate}
             icon={UpdateIcon}
-            onClick={handleClickUpdate}
+            onClick={handleClickUpdateLessons}
             toolTipTitle="Update lessons"
           />
           <BoardStyledButton
