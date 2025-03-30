@@ -1,9 +1,9 @@
 import { CardHeader } from "@mui/material";
 import UpdateIcon from '@mui/icons-material/Update';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import { useQueryClient } from "@tanstack/react-query";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import { usePayTotalDebt } from "../lib/usePayFullDebt";
+import { useUpdateDataByClick } from "../../../../shared/hooks/useUpdateDataByClick";
 
 type TDebtorBoardHeaderProps = {
   totalDebt?: number;
@@ -17,11 +17,7 @@ export const DebtorBoardHeader = ({
   isPendingUpdate
 }: TDebtorBoardHeaderProps) => {
   const { isPendingPayingTotalDebt, handlePayTotalDebt } = usePayTotalDebt();
-
-  const client = useQueryClient();
-  const handleClickUpdateData = () => {
-    client.invalidateQueries({ queryKey: ['debtors'] });
-  };
+  const handleClickUpdateData = useUpdateDataByClick(['debtors']);
 
   return (
     <CardHeader

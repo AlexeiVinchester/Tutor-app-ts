@@ -1,15 +1,14 @@
 import UpdateIcon from '@mui/icons-material/Update';
 import { CardHeader } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
 import { BoardStyledButton } from '../../../shared/ui/BoardStyledButton/BoardStyledButton';
+import { useUpdateDataByClick } from '../../../shared/hooks/useUpdateDataByClick';
 
 type TCurrentMonthInfoBoardHeader = {
   isPending: boolean;
 };
 
 export const CurrentMonthInfoBoardHeader = ({ isPending }: TCurrentMonthInfoBoardHeader) => {
-  const client = useQueryClient();
-  const handleClickUpdate = () => client.invalidateQueries({ queryKey: ['currentMonthInfo'] });
+  const handleClickUpdate = useUpdateDataByClick(['currentMonthInfo']);
 
   return (
     <CardHeader

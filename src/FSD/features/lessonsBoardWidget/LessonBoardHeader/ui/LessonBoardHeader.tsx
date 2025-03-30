@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { CardHeader } from "@mui/material"
 import UpdateIcon from '@mui/icons-material/Update';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -7,6 +6,7 @@ import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLesso
 import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
+import { useUpdateDataByClick } from "../../../../shared/hooks/useUpdateDataByClick";
 
 type TLessonBoardHeader = {
   isPendingUpdate: boolean;
@@ -15,11 +15,8 @@ type TLessonBoardHeader = {
 export const LessonBoardHeader = ({ isPendingUpdate }: TLessonBoardHeader) => {
   const { updateAllData } = useLessonsPageContext();
   const { open } = useModalWindowContext();
-  const client = useQueryClient();
 
-  const handleClickUpdateLessons = () => {
-    client.invalidateQueries({ queryKey: ['lessons'] });
-  };
+  const handleClickUpdateLessons = useUpdateDataByClick(['lessons']);
 
   const handleClickAddNewLesson = useCallback(() => {
     open(
