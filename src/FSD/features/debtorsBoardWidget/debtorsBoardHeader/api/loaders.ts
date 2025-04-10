@@ -5,10 +5,10 @@ import { TLoaderData } from "../../../../shared/types/loaderData.type";
 import { TSendFullPaymentServerAnswer } from "../model/api.types";
 
 export const sendFullPayment: TLoaderData<TSendFullPaymentServerAnswer> = async () => {
-  const response: TSendFullPaymentServerAnswer = await makeApiRequest(
-    debtorsEndPoints.payFullDebt,
-    HTTPMethods.PATCH
-  );
+  const response: TSendFullPaymentServerAnswer = await makeApiRequest<void, TSendFullPaymentServerAnswer>({
+    url: debtorsEndPoints.payFullDebt,
+    method: HTTPMethods.PATCH
+  });
 
   return response;
 };

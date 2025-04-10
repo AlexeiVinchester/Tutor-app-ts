@@ -1,1 +1,1 @@
-export { DebtorContainer } from './ui/DebtorContainer'
+export { DebtorContainer } from './ui/debtorContainer';

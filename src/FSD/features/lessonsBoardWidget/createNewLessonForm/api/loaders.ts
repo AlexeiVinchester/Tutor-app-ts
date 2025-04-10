@@ -6,11 +6,11 @@ import { HTTPMethods } from "../../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../../shared/types/loaderData.type";
 
 export const sendNewLesson: TLoaderData<TSendNewLessonServerAnswer, Omit<TLesson, '_id'>> = async (data) => {
-  const response: TSendNewLessonServerAnswer = await makeApiRequest(
-    lessonsEndPoints.sendNewLesson,
-    HTTPMethods.POST,
+  const response = await makeApiRequest<Omit<TLesson, '_id'>, TSendNewLessonServerAnswer>({
+    url: lessonsEndPoints.sendNewLesson,
+    method: HTTPMethods.POST,
     data
-  );
+  });
 
   return response;
 };

@@ -8,10 +8,10 @@ import { TInfoAboutLessonsCurrentMonth } from "../model/info.type";
 export const loadCurrentMonthInfo: TLoaderData<TInfoAboutLessonsCurrentMonth> = async () => {
   const correctCurrentMonth = getCorrectCurrentMonth();
   const currentYear = new Date().getFullYear().toString();
-  const response: TInfoAboutLessonsCurrentMonth = await makeApiRequest(
-    lessonsEndPoints.loadCurrentMonthInfo + `?year=${currentYear}&month=${correctCurrentMonth}`,
-    HTTPMethods.GET
-  );
+  const response = await makeApiRequest<void, TInfoAboutLessonsCurrentMonth>({
+    url: lessonsEndPoints.loadCurrentMonthInfo + `?year=${currentYear}&month=${correctCurrentMonth}`,
+    method: HTTPMethods.GET
+  });
 
   return response;
 };

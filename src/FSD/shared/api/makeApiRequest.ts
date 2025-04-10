@@ -8,32 +8,42 @@ const axiosApiClient = axios.create({
   baseURL: baseDomain,
 });
 
-export const makeApiRequest = async <T = undefined>(
-  url: string,
-  method: HTTPMethods,
-  data?: T
-) => {
+export type TMakeApiRequestParams<T> = {
+  url: string;
+  method: HTTPMethods;
+  data?: T;
+};
+
+export const makeApiRequest = async <TData, TResponseDataType = void>(
+  { url, data, method }: TMakeApiRequestParams<TData>
+): Promise<TResponseDataType> => {
   try {
     const response = await axiosApiClient({
-      method,
       url,
-      data: data || undefined,
+      method,
+      data: data || undefined
     });
-    return response.data;
+
+    return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
+    if (axios.isAxiosError(error)) {
       const serverError = error as AxiosError<TServerError>;
       if (serverError.response) {
         throw new ApiError(
-          serverError.response.data?.message ||
-            'Unknown error occured on client while loading data!',
+          serverError.response.data.message || 'Unknown server error was occured',
           serverError.response.status
         );
-      } else {
-        throw new ApiError(serverError.message, 0);
       }
+      else {
+        throw new ApiError(
+          serverError.message,
+          0
+        );
+      }
+    } else if (error instanceof Error) {
+      throw error;
     } else {
-      throw new Error('An unexpected error occured!');
+      throw new Error('An unknown error occured on server!');
     }
   }
 };

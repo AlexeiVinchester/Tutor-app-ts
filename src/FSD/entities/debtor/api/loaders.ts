@@ -5,10 +5,10 @@ import { HTTPMethods } from "../../../shared/types/httpMethods.enum";
 import { TLoaderData } from "../../../shared/types/loaderData.type";
 
 export const loadDebtors: TLoaderData<TDebtorsInfo> = async () => {
-  const debtors: TDebtorsInfo = await makeApiRequest(
-    debtorsEndPoints.getDebtors,
-    HTTPMethods.GET
-  );
+  const debtors: TDebtorsInfo = await makeApiRequest<void, TDebtorsInfo>({
+    url: debtorsEndPoints.getDebtors,
+    method: HTTPMethods.GET
+  });
 
   return debtors;
 };
