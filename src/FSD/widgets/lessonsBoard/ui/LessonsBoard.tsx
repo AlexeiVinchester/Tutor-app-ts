@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useDebounceSearch } from "../lib/useDebounceSearch";
+import { useDebouncePaginationSearch } from "../lib/useDebounceSearch";
 import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
 import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
 import { loadLessons } from "../../../entities/lesson/api/loaders";
@@ -14,7 +14,10 @@ export const LessonsBoard = () => {
     setPage(page);
   };
 
-  const { inputValue, search, handleChangeSearch } = useDebounceSearch(handleChangePage);
+  const { inputValue, search, handleChangeSearch } = useDebouncePaginationSearch({
+    changePage: handleChangePage,
+    delay: 500
+  });
 
   const { data: lessons, isError, isLoading, isFetching } = useQuery({
     queryKey: ['lessons', { page, search }],

@@ -1,6 +1,13 @@
 import { useState, useRef, startTransition, useEffect } from "react";
 
-export const useDebounceSearch = (changePage: (page: number) => void) => {
+type TUseDebouncePaginationSearchParams = {
+  changePage: (page: number) => void;
+  delay: number;
+}
+
+export const useDebouncePaginationSearch = (
+  { changePage, delay }: TUseDebouncePaginationSearchParams
+) => {
   const [inputValue, setInputValue] = useState('');
   const [search, setSearch] = useState('');
 
@@ -19,7 +26,7 @@ export const useDebounceSearch = (changePage: (page: number) => void) => {
         setSearch(newInputValue);
         changePage(1);
       })
-    }, 500)
+    }, delay);
   };
 
   useEffect(() => {

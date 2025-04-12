@@ -14,9 +14,9 @@ export type TMakeApiRequestParams<T> = {
   data?: T;
 };
 
-export const makeApiRequest = async <TData, TResponseDataType = void>(
-  { url, data, method }: TMakeApiRequestParams<TData>
-): Promise<TResponseDataType> => {
+export const makeApiRequest = async <TRequestData, TResponseData = void>(
+  { url, data, method }: TMakeApiRequestParams<TRequestData>
+): Promise<TResponseData> => {
   try {
     const response = await axiosApiClient({
       url,
