@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Card, CardContent } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useDebouncePaginationSearch } from "../lib/useDebounceSearch";
-import { LessonsTable } from "../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
-import { LessonBoardHeader } from "../../../features/lessonsBoardWidget/LessonBoardHeader";
-import { loadLessons } from "../../../entities/lesson/api/loaders";
-import { PaginationContainer } from "../../../shared/ui/PaginationContainer/PaginationContainer";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
+import { LessonsTable } from "../../../../features/lessonsBoardWidget/lessonsTable/ui/lessonsTable";
+import { LessonBoardHeader } from "../../../../features/lessonsBoardWidget/LessonBoardHeader";
+import { loadLessons } from "../../../../entities/lesson/api/loaders";
+import { PaginationContainer } from "../../../../shared/ui/PaginationContainer/PaginationContainer";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 export const LessonsBoard = () => {
   const [page, setPage] = useState(1);

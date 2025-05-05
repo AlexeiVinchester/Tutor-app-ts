@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { FULL_STATISTICS, SELECTIVE_STATISTICS } from '../../Router/routes';
 import { ContainedButton } from '../../share/components/ContainedButton/ContainedButton';
-import { PageHeaderWrapper } from '../../components/PageHeaderWrapper/PageHeaderWrapper';
+import { PageHeaderWrapper } from '../../FSD/shared/ui/PageHeaderWrapper/PageHeaderWrapper';
 
 const StatisticsPage = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { InfoContainer } from "./InfoContainer";
-import { TInfoAboutLessonsCurrentMonth } from "../../../entities/lessonsInfoBoard/model/info.type";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
+import { TInfoAboutLessonsCurrentMonth } from "../../../../entities/lessonsInfoBoard/model/info.type";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TCurrentMonthInfoBoardBody = {
   isPendingUpdate: boolean;

@@ -1,6 +1,6 @@
 import { DebtorsList } from "./DebtorsList";
-import { TDebtor } from "../../../entities/debtor/model/debtor.type";
-import { Spinner } from "../../../shared/ui/Spinner/Spinner";
+import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 type TDebtorsBoardBodyProps = {
   isPendingUpdate: boolean;

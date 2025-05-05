@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { STATISTICS } from '../../Router/routes';
 import { ContainedButton } from '../../share/components/ContainedButton/ContainedButton';
 import { StatisticsPageHeaderProps } from './interface/StatisticsPageHeader.interface';
-import { PageHeaderWrapper } from '../PageHeaderWrapper/PageHeaderWrapper';
+import { PageHeaderWrapper } from '../../FSD/shared/ui/PageHeaderWrapper/PageHeaderWrapper';
 import React from 'react';
 
 const StatisticsPageHeader = React.memo(

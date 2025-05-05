@@ -1,10 +1,14 @@
 import { Container } from '@mui/material';
-import { PageHeaderWrapperProps } from './interface/PageHeaderWrapper.interface';
 
-const PageHeaderWrapper = ({
+export type TPageHeaderWrapperProps = {
+  children: React.ReactNode;
+  heightInPx: number;
+};
+
+export const PageHeaderWrapper = ({
   children,
   heightInPx,
-}: PageHeaderWrapperProps) => {
+}: TPageHeaderWrapperProps) => {
   return (
     <div className={`w-full bg-bg-info h-[${heightInPx}px] pb-8`}>
       <Container>
@@ -15,5 +19,3 @@ const PageHeaderWrapper = ({
     </div>
   );
 };
-
-export { PageHeaderWrapper };

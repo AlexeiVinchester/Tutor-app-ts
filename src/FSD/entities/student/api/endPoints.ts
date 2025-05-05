@@ -1,4 +1,5 @@
-export const studentsEndPoints: Readonly<Record<string, string>> = {
-  getNames: 'students/getNames',
-  getStudents: 'students/getStudents',
+export const studentsEndPoints: Record<string, string> = {
+  getNames: '/students/getNames',
+  getStudents: '/students/getStudents',
+  getGenderActivity: '/students/getGenderActivity'
 };

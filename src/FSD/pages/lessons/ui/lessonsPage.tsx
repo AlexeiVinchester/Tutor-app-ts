@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { Container } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import { CurrentMonthInfoBoard } from "../../../widgets/currentMonthInfoBoard";
-import { DebtorsBoard } from "../../../widgets/lessonsDebtors";
-import { LessonsBoard } from "../../../widgets/lessonsBoard";
+import { CurrentMonthInfoBoard } from "../../../widgets/lessonsPage/currentMonthInfoBoard";
+import { DebtorsBoard } from "../../../widgets/lessonsPage/lessonsDebtors";
+import { LessonsBoard } from "../../../widgets/lessonsPage/lessonsBoard";
 import { UpdatePageDataProvider } from "../../../shared/ui/UpdatePageDataProvider/UpdatePageDataProvider";
 
 export const LessonsPage = () => {

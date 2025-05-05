@@ -22,7 +22,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { ABOUT } from '../../Router/routes';
 import { femaleImage, maleImage } from './components/StudentCard/assets/links';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { PageHeaderWrapper } from '../../components/PageHeaderWrapper/PageHeaderWrapper';
+import { PageHeaderWrapper } from '../../FSD/shared/ui/PageHeaderWrapper/PageHeaderWrapper';
 import { Student } from '../../share/interfaces/student.interface';
 import { useFetch } from '../../hooks/useFetch';
 import { Spinner } from '../../FSD/shared/ui/Spinner/Spinner';

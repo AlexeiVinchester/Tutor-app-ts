@@ -25,8 +25,9 @@ import { EditStudentPage } from '../pages/EditStudentPage/EditStudentPage';
 import { EditLessonPage } from '../pages/EditLessonPage/EditLessonPage';
 import { FullStatisticsPage } from '../pages/FullStatisticsPage/FullStatisticsPage';
 import { SelectiveStatisticsPage } from '../pages/SelectiveStatisticsPage/SelectiveStatisticsPage';
-import { TodosPage } from '../pages/AboutAppPage/AboutAppPage';
+//import { TodosPage } from '../pages/AboutAppPage/AboutAppPage';
 import { LessonsPage } from '../FSD/pages/lessons';
+import { StudentsPageTest } from '../FSD/pages/students';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +39,7 @@ const router = createBrowserRouter(
       <Route path={STUDENT_ID} element={<StudentPage />} />
       <Route path={STUDENT_ID_EDIT} element={<EditStudentPage />} />
       <Route path={LESSONS_ID_EDIT} element={<EditLessonPage />} />
-      <Route path={ABOUT} element={<TodosPage />} />
+      <Route path={ABOUT} element={<StudentsPageTest />} />
       <Route path={FULL_STATISTICS} element={<FullStatisticsPage />} />
       <Route path={SELECTIVE_STATISTICS} element={<SelectiveStatisticsPage />} />
     </Route>

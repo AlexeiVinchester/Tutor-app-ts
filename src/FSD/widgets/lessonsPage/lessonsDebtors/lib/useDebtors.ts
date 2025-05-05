@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { loadDebtors } from "../../../entities/debtor/api/loaders";
+import { loadDebtors } from "../../../../entities/debtor/api/loaders";
 
 export const useDebtors = () => {
   return useQuery({
