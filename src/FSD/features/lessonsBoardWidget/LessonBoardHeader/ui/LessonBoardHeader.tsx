@@ -3,17 +3,17 @@ import { CardHeader } from "@mui/material"
 import UpdateIcon from '@mui/icons-material/Update';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { CreateNewLessonForm } from "../../createNewLessonForm/ui/createNewLessonForm";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import { useUpdateDataByClick } from "../../../../shared/hooks/useUpdateDataByClick";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 type TLessonBoardHeader = {
   isPendingUpdate: boolean;
 };
 
 export const LessonBoardHeader = ({ isPendingUpdate }: TLessonBoardHeader) => {
-  const { updateAllData } = useLessonsPageContext();
+  const { updateAllData } = useUpdatePageDataContext();
   const { open } = useModalWindowContext();
 
   const handleClickUpdateLessons = useUpdateDataByClick(['lessons']);

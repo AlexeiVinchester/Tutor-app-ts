@@ -4,18 +4,18 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import { useMutation } from "@tanstack/react-query";
 import { sendDebtorPayment } from "../api/loaders";
 import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 type TDebtorContainerProps = {
   debtor: TDebtor;
 };
 
 export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
-  const { updateAllData } = useLessonsPageContext();
+  const { updateAllData } = useUpdatePageDataContext();
   const { openSnackMessage } = useSnackMessageContext();
 
   const { mutate: payDebtByName, isPending } = useMutation({

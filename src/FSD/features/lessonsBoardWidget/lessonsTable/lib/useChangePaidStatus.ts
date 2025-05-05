@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { sendNewPaidStatus } from "../api/loaders";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 export const useChangePaidStatus = (lesson: TLesson) => {
   const { openSnackMessage } = useSnackMessageContext();
-  const { updateAllData } = useLessonsPageContext();
+  const { updateAllData } = useUpdatePageDataContext();
 
   const {
     mutate: changePaidStatus,

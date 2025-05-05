@@ -12,7 +12,6 @@ type TLessonsTableRowProps = {
 };
 
 export const LessonsTableRow = ({ lesson }: TLessonsTableRowProps) => {
-
   const {
     isChangingPaidStatus,
     handleClickPaidStatus

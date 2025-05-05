@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { EditLessonForm } from "../../editLessonForm/ui/editLessonForm";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { TLesson } from "../../../../entities/lesson/model/lesson.type";
 import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 export const useOpenEditLessonForm = (lesson: TLesson) => {
   const { open } = useModalWindowContext();
-  const { updateAllData } = useLessonsPageContext();
+  const { updateAllData } = useUpdatePageDataContext();
 
   const handleClickEdit = useCallback(() => {
     open(

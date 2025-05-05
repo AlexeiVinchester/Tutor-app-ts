@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { sendFullPayment } from "../api/loaders";
-import { useLessonsPageContext } from "../../../../entities/lesson/context/LessonPageContext/lib/useLessonsPageContext";
 import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
 import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 export const usePayTotalDebt = () => {
-  const { updateAllData } = useLessonsPageContext();
+  const { updateAllData } = useUpdatePageDataContext();
   const { openSnackMessage } = useSnackMessageContext();
 
   const {
