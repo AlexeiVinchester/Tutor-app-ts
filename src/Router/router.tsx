@@ -25,8 +25,8 @@ import { EditStudentPage } from '../pages/EditStudentPage/EditStudentPage';
 import { EditLessonPage } from '../pages/EditLessonPage/EditLessonPage';
 import { FullStatisticsPage } from '../pages/FullStatisticsPage/FullStatisticsPage';
 import { SelectiveStatisticsPage } from '../pages/SelectiveStatisticsPage/SelectiveStatisticsPage';
-import { LessonsPage } from '../FSD/pages/lessons/ui/lessonsPage';
 import { TodosPage } from '../pages/AboutAppPage/AboutAppPage';
+import { LessonsPage } from '../FSD/pages/lessons';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
