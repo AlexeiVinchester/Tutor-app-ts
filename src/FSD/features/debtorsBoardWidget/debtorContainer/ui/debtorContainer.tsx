@@ -1,38 +1,16 @@
 import { Avatar, Card, CardHeader } from "@mui/material";
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PaymentIcon from '@mui/icons-material/Payment';
-import { useMutation } from "@tanstack/react-query";
-import { sendDebtorPayment } from "../api/loaders";
 import { TDebtor } from "../../../../entities/debtor/model/debtor.type";
-import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
-import { showSuccessMessage } from "../../../../shared/context/snackMessageContext/lib/helpers";
-import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
-import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
+import { usePayDebtByName } from "../lib/usePayDebtByName";
 
 type TDebtorContainerProps = {
   debtor: TDebtor;
 };
 
 export const DebtorContainer = ({ debtor }: TDebtorContainerProps) => {
-  const { updateAllData } = useUpdatePageDataContext();
-  const { openSnackMessage } = useSnackMessageContext();
-
-  const { mutate: payDebtByName, isPending } = useMutation({
-    mutationKey: ['payDebtByName', debtor.name],
-    mutationFn: () => sendDebtorPayment({ name: debtor.name }),
-    onSuccess: () => {
-      updateAllData();
-      openSnackMessage(showSuccessMessage(`${debtor.name} has paid all debt for lessons!`));
-    },
-    onError: (error) => {
-      openSnackMessage(createApiErrorMessage(error));
-    }
-  });
-
-  const handleClickPayDebt = async () => {
-    payDebtByName();
-  };
+  const { isPending, handleClickPayDebt } = usePayDebtByName(debtor);
 
   return (
     <Card
