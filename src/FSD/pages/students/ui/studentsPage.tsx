@@ -6,7 +6,10 @@ import { StudentsPageHeader } from "../../../widgets/studentsPage/studentPageHea
 export const StudentsPageTest = () => {
   const client = useQueryClient();
   const updateAllData = useCallback(
-    () => client.invalidateQueries({ queryKey: ['students'] }),
+    () => {
+      client.invalidateQueries({ queryKey: ['students'] });
+      client.invalidateQueries({ queryKey: ['studentsGenderActivity'] });
+    },
     [client]
   );
 

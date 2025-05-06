@@ -11,9 +11,9 @@ export const LessonsPage = () => {
 
   const updateAllData = useCallback(
     () => {
-      client.invalidateQueries({ queryKey: ['lessons'] });
-      client.invalidateQueries({ queryKey: ['debtors'] });
-      client.invalidateQueries({ queryKey: ['currentMonthInfo'] });
+      ['lessons', 'debtors', 'currentMonthInfo'].forEach(
+        queryKey => client.invalidateQueries({ queryKey: [queryKey] })
+      );
     },
     [client]
   );
