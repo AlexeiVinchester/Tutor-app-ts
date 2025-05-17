@@ -1,9 +1,9 @@
 import { CardHeader, Avatar } from "@mui/material";
-import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import EditIcon from '@mui/icons-material/Edit';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { TStudent } from "../../../../entities/student/model/student.type";
 import { useChangeStudentActivity } from "../lib/useChangeStudentActivity";
+import { TStudent } from "../../../../entities/student/model/student.type";
+import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 
 type TStudentCardHeaderProps = {
   student: TStudent;
@@ -11,8 +11,11 @@ type TStudentCardHeaderProps = {
 
 export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
   const [studentName, studentSurname] = student.name.split(' ');
-
-  const { handleClickChangeActivity, isPendingChangingActivity, studentActivity } = useChangeStudentActivity(student);
+  const {
+    handleClickChangeActivity,
+    isPendingChangingActivity,
+    studentActivity
+  } = useChangeStudentActivity(student);
 
   return (
     <CardHeader
