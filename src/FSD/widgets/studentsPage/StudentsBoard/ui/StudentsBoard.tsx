@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { StudentCard } from "./StudentCard";
 import { loadStudents } from "../../../../entities/student/api/loaders";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import { PaginationContainer } from "../../../../shared/ui/PaginationContainer/PaginationContainer";
 import { useDebouncePaginationSearch } from "../../../../shared/hooks/useDebounceSearch";
+import { StudentsList } from "./StudentsList";
+import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 
 export const StudentsBoard = () => {
   const [page, setPage] = useState(1);
@@ -19,7 +20,7 @@ export const StudentsBoard = () => {
     delay: 500
   });
 
-  const { data: students, isLoading, isFetching } = useQuery({
+  const { data: students, isLoading, isFetching, isError } = useQuery({
     queryKey: ['students', { page, search }],
     queryFn: () => loadStudents({ page, name: search })
   });
@@ -40,24 +41,16 @@ export const StudentsBoard = () => {
           toolTipTitle="Add new student"
         />
       </div>
-      <Grid
-        container
-        spacing={2}
-        className="mb-4"
-        sx={{ justifyContent: 'center', alignItems: 'center' }}
-      >
-        {students && students.data.map((student) => (
-          <Grid item xs={12} md={4} key={student.id}>
-            <StudentCard student={student} />
-          </Grid>
-        ))}
-      </Grid>
+      {isLoading && <Spinner />}
+      {isError && <p>Something went wrong! Try again!</p>}
       {students &&
-        <PaginationContainer
-          paginationParams={students.paginationParams}
-          handleChangePage={handleChangePage}
-        />
-      }
+        <>
+          <StudentsList students={students.data} />
+          <PaginationContainer
+            paginationParams={students.paginationParams}
+            handleChangePage={handleChangePage}
+          />
+        </>}
     </Container>
   );
 };
