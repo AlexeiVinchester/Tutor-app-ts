@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { lessonFormSchema, TLessonFromSchema } from "../model/lessonFormSchema"
 import { TInitialLessonParams } from "../model/api.types";
 import { optionsDefaultValues } from "../model/defaultValues";
-import { createLessonsNameSelectOptions } from "../lib/createSelectOption";
+import { createLessonsNameSelectOptions } from "../utils/createSelectOption";
 import { ControlledCheckboxField } from "../../../shared/ui/ControlledCheckboxField/controlledCheckBoxField";
 import { ControlledDatePicker } from "../../../shared/ui/ControlledDatePicker/controlledDatePicker";
 import { ControlledInputField } from "../../../shared/ui/ControlledInputField/controlledInputField";

@@ -3,12 +3,16 @@ import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/Board
 import EditIcon from '@mui/icons-material/Edit';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { TStudent } from "../../../../entities/student/model/student.type";
+import { useChangeStudentActivity } from "../lib/useChangeStudentActivity";
 
 type TStudentCardHeaderProps = {
   student: TStudent;
-}
+};
 
 export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
+  const [studentName, studentSurname] = student.name.split(' ');
+
+  const { handleClickChangeActivity, isPendingChangingActivity, studentActivity } = useChangeStudentActivity(student);
 
   return (
     <CardHeader
@@ -24,7 +28,9 @@ export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
             icon={TaskAltIcon}
             iconSize="medium"
             toolTipTitle="Change status"
-            className={`${student.status ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
+            className={`${studentActivity ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
+            onClick={handleClickChangeActivity}
+            disabled={isPendingChangingActivity}
           />
           <BoardStyledButton
             icon={EditIcon}
@@ -35,11 +41,11 @@ export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
         </div>
       }
       title={
-        <p className="text-xl font-bold text-main-orange">{student.name}</p>
+        <p className="text-xl font-bold text-main-orange">{studentName}</p>
       }
       subheader={
-        <p className="text-main-turquoise">{student.form + ' form'}</p>
+        <p className="text-main-turquoise">{studentSurname}</p>
       }
     />
   );
-}
+};

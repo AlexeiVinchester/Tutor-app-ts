@@ -1,6 +1,6 @@
 export type TInitialStudentParamForLessonForm = {
   name: string;
-  activity: 'active' | 'inactive';
+  activity: boolean;
 };
 
 export type TInitialLessonParams = {

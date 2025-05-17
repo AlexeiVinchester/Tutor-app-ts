@@ -10,7 +10,7 @@ export const createLessonsNameSelectOptions: TCreateOptonsUtil<string, TInitialS
         <>
           <TaskAltIcon
             sx={
-              item.activity === 'active'
+              item.activity 
                 ? { color: 'green' }
                 : { color: 'red' }
             }
