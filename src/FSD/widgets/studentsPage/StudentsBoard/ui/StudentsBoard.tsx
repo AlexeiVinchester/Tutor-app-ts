@@ -8,6 +8,9 @@ import { PaginationContainer } from "../../../../shared/ui/PaginationContainer/P
 import { useDebouncePaginationSearch } from "../../../../shared/hooks/useDebounceSearch";
 import { StudentsList } from "./StudentsList";
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
+import UpdateIcon from '@mui/icons-material/Update';
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
+
 
 export const StudentsBoard = () => {
   const [page, setPage] = useState(1);
@@ -25,9 +28,14 @@ export const StudentsBoard = () => {
     queryFn: () => loadStudents({ page, name: search })
   });
 
+  const { updateAllData } = useUpdatePageDataContext();
+  const handleClickUpdateStudents = () => {
+    updateAllData();
+  };
+
   return (
     <Container sx={{ pt: '1rem', pb: '5rem' }}>
-      <div className="flex justify-center items-center mb-8">
+      <div className="flex justify-center items-center gap-2 mb-8">
         <input
           className="w-[60%] rounded-[22px] p-3 border-2 border-gray-300 hover:border-main-turquoise focus:outline-none"
           type="search"
@@ -39,6 +47,12 @@ export const StudentsBoard = () => {
           disabled={isLoading || isFetching}
           icon={PersonAddIcon}
           toolTipTitle="Add new student"
+        />
+        <BoardStyledButton
+          disabled={isLoading || isFetching}
+          icon={UpdateIcon}
+          toolTipTitle="Update students"
+          onClick={handleClickUpdateStudents}
         />
       </div>
       {isLoading && <Spinner />}
