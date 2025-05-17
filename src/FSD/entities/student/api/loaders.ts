@@ -17,7 +17,7 @@ export const loadStudents: TLoaderData<TLoadStudentsResponse, TLoadStudentsReque
   const { page = 1, perPage = 6, name = '' } = requestData;
 
   const response = await makeApiRequest<void, TLoadStudentsResponse>({
-    url: `${studentsEndPoints.loadStudents}?page=${page}&per_page=${perPage}&search=${name}`,
+    url: `${studentsEndPoints.loadStudents}?page=${page}&per_page=${perPage}&name=${name}`,
     method: HTTPMethods.GET
   });
 
