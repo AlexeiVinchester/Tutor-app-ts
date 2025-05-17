@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { sendEditedLesson } from "../api/loaders";
 import { TLessonFromSchema } from "../../../../../entities/lesson/model/lessonFormSchema";
 import { TLesson } from "../../../../../entities/lesson/model/lesson.type";
-import { TInitialLessonParams } from "../../../../../entities/lesson/model/loadInitialDataServerAnswer.type";
+import { TInitialLessonParams } from "../../../../../entities/lesson/model/api.types";
 import { createApiErrorMessage } from "../../../../../shared/api/createApiErrorMessage";
 import { showSuccessMessage } from "../../../../../shared/context/snackMessageContext/lib/helpers";
 import { useSnackMessageContext } from "../../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";

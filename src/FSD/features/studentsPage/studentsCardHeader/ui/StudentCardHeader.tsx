@@ -3,19 +3,12 @@ import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/Board
 import EditIcon from '@mui/icons-material/Edit';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { TStudent } from "../../../../entities/student/model/student.type";
-import { useMutation } from "@tanstack/react-query";
 
 type TStudentCardHeaderProps = {
   student: TStudent;
 }
 
 export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
-  const {
-    mutate: changeActivity,
-    isPending: isPendingChangingActivity
-  } = useMutation({
-    
-  })
 
   return (
     <CardHeader

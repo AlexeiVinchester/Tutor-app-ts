@@ -6,7 +6,7 @@ import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/Board
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export const StudentsBoard = () => {
-  const { data: students, isLoading, isError, isFetching } = useQuery({
+  const { data: students, isLoading, isFetching } = useQuery({
     queryKey: ['students'],
     queryFn: () => loadStudents()
   });
