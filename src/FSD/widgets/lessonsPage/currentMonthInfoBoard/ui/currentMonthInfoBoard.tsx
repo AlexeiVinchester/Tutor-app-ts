@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { CurrentMonthInfoBoardBody } from "./CurrentMonthInfoBoardBody";
-import { CurrentMonthInfoBoardHeader } from "../../../../features/currentMonthInfoBoardWidget/currentMonthInfoBoardHeader/CurrentMonthInfoBoardHeader";
+import { CurrentMonthInfoBoardHeader } from "../../../../features/lessonsPage/currentMonthInfoBoardWidget/currentMonthInfoBoardHeader/CurrentMonthInfoBoardHeader";
 import { loadCurrentMonthInfo } from "../../../../entities/lessonsInfoBoard/api/loader";
 
 export const CurrentMonthInfoBoard = () => {

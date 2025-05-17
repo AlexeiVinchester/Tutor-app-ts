@@ -6,7 +6,7 @@ import { studentsEndPoints } from "./endPoints";
 
 export const loadGenderActivity: TLoaderData<TLoadGenderActivityResponseData> = async () => {
   const response = await makeApiRequest<void, TLoadGenderActivityResponseData>({
-    url: studentsEndPoints.getGenderActivity,
+    url: studentsEndPoints.loadGenderActivity,
     method: HTTPMethods.GET
   });
 
@@ -17,7 +17,7 @@ export const loadStudents: TLoaderData<TLoadStudentsResponse, TLoadStudentsReque
   const { page = 1, perPage = 6, name = '' } = requestData;
 
   const response = await makeApiRequest<void, TLoadStudentsResponse>({
-    url: `${studentsEndPoints.getStudents}?page=${page}&per_page=${perPage}&search=${name}`,
+    url: `${studentsEndPoints.loadStudents}?page=${page}&per_page=${perPage}&search=${name}`,
     method: HTTPMethods.GET
   });
 

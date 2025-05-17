@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@mui/material";
 import { DebtorsBoardBody } from "./DebtorsBoardBody";
-import { DebtorBoardHeader } from "../../../../features/debtorsBoardWidget/debtorsBoardHeader";
+import { DebtorBoardHeader } from "../../../../features/lessonsPage/debtorsBoardWidget/debtorsBoardHeader";
 import { useDebtors } from "../lib/useDebtors";
 
 export const DebtorsBoard = () => {

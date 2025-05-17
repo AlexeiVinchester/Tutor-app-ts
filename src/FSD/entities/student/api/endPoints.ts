@@ -1,5 +1,8 @@
 export const studentsEndPoints: Record<string, string> = {
-  getNames: '/students/getNames',
-  getStudents: '/students/getStudents',
-  getGenderActivity: '/students/getGenderActivity'
+  loadNames: '/students/getNames',
+  loadStudents: '/students/getStudents',
+  loadGenderActivity: '/students/getGenderActivity',
+  sendNewActivity: '/students/changeActivity',
+  sendNewStudent: '/students/addStudent',
+  sendEditedStudent: '/students/editLesson'
 };

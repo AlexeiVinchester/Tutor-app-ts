@@ -1,4 +1,4 @@
-import { DebtorContainer } from "../../../../features/debtorsBoardWidget/debtorContainer";
+import { DebtorContainer } from "../../../../features/lessonsPage/debtorsBoardWidget/debtorContainer";
 import { TDebtor } from "../../../../entities/debtor/model/debtor.type"
 
 type TDebtorsListProps = {
