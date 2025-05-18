@@ -1,8 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { UpdatePageDataProvider } from "../../../shared/ui/UpdatePageDataProvider/UpdatePageDataProvider";
 import { StudentsPageHeader } from "../../../widgets/studentsPage/studentPageHeader/ui/StudentsPageHeader";
 import { StudentsBoard } from "../../../widgets/studentsPage/StudentsBoard/ui/StudentsBoard";
+import { UpdatePageDataProvider } from "../../../shared/ui/UpdatePageDataProvider/UpdatePageDataProvider";
 
 export const StudentsPageTest = () => {
   const client = useQueryClient();
