@@ -48,25 +48,28 @@ export const LessonForm = (
   return (
     <FormWrapper
       methods={methods}
-      onSubmit={handleSubmitForm}
-      className="flex flex-col gap-3"
     >
-      <ControlledSelectField
-        name="name"
-        options={studentNamesOptions}
-        label="Student"
-        size="small"
-      />
-      <ControlledInputField
-        name="price"
-        label="Price"
-        placeholder="Enter price of lesson"
-        variant="outlined"
-        size="small"
-      />
-      <ControlledDatePicker name="date" size="small" />
-      <ControlledCheckboxField name="paidStatus" label="Paid" />
-      <StyledButton type="submit">{buttonName}</StyledButton>
+      <form
+        onSubmit={methods.handleSubmit(handleSubmitForm)}
+        className="flex flex-col gap-3"
+      >
+        <ControlledSelectField
+          name="name"
+          options={studentNamesOptions}
+          label="Student"
+          size="small"
+        />
+        <ControlledInputField
+          name="price"
+          label="Price"
+          placeholder="Enter price of lesson"
+          variant="outlined"
+          size="small"
+        />
+        <ControlledDatePicker name="date" size="small" />
+        <ControlledCheckboxField name="paidStatus" label="Paid" />
+        <StyledButton type="submit">{buttonName}</StyledButton>
+      </form>
     </FormWrapper>
   );
 };
