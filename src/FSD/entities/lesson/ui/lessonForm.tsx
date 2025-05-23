@@ -38,7 +38,7 @@ export const LessonForm = (
       createLessonsNameSelectOptions(initialLessonsParams.studentsParams) :
       optionsDefaultValues;
 
-  const handleSUbmitForm = async (data: TLessonFromSchema) => {
+  const handleSubmitForm = (data: TLessonFromSchema) => {
     onSubmit(data);
     if (shouldResetFields) {
       methods.reset();
@@ -48,7 +48,7 @@ export const LessonForm = (
   return (
     <FormWrapper
       methods={methods}
-      onSubmit={handleSUbmitForm}
+      onSubmit={handleSubmitForm}
       className="flex flex-col gap-3"
     >
       <ControlledSelectField
