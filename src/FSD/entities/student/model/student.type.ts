@@ -2,7 +2,7 @@ export type TStudent = {
   _id: string;
   id: number;
   name: string;
-  gender: 'male' | 'female';
+  gender: string;
   price: number;
   form: number;
   ownMobilePhone?: string;

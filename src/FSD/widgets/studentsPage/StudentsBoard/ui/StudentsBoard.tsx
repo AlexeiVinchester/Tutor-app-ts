@@ -10,6 +10,8 @@ import { StudentsList } from "./StudentsList";
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
 import UpdateIcon from '@mui/icons-material/Update';
 import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
+import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
+import { CreateNewStudentForm } from "../../../../features/studentsPage/studentsBoardWidget/createNewStudentForm/ui/CreateNewStudentForm";
 
 
 export const StudentsBoard = () => {
@@ -33,6 +35,13 @@ export const StudentsBoard = () => {
     updateAllData();
   };
 
+  const { open } = useModalWindowContext();
+  const handleClickAddNewStudent = () => {
+    open(<CreateNewStudentForm updateAllData={updateAllData} />,
+      'New student'
+    )
+  };
+
   return (
     <Container sx={{ pt: '1rem', pb: '5rem' }}>
       <div className="flex justify-center items-center gap-2 mb-8">
@@ -47,6 +56,7 @@ export const StudentsBoard = () => {
           disabled={isLoading || isFetching}
           icon={PersonAddIcon}
           toolTipTitle="Add new student"
+          onClick={handleClickAddNewStudent}
         />
         <BoardStyledButton
           disabled={isLoading || isFetching}

@@ -31,7 +31,11 @@ export const useCreateNewLesson = ({
 
   const handleSubmitForm = async (data: TLessonFromSchema) => {
     if (initialLessonData) {
-      const sendingData = { id: initialLessonData.nextId, ...data, price: +data.price };
+      const sendingData = {
+        id: initialLessonData.nextId,
+        ...data,
+        price: +data.price
+      };
       createNewLesson(sendingData);
     }
   };

@@ -4,9 +4,7 @@ const phoneRegex = /^\+375\((25|29|33|44)\)\d{3}-\d{2}-\d{2}$/;
 
 export const studentFormSchema = z.object({
   name: z.string().nonempty('You should enter name of student'),
-  gender: z.enum(['male', 'female'], {
-    errorMap: () => ({ message: 'Choose gender!' })
-  }),
+  gender: z.string(),
   price: z.preprocess(
     (val) => {
       if (typeof val === 'string' && val.trim()) {
@@ -30,11 +28,11 @@ export const studentFormSchema = z.object({
       .min(1, 'Min is 1 form')
       .max(11, 'Max is 11 form')
   ),
-  parentName: z.string().nonempty('You should enter name of student'),
-  parentMobilePhone: z
+  parentsName: z.string().nonempty('You should enter name of student'),
+  parentsMobilePhone: z
     .string()
     .regex(phoneRegex, 'Enter phone in such format: +375(44)111-11-11'),
-  studentMobilePhone: z
+  ownMobilePhone: z
     .string()
     .regex(phoneRegex, 'Enter phone in such format: +375(44)111-11-11'),
   activity: z.boolean()
