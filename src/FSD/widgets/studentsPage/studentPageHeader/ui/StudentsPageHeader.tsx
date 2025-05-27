@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
-import { PageHeaderWrapper } from "../../../../shared/ui/PageHeaderWrapper/PageHeaderWrapper";
 import { StudentActivityBox } from "./StudentActivityBox";
+import { PageHeaderWrapper } from "../../../../shared/ui/PageHeaderWrapper/PageHeaderWrapper";
 
 export const StudentsPageHeader = () => {
   return (

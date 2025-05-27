@@ -2,17 +2,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Container } from "@mui/material";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import UpdateIcon from '@mui/icons-material/Update';
+import { StudentsList } from "./StudentsList";
+import { useStudentsBoardActions } from "../lib/useStudentsBoardActions";
 import { loadStudents } from "../../../../entities/student/api/loaders";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
 import { PaginationContainer } from "../../../../shared/ui/PaginationContainer/PaginationContainer";
 import { useDebouncePaginationSearch } from "../../../../shared/hooks/useDebounceSearch";
-import { StudentsList } from "./StudentsList";
 import { Spinner } from "../../../../shared/ui/Spinner/Spinner";
-import UpdateIcon from '@mui/icons-material/Update';
-import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
-import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
-import { CreateNewStudentForm } from "../../../../features/studentsPage/studentsBoardWidget/createNewStudentForm/ui/CreateNewStudentForm";
-
 
 export const StudentsBoard = () => {
   const [page, setPage] = useState(1);
@@ -30,17 +27,10 @@ export const StudentsBoard = () => {
     queryFn: () => loadStudents({ page, name: search })
   });
 
-  const { updateAllData } = useUpdatePageDataContext();
-  const handleClickUpdateStudents = () => {
-    updateAllData();
-  };
-
-  const { open } = useModalWindowContext();
-  const handleClickAddNewStudent = () => {
-    open(<CreateNewStudentForm updateAllData={updateAllData} />,
-      'New student'
-    )
-  };
+  const {
+    handleClickAddNewStudent,
+    handleClickUpdateStudents
+  } = useStudentsBoardActions();
 
   return (
     <Container sx={{ pt: '1rem', pb: '5rem' }}>

@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
-import { TStudent } from "../../../../entities/student/model/student.type"
 import { StudentCard } from "./StudentCard";
+import { TStudent } from "../../../../entities/student/model/student.type"
 
 type TStudentsListProps = {
   students: TStudent[];
