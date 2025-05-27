@@ -1,4 +1,4 @@
-import { Logotype } from '../../../components/Logotype/Logotype';
+import { Logotype } from "../../../shared/ui/Logotype/Logotype";
 
 const Footer = () => {
   return (

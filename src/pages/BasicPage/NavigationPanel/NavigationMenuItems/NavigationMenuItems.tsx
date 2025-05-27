@@ -5,14 +5,8 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import TaskIcon from '@mui/icons-material/Task';
 import InfoIcon from '@mui/icons-material/Info';
 import SchoolIcon from '@mui/icons-material/School';
-import {
-  MAIN,
-  STUDENTS,
-  LESSONS,
-  STATISTICS,
-  TASKS,
-  ABOUT,
-} from '../../../../Router/routes';
+import { MAIN, STUDENTS, LESSONS, STATISTICS, TASKS, ABOUT } from '../../../../app/Router/routes';
+
 
 const NavigationMenuItems = () => {
   return (

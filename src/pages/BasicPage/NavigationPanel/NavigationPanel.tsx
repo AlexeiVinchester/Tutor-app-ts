@@ -1,16 +1,8 @@
 import { Button, Container } from '@mui/material';
-import { NavigationDrawer } from './NavigationDrawer/NavigationDrawer';
 import { NavigationMenuItems } from './NavigationMenuItems/NavigationMenuItems';
-import { NavigationDrawerOpenButton } from './NavigationDrawerOpenButton/NavigationDrawerOpenButton';
-import { Logotype } from '../../../components/Logotype/Logotype';
-import { useDrawer } from '../../../hooks/useDrawer';
+import { Logotype } from '../../../shared/ui/Logotype/Logotype';
 
 const NavigationPanel = () => {
-  const {
-    isOpen: isHideMenuOpen,
-    openDrawer: openMenu,
-    closeDrawer: closeMenu,
-  } = useDrawer();
 
   return (
     <header
@@ -45,10 +37,8 @@ const NavigationPanel = () => {
               Log In
             </Button>
           </div>
-          <NavigationDrawerOpenButton onOpen={openMenu} />
         </div>
       </Container>
-      <NavigationDrawer isOpen={isHideMenuOpen} onClose={closeMenu} />
     </header>
   );
 };
