@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { sendNewStudentActivity } from "../api/loader";
 import { TStudent } from "../../../../entities/student/model/student.type";
@@ -7,7 +7,6 @@ import { useSnackMessageContext } from "../../../../shared/context/snackMessageC
 import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
 
 export const useChangeStudentActivity = (student: TStudent) => {
-  const [studentActivity, setStudentActivity] = useState(student.activity);
   const { updateAllData } = useUpdatePageDataContext();
   const { openSnackMessage } = useSnackMessageContext();
   const {
@@ -18,7 +17,6 @@ export const useChangeStudentActivity = (student: TStudent) => {
     mutationFn: sendNewStudentActivity,
     onError: (error) => openSnackMessage(createApiErrorMessage(error)),
     onSuccess: () => {
-      setStudentActivity(!studentActivity);
       updateAllData();
     }
   });
@@ -31,6 +29,5 @@ export const useChangeStudentActivity = (student: TStudent) => {
   return {
     handleClickChangeActivity,
     isPendingChangingActivity,
-    studentActivity
   };
 };

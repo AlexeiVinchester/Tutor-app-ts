@@ -4,6 +4,9 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { useChangeStudentActivity } from "../lib/useChangeStudentActivity";
 import { TStudent } from "../../../../entities/student/model/student.type";
 import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
+import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
+import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
+import { EditStudentForm } from "../../studentsBoardWidget/editStudentForm/ui/EditStudentForm";
 
 type TStudentCardHeaderProps = {
   student: TStudent;
@@ -14,8 +17,20 @@ export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
   const {
     handleClickChangeActivity,
     isPendingChangingActivity,
-    studentActivity
   } = useChangeStudentActivity(student);
+
+  const { updateAllData } = useUpdatePageDataContext();
+  const { open } = useModalWindowContext();
+
+  const handleClickEdit = () => {
+    open(
+      <EditStudentForm
+        student={student}
+        updateAllData={updateAllData}
+      />,
+      'Edit student'
+    );
+  };
 
   return (
     <CardHeader
@@ -31,7 +46,7 @@ export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
             icon={TaskAltIcon}
             iconSize="medium"
             toolTipTitle="Change status"
-            className={`${studentActivity ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
+            className={`${student.activity ? '!text-main-turquoise hover:!text-main-turquoise' : '!text-send-data-button-text hover:!text-send-data-button-text'}  disabled:!text-gray-400`}
             onClick={handleClickChangeActivity}
             disabled={isPendingChangingActivity}
           />
@@ -40,6 +55,7 @@ export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
             iconSize="medium"
             toolTipTitle="Edit profile"
             className="hover:!text-main-turquoise !text-gray-400 disabled:!text-gray-400"
+            onClick={handleClickEdit}
           />
         </div>
       }

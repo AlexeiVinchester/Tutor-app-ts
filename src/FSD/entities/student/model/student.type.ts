@@ -5,7 +5,7 @@ export type TStudent = {
   gender: string;
   price: number;
   form: number;
-  ownMobilePhone?: string;
+  ownMobilePhone: string;
   parentsMobilePhone: string;
   parentsName: string;
   activity: boolean;
