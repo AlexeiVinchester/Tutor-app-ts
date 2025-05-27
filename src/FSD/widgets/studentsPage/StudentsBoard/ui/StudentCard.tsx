@@ -6,7 +6,7 @@ import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 import PaymentIcon from '@mui/icons-material/Payment';
 import SchoolIcon from '@mui/icons-material/School';
 import { StudentInfoSection } from "./StudentInfoSection";
-import { StudentCardHeader } from "../../../../features/studentsPage/studentsCardHeader/ui/StudentCardHeader";
+import { StudentCardHeader } from "../../../../features/studentsPage/studentsBoardWidget/studentsCardHeader/ui/StudentCardHeader";
 
 type TStudentCardProps = {
   student: TStudent;

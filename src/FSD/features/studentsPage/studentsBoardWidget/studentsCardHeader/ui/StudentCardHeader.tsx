@@ -2,11 +2,11 @@ import { CardHeader, Avatar } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { useChangeStudentActivity } from "../lib/useChangeStudentActivity";
-import { TStudent } from "../../../../entities/student/model/student.type";
-import { BoardStyledButton } from "../../../../shared/ui/BoardStyledButton/BoardStyledButton";
-import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
-import { useModalWindowContext } from "../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
-import { EditStudentForm } from "../../studentsBoardWidget/editStudentForm/ui/EditStudentForm";
+import { EditStudentForm } from "../../editStudentForm/ui/EditStudentForm";
+import { TStudent } from "../../../../../entities/student/model/student.type";
+import { BoardStyledButton } from "../../../../../shared/ui/BoardStyledButton/BoardStyledButton";
+import { useUpdatePageDataContext } from "../../../../../shared/context/updatePageDataContext";
+import { useModalWindowContext } from "../../../../../shared/context/modalWindowContext/lib/useModalWindowContext";
 
 type TStudentCardHeaderProps = {
   student: TStudent;
@@ -14,20 +14,16 @@ type TStudentCardHeaderProps = {
 
 export const StudentCardHeader = ({ student }: TStudentCardHeaderProps) => {
   const [studentName, studentSurname] = student.name.split(' ');
+  const { updateAllData } = useUpdatePageDataContext();
   const {
     handleClickChangeActivity,
     isPendingChangingActivity,
-  } = useChangeStudentActivity(student);
+  } = useChangeStudentActivity(student, updateAllData);
 
-  const { updateAllData } = useUpdatePageDataContext();
   const { open } = useModalWindowContext();
-
   const handleClickEdit = () => {
     open(
-      <EditStudentForm
-        student={student}
-        updateAllData={updateAllData}
-      />,
+      <EditStudentForm student={student} updateAllData={updateAllData} />,
       'Edit student'
     );
   };

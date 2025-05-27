@@ -1,13 +1,11 @@
 import { useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { sendNewStudentActivity } from "../api/loader";
-import { TStudent } from "../../../../entities/student/model/student.type";
-import { createApiErrorMessage } from "../../../../shared/api/createApiErrorMessage";
-import { useSnackMessageContext } from "../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
-import { useUpdatePageDataContext } from "../../../../shared/context/updatePageDataContext";
+import { TStudent } from "../../../../../entities/student/model/student.type";
+import { createApiErrorMessage } from "../../../../../shared/api/createApiErrorMessage";
+import { useSnackMessageContext } from "../../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 
-export const useChangeStudentActivity = (student: TStudent) => {
-  const { updateAllData } = useUpdatePageDataContext();
+export const useChangeStudentActivity = (student: TStudent, updateAllData: () => void) => {
   const { openSnackMessage } = useSnackMessageContext();
   const {
     mutate: changeActivity,
