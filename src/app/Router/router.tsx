@@ -3,22 +3,17 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom';
-import {
-  ABOUT,
-  LESSONS,
-  MAIN,
-  STUDENTS,
-} from './routes';
+import { routeMap } from './routes';
 import { LessonsPage } from '../../pages/lessons';
 import { StudentsPageTest } from '../../pages/students';
 import { BasicPage } from '../../pages/BasicPage/BasicPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={MAIN} element={<BasicPage />}>
-      <Route path={LESSONS} element={<LessonsPage />} />
-      <Route path={STUDENTS} element={<StudentsPageTest />} />
-      <Route path={ABOUT} element={<StudentsPageTest />} />
+    <Route path={routeMap.main} element={<BasicPage />}>
+      <Route path={routeMap.lessons} element={<LessonsPage />} />
+      <Route path={routeMap.students} element={<StudentsPageTest />} />
+      <Route path={routeMap.about} element={<StudentsPageTest />} />
     </Route>
   )
 );

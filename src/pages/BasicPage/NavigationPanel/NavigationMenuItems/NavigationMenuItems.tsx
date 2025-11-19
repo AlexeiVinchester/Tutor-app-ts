@@ -5,16 +5,16 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import TaskIcon from '@mui/icons-material/Task';
 import InfoIcon from '@mui/icons-material/Info';
 import SchoolIcon from '@mui/icons-material/School';
-import { MAIN, STUDENTS, LESSONS, STATISTICS, TASKS, ABOUT } from '../../../../app/Router/routes';
+import { routeMap } from '../../../../app/Router/routes';
 import { createElement } from 'react';
 
 const navLinkMap = [
-  { icon: HomeIcon, to: MAIN, title: "Main" },
-  { icon: PersonIcon, to: STUDENTS, title: "Students" },
-  { icon: SchoolIcon, to: LESSONS, title: "Lessons" },
-  { icon: EqualizerIcon, to: STATISTICS, title: "Statistics" },
-  { icon: TaskIcon, to: TASKS, title: "Tasks" },
-  { icon: InfoIcon, to: ABOUT, title: "About" },
+  { icon: HomeIcon, to: routeMap.main,  title: "Main" },
+  { icon: PersonIcon, to: routeMap.students, title: "Students" },
+  { icon: SchoolIcon, to: routeMap.students, title: "Lessons" },
+  { icon: EqualizerIcon, to: routeMap.statistics, title: "Statistics" },
+  { icon: TaskIcon, to: routeMap.tasks, title: "Tasks" },
+  { icon: InfoIcon, to: routeMap.about, title: "About" },
 ];
 
 const NavigationMenuItems = () => {
