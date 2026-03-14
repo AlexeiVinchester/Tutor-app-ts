@@ -5,11 +5,11 @@ const Logotype = () => {
   return (
     <div
       className="flex"
-      style={{ marginRight: '40px', color: 'rgb(255, 69, 0)' }}
+      style={{ color: 'var(--color-primary-accent)' }}
     >
       <SchoolIcon sx={{ marginRight: '10px' }} />
       <Typography
-        sx={{ fontSize: '20px', fontWeight: 500, color: 'rgb(255, 69, 0)' }}
+        sx={{ fontSize: '20px', fontWeight: 500, color: 'var(--color-primary-accent)' }}
       >
         My Tutor
       </Typography>

@@ -1,2 +1,28 @@
+@import "./variables.css";
 @import "tailwindcss";
-@config "../tailwind.config.js";
+
+@theme {
+  /* Цвета, используемые как утилиты Tailwind (bg-*, text-*, border-*) */
+  --color-primary: var(--color-primary);
+  --color-primary-accent: var(--color-primary-accent);
+  --color-turquoise: var(--color-turquoise);
+  --color-text-primary: var(--color-text-primary);
+
+  --color-main-orange: var(--color-primary);
+  --color-main-turquoise: var(--color-turquoise);
+  --color-bg-info: rgb(254, 244, 234);
+  --color-footer: rgb(25, 39, 51);
+  --color-footer-text: rgb(182, 199, 214);
+  --color-hover-blue: rgb(0, 95, 163);
+  --color-back-side-statistics: rgb(25, 39, 51);
+  --color-statistics-back: rgb(246, 249, 252);
+  --color-send-data-button-text: var(--color-primary);
+
+  /* Тени для классов shadow-card, shadow-card-sm, shadow-panel */
+  --shadow-card: var(--shadow-md);
+  --shadow-card-sm: var(--shadow-sm);
+  --shadow-panel: var(--shadow-panel);
+
+  /* Шрифты */
+  --font-footer-text: "Lexend Deca", sans-serif;
+}

@@ -1,0 +1,15 @@
+.topLeadersList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.topLeaderCardSkeleton {
+  height: 56px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.empty {
+  font-size: 16px;
+}

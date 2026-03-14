@@ -19,7 +19,7 @@ const navLinkMap: TNavLink[] = [
 
 const NavigationMenuItems = () => {
   return (
-    <div className="flex menu-box">
+    <div className="flex menu-box ml-10">
       <ul className="flex justify-between items-center">
         {
           navLinkMap.map(navlink => (

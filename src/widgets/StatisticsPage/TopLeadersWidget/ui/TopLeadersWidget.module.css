@@ -1,0 +1,22 @@
+.topLeadersWigdet {
+  padding: 16px;
+  background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+  max-width: 400px;
+  width: 400px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topLeadersWidgetHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topLeadersWidgetTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-primary-accent);
+}

@@ -1,0 +1,71 @@
+.topLeaderCardWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 8px 16px;
+  background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+
+  & img {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+}
+
+.avatarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-bg-modal);
+}
+
+.leaderNameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderName,
+.leaderSurname {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.leaderCryteriaValueBlock {
+  margin-left: auto;
+  color: var(--color-primary-accent);
+  gap: 2px;
+}
+
+.fullInfoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 1px solid var(--color-text-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  margin-left: 8px;
+
+  &:hover {
+    border: 1px solid var(--color-primary-accent);
+    color: var(--color-primary-accent);
+  }
+}
+
+.incomeCurrency {
+  color: var(--color-text-primary);
+  font-size: 12px;
+  margin-left: 2px;
+}

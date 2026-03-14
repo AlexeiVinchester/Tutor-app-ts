@@ -1,0 +1,8 @@
+.basicContainer {
+  --navigationBarHeight: 80px;
+  --footerHeight: 80px;
+
+  min-height: calc(100dvh - var(--navigationBarHeight) - var(--footerHeight));
+  box-sizing: border-box;
+  position: relative;
+}

@@ -26,8 +26,8 @@ export const ModalWindow = () => {
           maxWidth: 500,
           margin: ' 0 auto',
           padding: '20px 10px',
-          boxShadow: '0 15px 20px #ABB2B9;',
-          backgroundColor: '#f7f5f5f9',
+          boxShadow: 'var(--shadow-lg)',
+          backgroundColor: 'var(--color-bg-modal)',
         }}
       >
         <CardContent>

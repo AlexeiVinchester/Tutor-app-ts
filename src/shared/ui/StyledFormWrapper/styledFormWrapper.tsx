@@ -12,7 +12,7 @@ export const StyledFormWrapper = ({ children }: TStyledFormWrapperProps) => {
         maxWidth: 350,
         margin: ' 0 auto',
         padding: '10px 5px',
-        boxShadow: '0 15px 20px #ABB2B9;',
+        boxShadow: 'var(--shadow-lg)',
       }}
     >
       <CardContent>{children}</CardContent>

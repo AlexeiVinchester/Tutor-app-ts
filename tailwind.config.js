@@ -4,15 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        'main-orange': 'rgb(255, 92, 53)',
+        primary: 'var(--color-primary)',
+        'primary-accent': 'var(--color-primary-accent)',
+        turquoise: 'var(--color-turquoise)',
+        'text-primary': 'var(--color-text-primary)',
+        'main-orange': 'var(--color-primary)',
+        'main-turquoise': 'var(--color-turquoise)',
         'bg-info': 'rgb(254, 244, 234)',
-        'main-turquoise': 'rgb(80, 201, 173)',
         footer: 'rgb(25, 39, 51)',
         'footer-text': 'rgb(182, 199, 214)',
         'hover-blue': 'rgb(0, 95, 163)',
         'back-side-statistics': 'rgb(25, 39, 51)',
         'statistics-back': 'rgb(246, 249, 252)',
-        'send-data-button-text': 'rgb(255, 92, 53)'
+        'send-data-button-text': 'var(--color-primary)',
+      },
+      boxShadow: {
+        card: 'var(--shadow-md)',
+        card-sm: 'var(--shadow-sm)',
+        panel: 'var(--shadow-panel)',
       },
     },
     fontFamily: {

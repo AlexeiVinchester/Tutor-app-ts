@@ -8,11 +8,11 @@ export const StyledButton = ({ children, ...props }: ButtonProps) => {
       sx={{
         borderRadius: '15px',
         margin: '0 15px 0 15px',
-        bgcolor: 'rgb(255, 92, 53)',
+        bgcolor: 'var(--color-primary)',
         padding: '10px',
-        color: 'white',
+        color: 'var(--color-bg-white)',
         ':hover': {
-          bgcolor: 'rgb(80, 201, 173)',
+          bgcolor: 'var(--color-turquoise)',
         },
       }}
     >

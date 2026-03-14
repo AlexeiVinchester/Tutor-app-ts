@@ -1,0 +1,16 @@
+.baseSkeleton {
+  animation: skeleton-fade 1.5s ease-in-out infinite;
+  background: var(--skeleton-end, var(--color-skeleton));
+}
+
+@keyframes skeleton-fade {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
+}
