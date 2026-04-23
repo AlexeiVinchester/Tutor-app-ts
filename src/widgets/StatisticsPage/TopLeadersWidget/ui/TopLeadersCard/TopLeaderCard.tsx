@@ -13,7 +13,7 @@ interface ITopAmountLeaderCardProps {
 const TopLeaderCard = ({ name, surname, criteriaValue, position, mode = "amount" }: ITopAmountLeaderCardProps) => {
   return (
     <div className={classes.topLeaderCardWrapper}>
-      <div>{position}{"."}</div>
+      <div className={classes.positionWrapper}>{position}</div>
       <div className={classes.avatarWrapper}>
         <img src={"../../../../../../public/assets/boy.png"} alt="top amount leader" />
       </div>

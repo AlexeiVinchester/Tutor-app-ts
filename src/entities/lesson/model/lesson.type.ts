@@ -5,4 +5,5 @@ export interface TLesson {
   date: string;
   price: number;
   paidStatus: boolean;
+  studentId: string;
 }

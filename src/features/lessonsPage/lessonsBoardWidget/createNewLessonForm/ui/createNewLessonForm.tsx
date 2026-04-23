@@ -15,6 +15,8 @@ export const CreateNewLessonForm = ({ updateAllData }: TCreateNewLessonFormProps
     isErrorInitialData
   } = useInitialLessonData();
 
+
+  console.log(initialLessonData);
   const {
     isPendingCreation,
     handleSubmitForm

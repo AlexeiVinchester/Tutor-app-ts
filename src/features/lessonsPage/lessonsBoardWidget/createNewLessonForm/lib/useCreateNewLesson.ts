@@ -7,8 +7,8 @@ import { showSuccessMessage } from "../../../../../shared/context/snackMessageCo
 import { useSnackMessageContext } from "../../../../../shared/context/snackMessageContext/lib/useSnackMessageContext";
 
 type TUseCreateNewLesson = {
-  updateAllData: () => void;
-  initialLessonData: TInitialLessonParams | undefined;
+  updateAllData: VoidFunction;
+  initialLessonData?: TInitialLessonParams;
 };
 
 export const useCreateNewLesson = ({
@@ -34,8 +34,10 @@ export const useCreateNewLesson = ({
       const sendingData = {
         id: initialLessonData.nextId,
         ...data,
-        price: +data.price
+        price: +data.price,
+        studentId: initialLessonData.studentsParams.find((student) => student.name === data.name)?.student_id || ''
       };
+      console.log(sendingData);
       createNewLesson(sendingData);
     }
   };

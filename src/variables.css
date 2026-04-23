@@ -2,6 +2,10 @@
   /* Основные цвета */
   --color-primary: rgb(255, 92, 53);
   --color-primary-accent: rgb(255, 69, 0);
+  --color-top-1: rgb(255, 92, 53);
+  --color-top-2: rgb(214, 82, 50);
+  --color-top-3: rgb(176, 70, 44);
+  --color-top-other: rgb(72, 78, 92);
   --color-turquoise: rgb(80, 201, 173);
   --color-text-primary: rgb(33, 51, 67);
   --white: #fff;
