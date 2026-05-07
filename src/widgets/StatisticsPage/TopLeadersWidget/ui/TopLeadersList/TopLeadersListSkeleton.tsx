@@ -1,15 +1,12 @@
-import { useSelector } from "react-redux";
 import classes from "./TopLeadersList.module.css";
-import { topLeadersCurrentAmountSelector } from "../../model/TopLeadersSelectors";
 import { range } from "../../../../../shared/utils/range";
 import { Skeleton } from "../../../../../shared/ui/Skeleton/Skeleton";
+import { IWithTopLeadersAmount } from "../../../../../entities/topLeader/model/TopLeader.type";
 
-const TopLeadersListSkeleton = () => {
-  const topLeadersAmount = useSelector(topLeadersCurrentAmountSelector);
-
+const TopLeadersListSkeleton = ({ amount }: IWithTopLeadersAmount) => {
   return (
     <div className={classes.topLeadersList}>
-      {range(topLeadersAmount).map((item) => (
+      {range(amount).map((item) => (
         <Skeleton key={item} className={classes.topLeaderCardSkeleton} />
       ))}
     </div>

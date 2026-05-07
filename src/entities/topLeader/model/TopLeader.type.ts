@@ -5,6 +5,12 @@ type TTopLeader = {
   cryteriaValue: number;
 };
 
+type TTopLeaders = TTopLeader[];
+
+interface IWithTopLeaders {
+  topLeaders: TTopLeaders;
+}
+
 // Types for Top leaders amount (in select and dropdown)
 const TOP_LEADERS_AMOUNT_VARIANTS = [3, 5, 10] as const;
 
@@ -30,6 +36,8 @@ export {
 
 export type {
   TTopLeader,
+  TTopLeaders,
+  IWithTopLeaders,
   TTopLeadersAmount,
   TTopLeadersMode,
   IWithTopLeadersAmount,
